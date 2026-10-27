@@ -131,8 +131,8 @@ const subjects: Record<Props['kind'], string> = {
   }
   .inquiry__summary {
     padding: var(--s-2) var(--s-3);
-    border-left: 4px solid var(--c-error);
-    border-radius: var(--radius-s);
+    border: 1px solid rgb(163 38 42 / 0.35);
+    border-radius: var(--radius-m);
     background: #fbeeee;
     color: var(--c-text);
   }
@@ -209,10 +209,14 @@ const subjects: Record<Props['kind'], string> = {
     font-weight: 500;
   }
   .inquiry__status[data-state='success'] {
-    border-left: 4px solid var(--c-success);
+    border: 1px solid rgb(47 106 58 / 0.35);
+    background: #eef5ef;
+    color: var(--c-success);
   }
   .inquiry__status[data-state='error'] {
-    border-left: 4px solid var(--c-error);
+    border: 1px solid rgb(163 38 42 / 0.35);
+    background: #fbeeee;
+    color: var(--c-error);
   }
   .inquiry__demo {
     display: grid;
