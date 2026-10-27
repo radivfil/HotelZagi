@@ -1,11 +1,16 @@
 ---
 /**
  * Hero slider vođen podacima (src/content/pages/<jezik>/home.json → heroSlides).
- * - crossfade (animira se samo opacity/transform), izmjena svakih N ms (global.json → slider)
+ * - crossfade (animira se samo opacity/transform), automatska izmjena udesno svakih N ms
+ *   (global.json → slider.intervalMs), u petlji
+ * - ručni klik (strelice, točkice, swipe, tipkovnica) prelazi na slajd i ponovno pokreće odbrojavanje
+ * - privremena pauza: hover nad tekstom slajda, fokus s tipkovnice, fokus u booking traci;
+ *   trajna pauza samo gumbom pauza/play (WCAG 2.2.2)
+ * - bez autoplaya uz prefers-reduced-motion (namjerno); u razvoju ?autoplay=1 to zaobilazi
+ * - kontrole i booking traka su u zajedničkom „docku” (stupac) – ne mogu se preklopiti;
+ *   visina docka prenosi se tekstu slajda kroz --hero-dock-h
+ * - indikator napretka u aktivnoj točkici
  * - prva slika u HTML-u s fetchpriority="high"; ostale se učitavaju tek prije prikaza
- * - pauza/play gumb (WCAG 2.2.2), pauza na hover i fokus, bez autoplaya uz prefers-reduced-motion
- * - strelice tipkovnice, swipe, indikatori slajdova
- * - na malim zaslonima prikazuje se najviše `maxSmall` slajdova (performanse)
  */
 import Picture from './Picture.astro';
 import Button from './Button.astro';
@@ -34,11 +39,11 @@ const n = slides.length;
   aria-label={t('slider.label')}
   data-hero
   data-interval={intervalMs}
-  data-max-small={maxSmall}
   data-label-pause={t('slider.pause')}
   data-label-play={t('slider.play')}
+  style={`--hero-interval:${intervalMs}ms`}
 >
-  <div class="hero__media">
+  <div class="hero__media" data-media>
     <h1 class="visually-hidden">{heading}</h1>
     <div class="hero__slides" aria-live="off" data-slides>
       {
@@ -63,7 +68,7 @@ const n = slides.length;
               deferred={i > 0}
             />
             <div class="hero__content container">
-              <div class="hero__text">
+              <div class="hero__text" data-hold>
                 {slide.eyebrow && <p class="hero__kicker">{slide.eyebrow}</p>}
                 <h2 class="hero__title">{slide.title}</h2>
                 <p class="hero__subtitle">{slide.subtitle}</p>
@@ -76,43 +81,46 @@ const n = slides.length;
         ))
       }
     </div>
-
-    {
-      n > 1 && (
-        <div class="hero__controls container" data-controls>
-          <div class="hero__dots" role="group" aria-label={t('slider.label')}>
-            {slides.map((slide, i) => (
-              <button
-                type="button"
-                class="hero__dot"
-                aria-label={`${t('slider.goTo')} ${i + 1}: ${slide.title}`}
-                aria-current={i === 0 ? 'true' : undefined}
-                data-dot={i}
-                data-small-hidden={slide.hideOnSmallScreens || i >= maxSmall ? 'true' : undefined}
-              >
-                <span />
-              </button>
-            ))}
-          </div>
-          <div class="hero__buttons">
-            <button type="button" class="hero__btn" data-prev aria-label={t('slider.prev')}>
-              <Icon name="chevronLeft" />
-            </button>
-            <button type="button" class="hero__btn" data-toggle aria-label={t('slider.pause')}>
-              <Icon name="pause" class="hero__icon-pause" />
-              <Icon name="play" class="hero__icon-play" />
-            </button>
-            <button type="button" class="hero__btn" data-next aria-label={t('slider.next')}>
-              <Icon name="chevronRight" />
-            </button>
-          </div>
-        </div>
-      )
-    }
   </div>
 
-  <div class="hero__booking container">
-    <BookingBar locale={locale} variant="hero" id="hero-booking" />
+  <div class="hero__dock" data-dock>
+    <div class="hero__dock-inner container">
+      {
+        n > 1 && (
+          <div class="hero__controls" data-controls>
+            <div class="hero__dots" role="group" aria-label={t('slider.label')}>
+              {slides.map((slide, i) => (
+                <button
+                  type="button"
+                  class="hero__dot"
+                  aria-label={`${t('slider.goTo')} ${i + 1}: ${slide.title}`}
+                  aria-current={i === 0 ? 'true' : undefined}
+                  data-dot={i}
+                  data-small-hidden={slide.hideOnSmallScreens || i >= maxSmall ? 'true' : undefined}
+                >
+                  <span aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+            <div class="hero__buttons">
+              <button type="button" class="hero__btn" data-prev aria-label={t('slider.prev')}>
+                <Icon name="chevronLeft" />
+              </button>
+              <button type="button" class="hero__btn" data-toggle aria-label={t('slider.pause')}>
+                <Icon name="pause" class="hero__icon-pause" />
+                <Icon name="play" class="hero__icon-play" />
+              </button>
+              <button type="button" class="hero__btn" data-next aria-label={t('slider.next')}>
+                <Icon name="chevronRight" />
+              </button>
+            </div>
+          </div>
+        )
+      }
+      <div class="hero__booking">
+        <BookingBar locale={locale} variant="hero" id="hero-booking" />
+      </div>
+    </div>
   </div>
 </section>
 
@@ -120,6 +128,7 @@ const n = slides.length;
   .hero {
     position: relative;
     background: var(--c-dark);
+    --hero-dock-h: 10rem; /* zamjenska vrijednost dok JS ne izmjeri stvarnu visinu docka */
   }
   .hero__media {
     position: relative;
@@ -177,7 +186,7 @@ const n = slides.length;
     display: flex;
     align-items: flex-end;
     height: 100%;
-    padding-bottom: calc(var(--s-6) + 1rem);
+    padding-bottom: var(--s-5);
   }
   .hero__text {
     max-width: 38rem;
@@ -226,21 +235,29 @@ const n = slides.length;
     }
   }
 
-  .hero__controls {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: var(--s-2);
-    z-index: 2;
+  /* ---------- dock: kontrole + booking traka u jednom stupcu (ne mogu se preklopiti) */
+  .hero__dock {
+    position: relative;
+    z-index: 3;
+    padding-block: var(--s-2) var(--s-3);
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+  }
+  .hero__dock-inner {
     display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .hero__controls {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--s-2);
-    margin-inline: auto;
+    gap: var(--s-1) var(--s-2);
+    color: #fff;
   }
   .hero__dots {
     display: flex;
-    gap: 0;
+    flex-wrap: wrap;
   }
   .hero__dot {
     display: grid;
@@ -252,18 +269,40 @@ const n = slides.length;
     background: none;
   }
   .hero__dot span {
+    position: relative;
     display: block;
     width: 28px;
     height: 3px;
     border-radius: 2px;
-    background: rgb(255 255 255 / 0.45);
-    transition:
-      background-color var(--dur-m),
-      width var(--dur-m) var(--ease-out);
+    overflow: hidden;
+    background: rgb(255 255 255 / 0.4);
+    transition: width var(--dur-m) var(--ease-out);
   }
   .hero__dot[aria-current='true'] span {
     width: 40px;
+  }
+  /* Indikator napretka: puni se do sljedećeg slajda; kad slider stoji, aktivna točkica je puna */
+  .hero__dot span::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: #fff;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .hero__dot[aria-current='true'] span::after {
+    transform: scaleX(1);
+  }
+  .hero.is-playing .hero__dot[aria-current='true'] span::after {
+    animation: hero-progress var(--hero-interval) linear forwards;
+  }
+  @keyframes hero-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
   }
   .hero__buttons {
     display: flex;
@@ -277,12 +316,12 @@ const n = slides.length;
     padding: 0;
     border: 1px solid rgb(255 255 255 / 0.55);
     border-radius: 50%;
-    background: rgb(20 16 14 / 0.25);
+    background: rgb(20 16 14 / 0.35);
     color: #fff;
     transition: background-color var(--dur-s);
   }
   .hero__btn:hover {
-    background: rgb(20 16 14 / 0.55);
+    background: rgb(20 16 14 / 0.65);
   }
   .hero__btn :global(.hero__icon-play) {
     display: none;
@@ -294,36 +333,27 @@ const n = slides.length;
     display: none;
   }
 
-  /* Booking traka: na mobitelu ispod slike (okomito), na računalu preko slidera */
-  .hero__booking {
-    position: relative;
-    z-index: 3;
-    margin-top: calc(-1 * var(--s-3));
-    padding-bottom: var(--s-3);
-  }
   @media (max-width: 29.99em) {
     .hero [data-small-hidden='true'] {
       display: none;
     }
   }
+
+  /* Računalo: dock leži preko donjeg dijela slike; tekst slajda podiže se za izmjerenu visinu docka */
   @media (min-width: 64em) {
     .hero__media {
       height: min(100svh, 60rem);
-      min-height: 40rem;
+      min-height: max(40rem, calc(var(--hero-dock-h) + 26rem));
     }
     .hero__content {
-      padding-bottom: 11rem;
+      padding-bottom: calc(var(--hero-dock-h) + var(--s-4) + var(--s-3));
     }
-    .hero__controls {
-      bottom: 7.5rem;
-    }
-    .hero__booking {
+    .hero__dock {
       position: absolute;
       left: 0;
       right: 0;
-      bottom: var(--s-4);
-      margin: 0 auto;
-      padding: 0;
+      bottom: max(var(--s-4), env(safe-area-inset-bottom));
+      padding-block: 0;
     }
   }
 </style>
@@ -333,17 +363,27 @@ const n = slides.length;
     const allSlides = [...hero.querySelectorAll<HTMLElement>('[data-slide]')];
     const allDots = [...hero.querySelectorAll<HTMLButtonElement>('[data-dot]')];
     const live = hero.querySelector<HTMLElement>('[data-slides]')!;
+    const media = hero.querySelector<HTMLElement>('[data-media]')!;
+    const dock = hero.querySelector<HTMLElement>('[data-dock]')!;
     const toggle = hero.querySelector<HTMLButtonElement>('[data-toggle]');
     const interval = Number(hero.dataset.interval) || 5000;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const small = window.matchMedia('(max-width: 29.99em)');
+
+    // Visina docka → CSS varijabla (tekst slajda nikad ne ide ispod kontrola i booking trake)
+    new ResizeObserver(() => hero.style.setProperty('--hero-dock-h', `${dock.offsetHeight}px`)).observe(dock);
+
     if (allSlides.length < 2) return;
+
+    // Samo u razvoju: ?autoplay=1 uključuje izmjenu i uz prefers-reduced-motion (radi testiranja)
+    const forceAutoplay = import.meta.env.DEV && new URLSearchParams(location.search).get('autoplay') === '1';
 
     let current = 0;
     let timer: number | undefined;
-    let userPaused = reduced.matches; // bez autoplaya uz smanjeno kretanje
-    let hoverPaused = false;
-    let focusPaused = false;
+    let userPaused = reduced.matches && !forceAutoplay; // trajna pauza (gumb ili smanjeno kretanje)
+    let hoverHold = false; // privremeno: miš iznad teksta slajda ili kontrola
+    let focusHold = false; // privremeno: fokus s tipkovnice ili u booking traci
+    let offscreen = false; // privremeno: hero nije na ekranu
 
     const visible = () => allSlides.map((_, i) => i).filter((i) => !(small.matches && allSlides[i].dataset.smallHidden));
 
@@ -381,15 +421,27 @@ const n = slides.length;
       show(order[(pos + dir + order.length) % order.length]);
     };
 
-    const isPlaying = () => !userPaused && !hoverPaused && !focusPaused && !document.hidden;
+    const isPlaying = () => !userPaused && !hoverHold && !focusHold && !offscreen && !document.hidden;
+
+    /** (Ponovno) pokreće odbrojavanje od punih N ms i sinkronizira indikator napretka. */
     const schedule = () => {
       window.clearTimeout(timer);
+      const playing = isPlaying();
       hero.classList.toggle('is-paused', userPaused);
+      hero.classList.remove('is-playing');
+      if (playing) {
+        void hero.offsetWidth; // restart CSS animacije indikatora
+        hero.classList.add('is-playing');
+        timer = window.setTimeout(() => {
+          step(1);
+          schedule();
+        }, interval);
+      }
       toggle?.setAttribute('aria-label', userPaused ? hero.dataset.labelPlay! : hero.dataset.labelPause!);
-      live.setAttribute('aria-live', isPlaying() ? 'off' : 'polite');
-      if (isPlaying()) timer = window.setTimeout(() => (step(1), schedule()), interval);
+      live.setAttribute('aria-live', playing ? 'off' : 'polite');
     };
 
+    // Ručna navigacija: prijelaz + novo odbrojavanje; autoplay se NE gasi
     hero.querySelector('[data-next]')?.addEventListener('click', () => (step(1), schedule()));
     hero.querySelector('[data-prev]')?.addEventListener('click', () => (step(-1), schedule()));
     allDots.forEach((dot) => dot.addEventListener('click', () => (show(Number(dot.dataset.dot)), schedule())));
@@ -398,20 +450,38 @@ const n = slides.length;
       schedule();
     });
 
-    const media = hero.querySelector<HTMLElement>('.hero__media')!;
-    media.addEventListener('mouseenter', () => ((hoverPaused = true), schedule()));
-    media.addEventListener('mouseleave', () => ((hoverPaused = false), schedule()));
-    hero.addEventListener('focusin', () => ((focusPaused = true), schedule()));
+    // Privremena pauza na hover – samo iznad teksta slajda, ne iznad cijele fotografije ni kontrola
+    hero.querySelectorAll<HTMLElement>('[data-hold]').forEach((el) => {
+      el.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') (hoverHold = true), schedule();
+      });
+      el.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'mouse') (hoverHold = false), schedule();
+      });
+    });
+
+    // Privremena pauza na fokus – s tipkovnice (:focus-visible) ili u booking traci; klik mišem na strelicu ne pauzira
+    hero.addEventListener('focusin', (e) => {
+      const target = e.target as HTMLElement;
+      focusHold = target.matches(':focus-visible') || !!target.closest('.booking-bar');
+      schedule();
+    });
     hero.addEventListener('focusout', (e) => {
       if (!hero.contains(e.relatedTarget as Node)) {
-        focusPaused = false;
+        focusHold = false;
         schedule();
       }
     });
-    document.addEventListener('visibilitychange', schedule);
 
-    // Strelice tipkovnice (osim dok se tipka u booking traci)
-    media.addEventListener('keydown', (e) => {
+    document.addEventListener('visibilitychange', schedule);
+    new IntersectionObserver(([entry]) => {
+      offscreen = !entry.isIntersecting;
+      schedule();
+    }).observe(media);
+
+    // Strelice tipkovnice (ne dok se tipka u booking traci)
+    hero.addEventListener('keydown', (e) => {
+      if ((e.target as HTMLElement).closest('.booking-bar')) return;
       if (e.key === 'ArrowRight') (step(1), schedule());
       if (e.key === 'ArrowLeft') (step(-1), schedule());
     });
@@ -432,7 +502,7 @@ const n = slides.length;
       if (!visible().includes(current)) show(visible()[0]);
     });
     reduced.addEventListener('change', (e) => {
-      if (e.matches) userPaused = true;
+      if (e.matches && !forceAutoplay) userPaused = true;
       schedule();
     });
 

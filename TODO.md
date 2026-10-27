@@ -84,6 +84,23 @@ Pravilo: kad se izvori razilaze, korištena je brošura.
 - Prije obrade test je našao **27** crtica na početku/kraju retka; nakon obrade **0** (`npm run test:dashes`, 6 stranica × 4 širine; snimke u `docs/screens/typography/`).
 - SEO polja (title, meta opis) i URL-ovi se ne obrađuju.
 
+## 6b. Hero slider – autoplay i kontrole
+
+**Uzrok problema s autoplayem (dijagnosticirano Playwrightom na starom kodu):**
+1. **Pauza na hover** vrijedila je za cijelu fotografiju, a hero na računalu zauzima cijeli ekran – kursor je gotovo uvijek iznad nje, pa se slajdovi nisu mijenjali.
+2. **Pauza na fokus**: nakon klika na strelicu ili točkicu fokus ostaje na gumbu unutar slidera, pa je pauza trajala dok fokus ne napusti slider – „nakon ručnog klika ostane zaustavljen”.
+3. **prefers-reduced-motion**: ako je u sustavu isključena animacija (Windows: *Postavke → Pristupačnost → Vizualni efekti → Efekti animacije*; macOS: *Smanji kretanje*), autoplay je **namjerno** isključen (WCAG). To ponašanje je zadržano.
+
+**Ispravak:** hover pauzira samo iznad teksta slajda; fokus pauzira samo s tipkovnice (`:focus-visible`) ili u booking traci; ručna navigacija uvijek ponovno pokreće odbrojavanje od 5 s; gumb pauza zaustavlja do ponovnog klika; slider stoji dok nije na ekranu ili je kartica skrivena.
+**Testiranje uz smanjeno kretanje:** u razvojnom načinu (`npm run dev`) otvorite `/hr/?autoplay=1` – autoplay radi i uz `prefers-reduced-motion`. U produkcijskom buildu parametar nema učinka.
+
+**Kontrole i booking traka** su u zajedničkom „docku” (stupac): kontrole su uvijek iznad trake (razmak 16 px), visina docka prenosi se tekstu slajda kroz `--hero-dock-h`. Na mobitelu i tabletu dock je ispod fotografije, na računalu preko njenog donjeg dijela. Indikator napretka je u aktivnoj točkici (bez animacije uz smanjeno kretanje).
+`npm run test:hero`: 10 veličina (320–1920 px, portret/pejzaž, zoom 200 %) bez presijecanja, kontrole ≥ 44 px i klikabilne; 15 provjera ponašanja (autoplay, ručni klik, hover, pauza, smanjeno kretanje, swipe, LCP).
+
+## 6c. Provjera kvalitete
+
+- [ ] U projektu **nema ESLinta** – provjera koda je `npm run check` (TypeScript + Zod sheme, 0 grešaka / 0 upozorenja / 0 savjeta) i Playwright testovi. Prijedlog: dodati ESLint (`eslint-plugin-astro`, `typescript-eslint`) i Prettier u sljedećem koraku.
+
 ## 7. Sljedeći koraci (prijedlog)
 
 1. Odabrati i povezati endpoint obrazaca (Netlify Forms / Formspree) + DPA.

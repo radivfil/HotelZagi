@@ -8,7 +8,7 @@ Astro (statični izlaz) + TypeScript + čisti CSS s custom properties. Bez tešk
 | Jezici | hrvatski (zadani, `/hr/`) i engleski (`/en/`); pl, cs, nl pripremljeni, isključeni |
 | Rezervacije | postojeći WebBookingPro (`booknow.php`), ugrađivanje pripremljeno iza jedne zastavice |
 | Sadržaj | Astro Content Collections (JSON + Zod sheme) – spremno za Keystatic |
-| Lighthouse (lokalno) | mobitel 98 / 100 / 100 / 100 · računalo 100 / 100 / 100 / 100 |
+| Lighthouse (lokalno) | mobitel 98–99 / 100 / 100 / 100 · računalo 100 / 100 / 100 / 100 |
 
 ## Pokretanje
 
@@ -19,6 +19,9 @@ npm run build     # statični web u dist/
 npm run preview   # pregled builda
 npm run check     # provjera tipova i shema sadržaja
 npm run screens   # Playwright screenshotovi + provjere (potreban `npm run preview`)
+npm run test:hero    # slider: preklapanje kontrola i booking trake (10 veličina) + autoplay
+npm run test:dashes  # nijedna crtica na početku/kraju retka (375/768/1024/1440)
+npm test             # sve tri provjere
 ```
 
 Node 20+ (testirano na Node 24). Konfiguracija ide kroz `.env` (predložak: `.env.example`).
@@ -44,7 +47,7 @@ docs/                   CMS-PLAN, NOVI-JEZIK, CHATBOT-PLAN, SEO, screens/
 
 Sav tekst je u `src/content/**` – u komponentama nema sadržaja.
 
-- **Hero slajdovi:** `src/content/pages/<jezik>/home.json` → `heroSlides` (slika, naslov, podnaslov, gumb). Redoslijed u popisu = redoslijed slajdova. Trajanje slajda: `src/content/settings/global.json` → `slider.intervalMs`.
+- **Hero slajdovi:** `src/content/pages/<jezik>/home.json` → `heroSlides` (slika, naslov, podnaslov, gumb). Redoslijed u popisu = redoslijed slajdova. Trajanje slajda: `src/content/settings/global.json` → `slider.intervalMs`. Uz uključeno „smanjeno kretanje” u sustavu slider se namjerno ne mijenja sam; za testiranje u `npm run dev` otvorite `/hr/?autoplay=1`.
 - **Sobe:** jedan JSON po tipu sobe u `src/content/rooms/<jezik>/`.
 - **Ponude restorana** (švedski stol, riblji, sezonski, blagdanski): jedan JSON po ponudi u `src/content/restaurant-offers/<jezik>/` – vidi niže.
 - **Kontakt, ocjena, koordinate:** `src/content/settings/global.json`.
