@@ -255,7 +255,7 @@ const subjects: Record<Props['kind'], string> = {
       if (!value) return '';
       if (field.type === 'email' && !EMAIL.test(value)) return d.msgEmail!;
       if (field.type === 'tel' && !PHONE.test(value)) return d.msgPhone!;
-      if (field.type === 'number' && Number(value) < Number(field.min || 1)) return d.msgMin!.replace('{n}', field.min || '1');
+      if (field instanceof HTMLInputElement && field.type === 'number' && Number(value) < Number(field.min || 1)) return d.msgMin!.replace('{n}', field.min || '1');
       if (field.type === 'date' && value < today) return d.msgDate!;
       return '';
     };

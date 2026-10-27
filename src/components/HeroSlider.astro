@@ -345,7 +345,7 @@ const n = slides.length;
     let hoverPaused = false;
     let focusPaused = false;
 
-    const visible = () => allSlides.map((s, i) => i).filter((i) => !(small.matches && allSlides[i].dataset.smallHidden));
+    const visible = () => allSlides.map((_, i) => i).filter((i) => !(small.matches && allSlides[i].dataset.smallHidden));
 
     const load = (i: number) => {
       const slide = allSlides[i];
