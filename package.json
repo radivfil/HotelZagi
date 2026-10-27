@@ -1,0 +1,30 @@
+{
+  "name": "hotel-zagi-web",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Demo web Hotela Zagi (Oroslavje) – Astro, statični izlaz, HR/EN",
+  "scripts": {
+    "images": "node scripts/optimize-images.mjs",
+    "predev": "node scripts/optimize-images.mjs",
+    "dev": "astro dev",
+    "prebuild": "node scripts/optimize-images.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "screens": "node scripts/screens.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/figtree": "^5.3.0",
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "astro": "^7.4.2",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "playwright": "^1.64.1",
+    "svgo": "^4.1.0",
+    "typescript": "^6.0.3"
+  }
+}

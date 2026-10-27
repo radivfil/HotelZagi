@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+# Izvorni materijali klijenta (originali su kopirani u assets/)
+/Brosure/
+/hotelzagi_1118.svg
+test-results/
