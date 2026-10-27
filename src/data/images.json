@@ -1,0 +1,393 @@
+{
+  "/uploads/conference/kongresna-dvorana-kino-raspored.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/conference/kongresna-dvorana-kino-raspored"
+  },
+  "/uploads/conference/kongresna-dvorana-sastanak.jpg": {
+    "width": 1900,
+    "height": 1425,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/conference/kongresna-dvorana-sastanak"
+  },
+  "/uploads/conference/kongresna-dvorana-u-raspored.jpg": {
+    "width": 1900,
+    "height": 1425,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/conference/kongresna-dvorana-u-raspored"
+  },
+  "/uploads/conference/kongresna-dvorana-ucionica.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/conference/kongresna-dvorana-ucionica"
+  },
+  "/uploads/hotel/hotel-zagi-procelje.jpg": {
+    "width": 603,
+    "height": 569,
+    "widths": [
+      480,
+      603
+    ],
+    "gen": "/uploads/_gen/hotel/hotel-zagi-procelje"
+  },
+  "/uploads/hotel/oroslavje-iz-zraka.jpg": {
+    "width": 910,
+    "height": 544,
+    "widths": [
+      480,
+      768,
+      910
+    ],
+    "gen": "/uploads/_gen/hotel/oroslavje-iz-zraka"
+  },
+  "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg": {
+    "width": 1900,
+    "height": 1425,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/hotel/restoran-zagi-ulaz-bike-friendly"
+  },
+  "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg": {
+    "width": 1900,
+    "height": 1425,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-nedjeljni-svedski-stol"
+  },
+  "/uploads/restaurant/restoran-patka-s-mlincima.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-patka-s-mlincima"
+  },
+  "/uploads/restaurant/restoran-stol-detalj.jpg": {
+    "width": 1900,
+    "height": 1267,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-stol-detalj"
+  },
+  "/uploads/restaurant/restoran-strudla.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-strudla"
+  },
+  "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg": {
+    "width": 1900,
+    "height": 1267,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-svecano-postavljen-stol"
+  },
+  "/uploads/restaurant/restoran-svedski-stol-predjela.jpg": {
+    "width": 1900,
+    "height": 1425,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-svedski-stol-predjela"
+  },
+  "/uploads/restaurant/restoran-zagorska-juha.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-zagorska-juha"
+  },
+  "/uploads/restaurant/restoran-zagorska-plata.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-zagorska-plata"
+  },
+  "/uploads/restaurant/restoran-zapeceni-strukli.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/restaurant/restoran-zapeceni-strukli"
+  },
+  "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/rooms/soba-balkon-pogled-na-zagorje"
+  },
+  "/uploads/rooms/soba-bracni-krevet-crveni-tonovi.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/rooms/soba-bracni-krevet-crveni-tonovi"
+  },
+  "/uploads/rooms/soba-cetverokrevetna.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/rooms/soba-cetverokrevetna"
+  },
+  "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/rooms/soba-dvokrevetna-bracni-krevet"
+  },
+  "/uploads/rooms/soba-dvokrevetna-odvojeni-kreveti.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/rooms/soba-dvokrevetna-odvojeni-kreveti"
+  },
+  "/uploads/rooms/soba-kupaonica.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/rooms/soba-kupaonica"
+  },
+  "/uploads/rooms/soba-trokrevetna.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/rooms/soba-trokrevetna"
+  },
+  "/uploads/wellness/wellness-bio-sauna.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-bio-sauna"
+  },
+  "/uploads/wellness/wellness-finska-sauna.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-finska-sauna"
+  },
+  "/uploads/wellness/wellness-grijane-klupe.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-grijane-klupe"
+  },
+  "/uploads/wellness/wellness-infracrvena-sauna-himalajska-sol.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-infracrvena-sauna-himalajska-sol"
+  },
+  "/uploads/wellness/wellness-ledena-fontana.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-ledena-fontana"
+  },
+  "/uploads/wellness/wellness-relax-lezaljke.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-relax-lezaljke"
+  },
+  "/uploads/wellness/wellness-relax-zona.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-relax-zona"
+  },
+  "/uploads/wellness/wellness-tus-osvjezenja.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-tus-osvjezenja"
+  },
+  "/uploads/wellness/wellness-vital-corner.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-vital-corner"
+  },
+  "/uploads/wellness/wellness-whirlpool.jpg": {
+    "width": 1900,
+    "height": 1266,
+    "widths": [
+      480,
+      768,
+      1024,
+      1440,
+      1900
+    ],
+    "gen": "/uploads/_gen/wellness/wellness-whirlpool"
+  }
+}
