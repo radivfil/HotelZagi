@@ -1,0 +1,25 @@
+{
+  "order": 4,
+  "name": "Quadruple (family) room",
+  "summary": "A family room with a double bed and two single beds – the whole family under one roof.",
+  "description": [
+    "The quadruple room has a large double bed and two 90 cm single beds. Hotel Zagi is family friendly – children are always welcome."
+  ],
+  "beds": "Double bed + 2 single beds (90 cm)",
+  "maxGuests": 4,
+  "features": [
+    "Free Wi-Fi",
+    "LED TV with satellite channels",
+    "Work desk",
+    "Bathroom with shower and hairdryer",
+    "Air conditioning in summer, heating in winter",
+    "Direct-dial telephone",
+    "Room service on request"
+  ],
+  "priceFrom": 74,
+  "image": {
+    "src": "/uploads/rooms/soba-cetverokrevetna.jpg",
+    "alt": "Family room with a double bed and two single beds"
+  },
+  "gallery": []
+}

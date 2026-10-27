@@ -1,0 +1,25 @@
+{
+  "order": 2,
+  "name": "Twin room",
+  "summary": "A practical room with two separate beds – for friends, colleagues or business trips.",
+  "description": [
+    "The twin room has two separate 90 cm beds. A great choice for business guests, seminar participants and friends travelling together."
+  ],
+  "beds": "Two single beds (90 cm)",
+  "maxGuests": 2,
+  "features": [
+    "Free Wi-Fi",
+    "LED TV with satellite channels",
+    "Work desk",
+    "Bathroom with shower and hairdryer",
+    "Air conditioning in summer, heating in winter",
+    "Direct-dial telephone",
+    "Room service on request"
+  ],
+  "priceFrom": 48,
+  "image": {
+    "src": "/uploads/rooms/soba-dvokrevetna-odvojeni-kreveti.jpg",
+    "alt": "Twin room with two separate beds and wall lighting"
+  },
+  "gallery": []
+}

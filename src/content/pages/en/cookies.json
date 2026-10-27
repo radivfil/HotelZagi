@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Cookies | Hotel Zagi",
+    "description": "Information about cookies on the Hotel Zagi website: which cookies we use, why, and how you can control them in your browser settings."
+  },
+  "hero": {
+    "eyebrow": "Legal",
+    "title": "Cookies"
+  },
+  "updated": "2026-10-27",
+  "sections": [
+    {
+      "id": "what",
+      "heading": "What cookies are",
+      "paragraphs": [
+        "Cookies are small text files that a website stores in your browser. They may be necessary for the site to work, or used for analytics, advertising and third-party services."
+      ]
+    },
+    {
+      "id": "which",
+      "heading": "Which cookies we use",
+      "paragraphs": [
+        "This website currently sets no tracking, analytics or advertising cookies. Your browser may store only technical settings locally (such as your cookie choice).",
+        "When you open the booking page, the WebBookingPro system may set its own cookies that are necessary for booking."
+      ]
+    },
+    {
+      "id": "future",
+      "heading": "Future services",
+      "paragraphs": [
+        "If we introduce services that require cookies (such as a virtual assistant or analytics), we will ask for your consent before loading them and list each cookie, its purpose and duration here."
+      ]
+    },
+    {
+      "id": "control",
+      "heading": "How to control cookies",
+      "paragraphs": [
+        "You can view and delete cookies in your browser settings. Blocking necessary cookies may affect the booking system."
+      ]
+    }
+  ]
+}

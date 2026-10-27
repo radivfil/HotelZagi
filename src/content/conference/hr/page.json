@@ -1,0 +1,58 @@
+{
+  "seo": {
+    "title": "Kongresna dvorana blizu Zagreba | Hotel Zagi Oroslavje",
+    "description": "Multimedijska kongresna dvorana za do 60 osoba i manja dvorana za 30, uz smještaj, catering i besplatan parking – 30 minuta od Zagreba. Pošaljite upit.",
+    "ogImage": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg"
+  },
+  "hero": {
+    "eyebrow": "Kongresna dvorana",
+    "title": "Kongresna dvorana blizu Zagreba",
+    "lead": "Za konferencije, seminare, radionice i poslovne sastanke – uz smještaj, restoran i besplatan parking na istom mjestu.",
+    "image": { "src": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg", "alt": "Kongresna dvorana s redovima stolica okrenutih prema projekcijskom platnu" }
+  },
+  "intro": {
+    "heading": "Dovoljno blizu, a opet izdvojeno",
+    "paragraphs": [
+      "Hotel Zagi cestovno je odlično povezan sa Zagrebom i drugim gradovima, a dovoljno blizu kolodvora i zračne luke u Zagrebu. Dobra pristupačnost, a opet izdvojenost, čine ga oazom mira i zelenila – idealnom za neformalna druženja i poslovna povezivanja.",
+      "Organizirate li veliku konferenciju, seminar, radionicu ili poslovni sastanak, odabrat ćete dvoranu odgovarajućeg kapaciteta. Multifunkcionalna dvorana opremljena je suvremenom audio-video opremom, Wi-Fi vezom i ima prirodno svjetlo."
+    ]
+  },
+  "capacity": [
+    { "value": "60", "label": "osoba u multimedijskoj dvorani" },
+    { "value": "30", "label": "osoba u manjoj dvorani" },
+    { "value": "60", "label": "soba za sudionike" }
+  ],
+  "equipment": ["Suvremena audio-video oprema", "Projektor i projekcijsko platno", "Besplatan Wi-Fi", "Prirodno dnevno svjetlo", "Besplatan parking za automobile i autobuse"],
+  "layouts": [
+    { "name": "Kino", "text": "Redovi stolica okrenuti prema platnu – za predavanja i prezentacije.", "image": { "src": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg", "alt": "Dvorana u kino rasporedu s redovima stolica" } },
+    { "name": "U-oblik", "text": "Stolovi u obliku slova U – za radionice i rasprave uz vizualni kontakt.", "image": { "src": "/uploads/conference/kongresna-dvorana-u-raspored.jpg", "alt": "Stolovi složeni u obliku slova U na crvenom tepihu" } },
+    { "name": "Učionica", "text": "Stolovi u redovima – za seminare i edukacije uz pisanje bilješki.", "image": { "src": "/uploads/conference/kongresna-dvorana-ucionica.jpg", "alt": "Dvorana u rasporedu učionice sa stolovima u redovima" } },
+    { "name": "Sastanak", "text": "Zajednički stol za manje skupine i poslovne sastanke.", "image": { "src": "/uploads/conference/kongresna-dvorana-sastanak.jpg", "alt": "Stolovi složeni za poslovni sastanak u manjoj dvorani" } }
+  ],
+  "purposes": [
+    { "title": "Konferencije i kongresi", "text": "Predavanja, prezentacije i paneli uz projekciju i ozvučenje." },
+    { "title": "Seminari i radionice", "text": "Višednevne edukacije uz smještaj sudionika u istom hotelu." },
+    { "title": "Poslovni sastanci", "text": "Sastanci uprave, prezentacije proizvoda i timska okupljanja." },
+    { "title": "Proslave i događaji", "text": "Domjenci, obljetnice tvrtki i prigodna okupljanja uz restoran." }
+  ],
+  "sections": [
+    {
+      "id": "ugostiteljstvo",
+      "eyebrow": "Ugostiteljska ponuda",
+      "heading": "Gastro doživljaj koji se prepričava",
+      "paragraphs": [
+        "Ugostiteljski tim pokriva sve – pauze za kavu, bankete, svečane večere i degustacije vina. U sklopu hotela je restoran s domaćim i tradicionalnim zagorskim jelima te ljubaznim osobljem koje je uvijek na usluzi."
+      ],
+      "image": { "src": "/uploads/restaurant/restoran-svedski-stol-predjela.jpg", "alt": "Hladna predjela posložena na švedskom stolu" }
+    },
+    {
+      "id": "smjestaj",
+      "eyebrow": "Smještaj",
+      "heading": "Sve na jednom mjestu",
+      "paragraphs": [
+        "Sudionici cijene kad se skup održava u hotelu u kojem su smješteni. Hotel nudi besplatan Wi-Fi i parking za sve sudionike – jedan od razloga zašto je Hotel Zagi rado birana kongresna destinacija."
+      ],
+      "image": { "src": "/uploads/rooms/soba-dvokrevetna-odvojeni-kreveti.jpg", "alt": "Dvokrevetna soba s dva odvojena kreveta za poslovne goste" }
+    }
+  ]
+}

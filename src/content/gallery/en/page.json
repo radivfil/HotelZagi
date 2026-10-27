@@ -1,0 +1,224 @@
+{
+  "categories": [
+    {
+      "id": "rooms",
+      "label": "Rooms"
+    },
+    {
+      "id": "wellness",
+      "label": "Wellness"
+    },
+    {
+      "id": "restaurant",
+      "label": "Restaurant"
+    },
+    {
+      "id": "conference",
+      "label": "Conference hall"
+    },
+    {
+      "id": "hotel",
+      "label": "Hotel & surroundings"
+    }
+  ],
+  "items": [
+    {
+      "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg",
+      "alt": "Double room with a large bed and bathrobes",
+      "category": "rooms",
+      "wide": true
+    },
+    {
+      "src": "/uploads/wellness/wellness-relax-zona.jpg",
+      "alt": "Relaxation area with whirlpool and sauna",
+      "category": "wellness",
+      "wide": true
+    },
+    {
+      "src": "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg",
+      "alt": "Festively laid table in the restaurant",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-whirlpool.jpg",
+      "alt": "Whirlpool with blue lighting",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg",
+      "alt": "Balcony view over the Zagorje hills",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-patka-s-mlincima.jpg",
+      "alt": "Duck with homemade mlinci",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg",
+      "alt": "Conference hall in theatre layout",
+      "category": "conference",
+      "wide": true
+    },
+    {
+      "src": "/uploads/wellness/wellness-infracrvena-sauna-himalajska-sol.jpg",
+      "alt": "Infrared sauna with a Himalayan salt wall",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-zagorska-plata.jpg",
+      "alt": "Zagorje platter on a wooden board",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-trokrevetna.jpg",
+      "alt": "Triple room",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-finska-sauna.jpg",
+      "alt": "Finnish sauna with wooden benches",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg",
+      "alt": "Sunday buffet",
+      "category": "restaurant",
+      "wide": true
+    },
+    {
+      "src": "/uploads/wellness/wellness-relax-lezaljke.jpg",
+      "alt": "Loungers in the relaxation area",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-cetverokrevetna.jpg",
+      "alt": "Family quadruple room",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/conference/kongresna-dvorana-u-raspored.jpg",
+      "alt": "Hall with tables in a U-shape",
+      "category": "conference",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-zapeceni-strukli.jpg",
+      "alt": "Baked Zagorje štrukli",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-ledena-fontana.jpg",
+      "alt": "Ice fountain",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-grijane-klupe.jpg",
+      "alt": "Mosaic-tiled heated benches",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-dvokrevetna-odvojeni-kreveti.jpg",
+      "alt": "Twin room with separate beds",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-zagorska-juha.jpg",
+      "alt": "Zagorje soup",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/conference/kongresna-dvorana-ucionica.jpg",
+      "alt": "Hall in classroom layout",
+      "category": "conference",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-vital-corner.jpg",
+      "alt": "Vital corner with fruit and tea",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg",
+      "alt": "Entrance to Restaurant Zagi with bicycles",
+      "category": "hotel",
+      "wide": true
+    },
+    {
+      "src": "/uploads/restaurant/restoran-strudla.jpg",
+      "alt": "Homemade cherry strudel",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-kupaonica.jpg",
+      "alt": "Bathroom with shower",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-bio-sauna.jpg",
+      "alt": "Bio sauna",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-svedski-stol-predjela.jpg",
+      "alt": "Starters on the buffet",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/conference/kongresna-dvorana-sastanak.jpg",
+      "alt": "Room set up for a meeting",
+      "category": "conference",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-tus-osvjezenja.jpg",
+      "alt": "Refreshment shower with a wooden bucket",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/hotel/hotel-zagi-procelje.jpg",
+      "alt": "Hotel Zagi façade with sign and car park",
+      "category": "hotel",
+      "wide": false
+    },
+    {
+      "src": "/uploads/hotel/oroslavje-iz-zraka.jpg",
+      "alt": "Oroslavje from the air",
+      "category": "hotel",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-bracni-krevet-crveni-tonovi.jpg",
+      "alt": "Double room in red tones",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-stol-detalj.jpg",
+      "alt": "Detail of a festive table",
+      "category": "restaurant",
+      "wide": false
+    }
+  ]
+}

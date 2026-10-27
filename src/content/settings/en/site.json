@@ -1,0 +1,23 @@
+{
+  "tagline": "A family-run hotel in the heart of Croatian Zagorje, since 1986.",
+  "footerAbout": "A family-run three-star hotel in Oroslavje, 30 minutes from Zagreb. Rooms, an à la carte restaurant, a wellness centre and a conference hall under one roof.",
+  "practicalInfo": [
+    { "icon": "parking", "title": "Free parking", "text": "For cars and coaches, right next to the hotel." },
+    { "icon": "ev", "title": "EV charging", "text": "Charge your car while you relax." },
+    { "icon": "breakfast", "title": "Breakfast", "text": "Buffet breakfast, with a gluten-free option available." },
+    { "icon": "car", "title": "30 minutes from Zagreb", "text": "Just a few minutes from the A2 motorway towards the coast and Central Europe." },
+    { "icon": "pet", "title": "Pets", "text": "Welcome for a supplement – please let us know in advance." },
+    { "icon": "bike", "title": "Bike friendly", "text": "Bike rental and secure storage for your bicycles." }
+  ],
+  "brochures": [
+    { "file": "/uploads/brochures/hotel-zagi-wellness-brosura.pdf", "title": "Wellness at Hotel Zagi", "description": "Saunas, whirlpool, relaxation area and wellness centre opening hours." },
+    { "file": "/uploads/brochures/hotel-zagi-opca-brosura-2019.pdf", "title": "Hotel Zagi – brochure", "description": "Hotel, restaurant, Sunday buffet and conference hall (HR/EN/DE)." }
+  ],
+  "phoneLabels": { "main": "Hotel", "mobile": "Mobile", "reception": "Reception mobile" },
+  "receptionNote": "For room, table and wellness bookings, the quickest way to reach us is by phone or by email at recepcija@zagi.hr.",
+  "directions": [
+    "Take the A2 motorway (Zagreb – Macelj) to the Zabok exit, then follow signs to Oroslavje – a few minutes’ drive.",
+    "About 30 km, or roughly 30 minutes by car, from central Zagreb.",
+    "The free car park next to the hotel also takes coaches for group arrivals."
+  ]
+}

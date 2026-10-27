@@ -1,0 +1,23 @@
+{
+  "tagline": "Obiteljski hotel u srcu Hrvatskog zagorja, od 1986.",
+  "footerAbout": "Obiteljski hotel s tri zvjezdice u Oroslavju, 30 minuta od Zagreba. Smještaj, a la carte restoran, wellness centar i kongresna dvorana na jednom mjestu.",
+  "practicalInfo": [
+    { "icon": "parking", "title": "Besplatan parking", "text": "Za automobile i autobuse, uz sam hotel." },
+    { "icon": "ev", "title": "Punionica za električna vozila", "text": "Napunite automobil dok se odmarate." },
+    { "icon": "breakfast", "title": "Doručak", "text": "Buffet doručak, uz mogućnost doručka bez glutena." },
+    { "icon": "car", "title": "30 minuta od Zagreba", "text": "Nekoliko minuta od autoceste A2 prema moru i Europi." },
+    { "icon": "pet", "title": "Kućni ljubimci", "text": "Dobrodošli uz doplatu – javite nam se unaprijed." },
+    { "icon": "bike", "title": "Bike friendly", "text": "Najam bicikala i sigurno spremište za vaše bicikle." }
+  ],
+  "brochures": [
+    { "file": "/uploads/brochures/hotel-zagi-wellness-brosura.pdf", "title": "Wellness u Hotelu Zagi", "description": "Saune, whirlpool, relax zona i radno vrijeme wellness centra." },
+    { "file": "/uploads/brochures/hotel-zagi-opca-brosura-2019.pdf", "title": "Hotel Zagi – brošura", "description": "Hotel, restoran, nedjeljni švedski stol i konferencijska dvorana (HR/EN/DE)." }
+  ],
+  "phoneLabels": { "main": "Hotel", "mobile": "Mobitel", "reception": "Mobitel recepcije" },
+  "receptionNote": "Za rezervacije soba, stolova i wellness termina najbrže ćete nas dobiti telefonom ili e-mailom na recepcija@zagi.hr.",
+  "directions": [
+    "Autocestom A2 (Zagreb – Macelj) do izlaza Zabok, zatim prema Oroslavju – nekoliko minuta vožnje.",
+    "Od središta Zagreba oko 30 km, odnosno oko 30 minuta vožnje.",
+    "Besplatno parkiralište uz hotel prima i autobuse za grupne dolaske."
+  ]
+}

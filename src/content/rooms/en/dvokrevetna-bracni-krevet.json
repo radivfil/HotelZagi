@@ -1,0 +1,34 @@
+{
+  "order": 1,
+  "name": "Double room with balcony",
+  "summary": "A spacious room with a large double bed and a balcony overlooking the hills of Zagorje.",
+  "description": [
+    "The double room has a large double bed and its own balcony – ideal for couples who like a quiet morning coffee in the fresh air."
+  ],
+  "beds": "Large double bed",
+  "maxGuests": 2,
+  "features": [
+    "Free Wi-Fi",
+    "LED TV with satellite channels",
+    "Work desk",
+    "Bathroom with shower and hairdryer",
+    "Air conditioning in summer, heating in winter",
+    "Direct-dial telephone",
+    "Room service on request"
+  ],
+  "priceFrom": 48,
+  "image": {
+    "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg",
+    "alt": "Double room with a large bed, bathrobes and a door to the balcony"
+  },
+  "gallery": [
+    {
+      "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg",
+      "alt": "Room balcony overlooking Oroslavje and the Zagorje hills"
+    },
+    {
+      "src": "/uploads/rooms/soba-kupaonica.jpg",
+      "alt": "Bathroom with shower, washbasin and towels"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "order": 4,
+  "name": "Četverokrevetna (obiteljska) soba",
+  "summary": "Obiteljska soba s bračnim krevetom i dva ležaja – za cijelu obitelj pod jednim krovom.",
+  "description": [
+    "Četverokrevetna soba opremljena je velikim bračnim krevetom i dva ležaja širine 90 cm. Hotel Zagi je family friendly – djeca su kod nas uvijek dobrodošla."
+  ],
+  "beds": "Bračni krevet + 2 ležaja (90 cm)",
+  "maxGuests": 4,
+  "features": [
+    "Besplatan Wi-Fi",
+    "LED TV sa satelitskim programima",
+    "Radni stol",
+    "Kupaonica s tušem i sušilom za kosu",
+    "Klimatizacija ljeti, grijanje zimi",
+    "Telefon s izravnim biranjem",
+    "Posluga u sobu na upit"
+  ],
+  "priceFrom": 74,
+  "image": {
+    "src": "/uploads/rooms/soba-cetverokrevetna.jpg",
+    "alt": "Obiteljska soba s bračnim krevetom i dva odvojena ležaja"
+  },
+  "gallery": []
+}

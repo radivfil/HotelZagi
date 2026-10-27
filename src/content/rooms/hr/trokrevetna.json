@@ -1,0 +1,25 @@
+{
+  "order": 3,
+  "name": "Trokrevetna soba",
+  "summary": "Bračni krevet i dodatni ležaj – mjesta za obitelj s djetetom ili troje prijatelja.",
+  "description": [
+    "Trokrevetna soba opremljena je velikim bračnim krevetom i jednim ležajem širine 90 cm."
+  ],
+  "beds": "Bračni krevet + 1 ležaj (90 cm)",
+  "maxGuests": 3,
+  "features": [
+    "Besplatan Wi-Fi",
+    "LED TV sa satelitskim programima",
+    "Radni stol",
+    "Kupaonica s tušem i sušilom za kosu",
+    "Klimatizacija ljeti, grijanje zimi",
+    "Telefon s izravnim biranjem",
+    "Posluga u sobu na upit"
+  ],
+  "priceFrom": 62,
+  "image": {
+    "src": "/uploads/rooms/soba-trokrevetna.jpg",
+    "alt": "Trokrevetna soba s bračnim krevetom, dodatnim ležajem i balkonskim vratima"
+  },
+  "gallery": []
+}

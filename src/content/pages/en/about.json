@@ -1,0 +1,65 @@
+{
+  "seo": {
+    "title": "About Us | Hotel Zagi in Oroslavje since 1986",
+    "description": "Hotel Zagi is a family-run three-star hotel in Oroslavje, among the quiet hills of Zagorje 30 km from Zagreb. Hospitality and home cooking since 1986.",
+    "ogImage": "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg"
+  },
+  "hero": {
+    "eyebrow": "About us",
+    "title": "Hotel Zagi – Zagorje hospitality since 1986",
+    "lead": "Breathe, taste and touch Croatian Zagorje – and it will touch your heart.",
+    "image": { "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg", "alt": "View from the hotel balcony over Oroslavje and the Zagorje hills" }
+  },
+  "intro": {
+    "heading": "Among the gentle hills of Zagorje",
+    "paragraphs": [
+      "Hotel Zagi stands in Oroslavje, a quiet town with a long history, just some 30 km – or 30 minutes by car – from Zagreb. Its facilities meet high standards of hospitality.",
+      "A few minutes from the main motorway to the coast, it is also ideal for a short break on your journey. From chance visitors to travellers passing through, from family outings to important business meetings – Zagi is a place people love to come back to."
+    ],
+    "image": { "src": "/uploads/hotel/hotel-zagi-procelje.jpg", "alt": "Hotel Zagi façade with its sign, entrance and car park" }
+  },
+  "sections": [
+    {
+      "id": "hotel",
+      "eyebrow": "Hotel",
+      "heading": "Everything for a comfortable stay",
+      "paragraphs": [
+        "The hotel has 60 modern rooms (150 beds). Rooms have a direct-dial telephone, satellite and LCD TV, a desk with an internet connection, a bathroom with shower, a hairdryer and toiletries. All are equipped with a “Smart room” system and smoke detectors.",
+        "Guests can also enjoy the à la carte restaurant, the new wellness centre, a multipurpose hall for up to 60 people, a smaller room for 30 and free parking for cars and coaches."
+      ],
+      "image": { "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg", "alt": "Double room with bathrobes laid out on the bed" }
+    },
+    {
+      "id": "restaurant",
+      "eyebrow": "Restaurant and celebrations",
+      "heading": "Homemade, honest and from the heart",
+      "paragraphs": [
+        "We host celebrations, weddings, christenings, business get-togethers and all kinds of events. We are proud of our rich choice of local and international specialities, fine drinks and wine from our own OPG Čmarec winery.",
+        "Our friendly, professional staff are the reason guests from near and far, companies, associations and sports clubs keep coming back all year round."
+      ],
+      "image": { "src": "/uploads/restaurant/restoran-zagorska-plata.jpg", "alt": "Zagorje platter with local produce" }
+    },
+    {
+      "id": "zagorje",
+      "eyebrow": "Visit Zagorje",
+      "heading": "Zagorje on our doorstep",
+      "paragraphs": [
+        "Croatian Zagorje is famous for its castles, rolling hills, wineries and thermal spas. Hotel Zagi is a contract partner for active holidays and a bike-friendly hotel – a perfect base for day trips."
+      ],
+      "list": [
+        "Science Park in Oroslavje – where science is fun",
+        "National Shrine of Our Lady of Marija Bistrica",
+        "Krapina Neanderthal Museum",
+        "Zagorje Bike cycling routes",
+        "Terme Jezerčica, Terme Stubaki and Aqua Vivae water park"
+      ],
+      "image": { "src": "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg", "alt": "Bicycles parked in front of Restaurant Zagi" }
+    }
+  ],
+  "cta": {
+    "heading": "Come and meet us",
+    "text": "Book your stay or give us a call – we will gladly help you plan your visit to Zagorje.",
+    "primary": { "label": "Book now", "href": "booking" },
+    "secondary": { "label": "Contact", "href": "contact" }
+  }
+}

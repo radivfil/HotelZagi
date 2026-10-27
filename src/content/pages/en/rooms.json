@@ -1,0 +1,36 @@
+{
+  "seo": {
+    "title": "Rooms in Oroslavje | Hotel Zagi near Zagreb",
+    "description": "Double, triple and family rooms with Wi-Fi, air conditioning and balconies at Hotel Zagi in Oroslavje, with free parking. Book directly with us.",
+    "ogImage": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg"
+  },
+  "hero": {
+    "eyebrow": "Hotel accommodation",
+    "title": "Rooms for a peaceful stay in Oroslavje",
+    "lead": "60 modern rooms for couples, families and business guests – around thirty minutes from Zagreb.",
+    "image": { "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg", "alt": "View from a hotel room balcony over the green hills of Zagorje" }
+  },
+  "intro": {
+    "heading": "Comfort, calm and everything you need",
+    "paragraphs": [
+      "Hotel Zagi has 60 modern rooms. Each has a private bathroom, a TV with satellite channels, a direct-dial telephone and internet access.",
+      "All rooms feature a “Smart room” system and smoke detectors. Your car will be safe in the spacious free car park next to the hotel, which also takes coaches for group arrivals."
+    ]
+  },
+  "sections": [
+    {
+      "id": "other-room-types",
+      "heading": "Other room types",
+      "paragraphs": [
+        "We also offer single rooms and a family room with a balcony for up to seven people. Check availability and prices for your dates when booking, or get in touch."
+      ],
+      "list": ["Single room – 1 person, from €33 per night", "Family room with balcony – up to 7 people, from €120 per night"]
+    }
+  ],
+  "cta": {
+    "heading": "Travelling as a group or with family?",
+    "text": "For group arrivals, sports clubs and longer stays, we will put together a tailored offer.",
+    "primary": { "label": "Book now", "href": "booking" },
+    "secondary": { "label": "Send an enquiry", "href": "contact" }
+  }
+}

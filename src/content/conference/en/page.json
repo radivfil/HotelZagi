@@ -1,0 +1,58 @@
+{
+  "seo": {
+    "title": "Conference Hall near Zagreb | Hotel Zagi Oroslavje",
+    "description": "A multimedia conference hall for up to 60 people and a smaller room for 30, with rooms, catering and free parking – 30 minutes from Zagreb. Send an enquiry.",
+    "ogImage": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg"
+  },
+  "hero": {
+    "eyebrow": "Conference hall",
+    "title": "A conference hall near Zagreb",
+    "lead": "For conferences, seminars, workshops and business meetings – with rooms, a restaurant and free parking in one place.",
+    "image": { "src": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg", "alt": "Conference hall with rows of chairs facing a projection screen" }
+  },
+  "intro": {
+    "heading": "Close enough, yet away from it all",
+    "paragraphs": [
+      "Hotel Zagi has excellent road links with Zagreb and other towns, and is close enough to Zagreb’s railway and bus stations and airport. Easy to reach, yet secluded, it is an oasis of calm and greenery – ideal for informal get-togethers and business networking.",
+      "Whether you are organising a large conference, a seminar, a workshop or a business meeting, you can choose a room to match your group. The multipurpose hall has modern audio-visual equipment, Wi-Fi and natural light."
+    ]
+  },
+  "capacity": [
+    { "value": "60", "label": "people in the multimedia hall" },
+    { "value": "30", "label": "people in the smaller room" },
+    { "value": "60", "label": "rooms for participants" }
+  ],
+  "equipment": ["Modern audio-visual equipment", "Projector and projection screen", "Free Wi-Fi", "Natural daylight", "Free parking for cars and coaches"],
+  "layouts": [
+    { "name": "Theatre", "text": "Rows of chairs facing the screen – for lectures and presentations.", "image": { "src": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg", "alt": "Hall in theatre layout with rows of chairs" } },
+    { "name": "U-shape", "text": "Tables in a U-shape – for workshops and discussions with eye contact.", "image": { "src": "/uploads/conference/kongresna-dvorana-u-raspored.jpg", "alt": "Tables arranged in a U-shape on a red carpet" } },
+    { "name": "Classroom", "text": "Rows of tables – for seminars and training with room to take notes.", "image": { "src": "/uploads/conference/kongresna-dvorana-ucionica.jpg", "alt": "Hall in classroom layout with rows of tables" } },
+    { "name": "Boardroom", "text": "One shared table for smaller groups and business meetings.", "image": { "src": "/uploads/conference/kongresna-dvorana-sastanak.jpg", "alt": "Tables set up for a business meeting in the smaller room" } }
+  ],
+  "purposes": [
+    { "title": "Conferences and congresses", "text": "Talks, presentations and panels with projection and sound." },
+    { "title": "Seminars and workshops", "text": "Multi-day training with participants staying in the same hotel." },
+    { "title": "Business meetings", "text": "Board meetings, product presentations and team get-togethers." },
+    { "title": "Celebrations and events", "text": "Receptions, company anniversaries and special occasions with our restaurant." }
+  ],
+  "sections": [
+    {
+      "id": "catering",
+      "eyebrow": "Food and drink",
+      "heading": "A culinary experience worth talking about",
+      "paragraphs": [
+        "Our team covers everything – coffee breaks, banquets, gala dinners and wine tastings. The hotel’s own restaurant serves home-style and traditional Zagorje dishes, with friendly staff always at your service."
+      ],
+      "image": { "src": "/uploads/restaurant/restoran-svedski-stol-predjela.jpg", "alt": "Cold starters laid out on a buffet" }
+    },
+    {
+      "id": "accommodation",
+      "eyebrow": "Accommodation",
+      "heading": "Everything in one place",
+      "paragraphs": [
+        "Participants appreciate meetings held in the hotel where they stay. Free Wi-Fi and parking for all participants are part of the reason Hotel Zagi is a popular meeting destination."
+      ],
+      "image": { "src": "/uploads/rooms/soba-dvokrevetna-odvojeni-kreveti.jpg", "alt": "Twin room with two separate beds for business guests" }
+    }
+  ]
+}

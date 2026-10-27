@@ -1,0 +1,13 @@
+{
+  "seo": {
+    "title": "Online booking | Hotel Zagi Oroslavje",
+    "description": "Book a room at Hotel Zagi directly and securely: choose your check-in and check-out dates and number of guests. Direct, with no middleman.",
+    "noindex": true
+  },
+  "hero": {
+    "eyebrow": "Booking",
+    "title": "Online booking",
+    "lead": "Choose your dates, room and number of guests in our secure booking system."
+  },
+  "sections": []
+}

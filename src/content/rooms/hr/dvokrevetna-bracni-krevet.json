@@ -1,0 +1,34 @@
+{
+  "order": 1,
+  "name": "Dvokrevetna soba s bračnim krevetom i balkonom",
+  "summary": "Prostrana soba s velikim bračnim krevetom i balkonom s pogledom na zagorske brežuljke.",
+  "description": [
+    "Dvokrevetna soba s bračnim krevetom opremljena je velikim bračnim krevetom i ima vlastiti balkon – idealna za par koji želi mirno jutro uz kavu na svježem zraku."
+  ],
+  "beds": "Veliki bračni krevet",
+  "maxGuests": 2,
+  "features": [
+    "Besplatan Wi-Fi",
+    "LED TV sa satelitskim programima",
+    "Radni stol",
+    "Kupaonica s tušem i sušilom za kosu",
+    "Klimatizacija ljeti, grijanje zimi",
+    "Telefon s izravnim biranjem",
+    "Posluga u sobu na upit"
+  ],
+  "priceFrom": 48,
+  "image": {
+    "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg",
+    "alt": "Dvokrevetna soba s bračnim krevetom, ogrtačima i vratima prema balkonu"
+  },
+  "gallery": [
+    {
+      "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg",
+      "alt": "Balkon sobe s pogledom na Oroslavje i zagorske brežuljke"
+    },
+    {
+      "src": "/uploads/rooms/soba-kupaonica.jpg",
+      "alt": "Kupaonica s tušem, umivaonikom i ručnicima"
+    }
+  ]
+}

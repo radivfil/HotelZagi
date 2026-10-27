@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "Izjava o privatnosti | Hotel Zagi",
+    "description": "Kako Zagi Grupa d.o.o. obrađuje osobne podatke posjetitelja weba i gostiju Hotela Zagi: upiti, rezervacije, prava ispitanika i kontakt za zaštitu podataka.",
+    "noindex": false
+  },
+  "hero": {
+    "eyebrow": "Pravne informacije",
+    "title": "Izjava o privatnosti"
+  },
+  "updated": "2026-10-27",
+  "sections": [
+    {
+      "id": "voditelj",
+      "heading": "Voditelj obrade",
+      "paragraphs": [
+        "Voditelj obrade osobnih podataka je Zagi Grupa d.o.o., Milana Prpića 46, 49243 Oroslavje, Hrvatska, OIB 90507583878. Za sva pitanja o zaštiti podataka pišite na info@zagi.hr ili nazovite +385 49 284 666."
+      ]
+    },
+    {
+      "id": "podaci",
+      "heading": "Koje podatke obrađujemo",
+      "paragraphs": [
+        "Kad nam pošaljete upit putem obrasca, e-maila ili telefona, obrađujemo podatke koje nam sami date: ime i prezime, e-mail adresu, broj telefona, željene datume, broj osoba i sadržaj poruke. Podatke koristimo isključivo kako bismo odgovorili na vaš upit i pripremili ponudu.",
+        "Pravna osnova je poduzimanje radnji na vaš zahtjev prije sklapanja ugovora (čl. 6. st. 1. t. (b) Opće uredbe o zaštiti podataka) i vaša privola (čl. 6. st. 1. t. (a))."
+      ]
+    },
+    {
+      "id": "rezervacije",
+      "heading": "Online rezervacije",
+      "paragraphs": [
+        "Rezervacije soba obavljaju se putem sustava WebBookingPro (Sigma Grupa), koji obrađuje podatke potrebne za rezervaciju u ime hotela. Podaci o boravku obrađuju se i radi ispunjavanja zakonskih obveza (prijava gostiju, računi)."
+      ]
+    },
+    {
+      "id": "cuvanje",
+      "heading": "Koliko dugo čuvamo podatke",
+      "paragraphs": [
+        "Podatke iz upita čuvamo onoliko koliko je potrebno za odgovor i eventualnu rezervaciju, a najdulje 12 mjeseci, osim ako zakon ne propisuje dulji rok."
+      ]
+    },
+    {
+      "id": "prava",
+      "heading": "Vaša prava",
+      "paragraphs": [
+        "Imate pravo na pristup podacima, ispravak, brisanje, ograničenje obrade, prenosivost i prigovor te pravo povući privolu u bilo kojem trenutku. Ako smatrate da su vaša prava povrijeđena, možete podnijeti prigovor Agenciji za zaštitu osobnih podataka (AZOP), www.azop.hr."
+      ]
+    },
+    {
+      "id": "kolacici",
+      "heading": "Kolačići",
+      "paragraphs": [
+        "Ovaj web trenutačno ne koristi kolačiće za praćenje ni oglašavanje. Detalje pročitajte na stranici o kolačićima."
+      ]
+    },
+    {
+      "id": "chatbot",
+      "heading": "Virtualni asistent (chatbot)",
+      "paragraphs": [
+        "Virtualni asistent trenutačno nije uključen. Ako ga uvedemo, ovdje ćemo objaviti tko ga pruža, koje podatke obrađuje, gdje se podaci pohranjuju i koliko dugo se čuvaju."
+      ]
+    }
+  ]
+}

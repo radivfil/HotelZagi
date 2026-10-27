@@ -1,0 +1,206 @@
+{
+  "seo": {
+    "title": "Wellness in Zagorje | Saunas & Whirlpool – Hotel Zagi",
+    "description": "A new wellness centre in Oroslavje near Zagreb: Finnish, bio and infrared saunas with a Himalayan salt wall, a whirlpool, an ice fountain and a relax zone.",
+    "ogImage": "/uploads/wellness/wellness-relax-zona.jpg"
+  },
+  "hero": {
+    "eyebrow": "Wellness at Hotel Zagi",
+    "title": "Wellness like a dream in the heart of Zagorje",
+    "lead": "Relax your mind and body, de-stress and renew your energy.",
+    "image": {
+      "src": "/uploads/wellness/wellness-relax-zona.jpg",
+      "alt": "Wellness relaxation area with a whirlpool, loungers and a glass-fronted sauna"
+    }
+  },
+  "quote": "Imagine a place where time stands still.",
+  "intro": {
+    "heading": "A place where time stands still",
+    "paragraphs": [
+      "…where every step leads deeper into calm, and every breath brings relief.",
+      "…where the warmth of the sauna holds you like an embrace, and the scent of Himalayan salt awakens the energy sleeping in your body.",
+      "…where water dances on your skin, washing away the traces of stress, and silence says more than words."
+    ]
+  },
+  "saunasIntro": {
+    "heading": "Three saunas, three ways to unwind",
+    "lead": "A gentle bio sauna, an infrared sauna with a Himalayan salt wall and a classic Finnish sauna."
+  },
+  "relaxIntro": {
+    "heading": "Water, warmth and silence",
+    "lead": "Whirlpool, heated benches, an ice fountain and a relax zone – for complete rest between sauna sessions."
+  },
+  "facilities": [
+    {
+      "id": "bio-sauna",
+      "name": "Bio sauna",
+      "tagline": "Gentle warmth and the scent of essential oils",
+      "paragraphs": [
+        "The pleasant temperature and moderate humidity of the bio sauna create an especially gentle climate for relaxation and well-being. The warmth relaxes the muscles and does the body good.",
+        "A special humidifier releases steam into the sauna, enriched with the scent of essential oils, which helps cleanse the skin and airways. For the full effect, we recommend breathing deeply and steadily."
+      ],
+      "image": {
+        "src": "/uploads/wellness/wellness-bio-sauna.jpg",
+        "alt": "Wooden bio sauna with benches, a water bucket and warm lighting"
+      }
+    },
+    {
+      "id": "infra-sauna",
+      "name": "Infrared sauna with a Himalayan salt wall",
+      "tagline": "Warmth that goes deep",
+      "paragraphs": [
+        "Infrared heaters warm a smaller space, and the infrared warmth gently penetrates deep into the tissue throughout the body, helping it release the toxins that weigh it down.",
+        "The Himalayan salt wall enriches the air with beneficial negative salt ions. According to our brochure, they help cleanse the body, have antibacterial properties and bring relief with respiratory complaints, sore throats and sinus problems, headaches, skin problems and rheumatism."
+      ],
+      "image": {
+        "src": "/uploads/wellness/wellness-infracrvena-sauna-himalajska-sol.jpg",
+        "alt": "Infrared sauna with an illuminated Himalayan salt wall and wooden benches"
+      }
+    },
+    {
+      "id": "finnish-sauna",
+      "name": "Finnish sauna",
+      "tagline": "A classic for body and mind",
+      "paragraphs": [
+        "The Finnish sauna is excellent for relaxing the muscles, cleansing the body, strengthening its resistance and refreshing the mind.",
+        "After the Finnish sauna, cool down with cold water from the bucket or in the shower, then apply ice to any areas of the body that need extra stimulation."
+      ],
+      "image": {
+        "src": "/uploads/wellness/wellness-finska-sauna.jpg",
+        "alt": "Spacious Finnish sauna with tiered wooden benches"
+      }
+    },
+    {
+      "id": "whirlpool",
+      "name": "Whirlpool with air and water massage",
+      "tagline": "…a dance of bubbles and touch",
+      "paragraphs": [
+        "Warm water with air and water massage for complete relaxation – surrounded by candles, greenery and soft light."
+      ],
+      "image": {
+        "src": "/uploads/wellness/wellness-whirlpool.jpg",
+        "alt": "Round whirlpool with blue lighting, wooden steps and candles"
+      }
+    },
+    {
+      "id": "heated-benches",
+      "name": "Heated benches",
+      "tagline": "…a warm embrace for tired thoughts",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-grijane-klupe.jpg",
+        "alt": "Mosaic-tiled heated bench with cushions and indirect lighting"
+      }
+    },
+    {
+      "id": "relax-zone",
+      "name": "Relax zone",
+      "tagline": "…silence that heals",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-relax-lezaljke.jpg",
+        "alt": "Wooden loungers with cushions and towels in a quiet relaxation area"
+      }
+    },
+    {
+      "id": "ice-fountain",
+      "name": "Ice fountain",
+      "tagline": "…a refreshing wake-up",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-ledena-fontana.jpg",
+        "alt": "Ice fountain with crushed ice lit in blue"
+      }
+    },
+    {
+      "id": "vital-corner",
+      "name": "Vital corner",
+      "tagline": "…a corner to restore your energy",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-vital-corner.jpg",
+        "alt": "Vital corner with fresh fruit, lemon water and tea"
+      }
+    },
+    {
+      "id": "refreshment-shower",
+      "name": "Refreshment shower",
+      "tagline": "…drops that wash the day away",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-tus-osvjezenja.jpg",
+        "alt": "Refreshment shower with a wooden bucket for a cold-water drench"
+      }
+    }
+  ],
+  "hours": [
+    {
+      "days": "Monday – Thursday",
+      "time": "11 am – 10 pm",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+      ],
+      "opens": "11:00",
+      "closes": "22:00"
+    },
+    {
+      "days": "Friday",
+      "time": "11 am – 11 pm",
+      "dayOfWeek": [
+        "Friday"
+      ],
+      "opens": "11:00",
+      "closes": "23:00"
+    },
+    {
+      "days": "Saturday",
+      "time": "10 am – 11 pm",
+      "dayOfWeek": [
+        "Saturday"
+      ],
+      "opens": "10:00",
+      "closes": "23:00"
+    },
+    {
+      "days": "Sunday",
+      "time": "10 am – 9 pm",
+      "dayOfWeek": [
+        "Sunday"
+      ],
+      "opens": "10:00",
+      "closes": "21:00"
+    }
+  ],
+  "packages": {
+    "heading": "Packages for the ultimate relaxation",
+    "text": "Check availability and our special packages – for hotel guests and for day visitors who come just for the wellness.",
+    "items": [
+      "Wellness packages with an overnight stay",
+      "Weekend packages",
+      "“Private SPA”",
+      "“Girls wanna relax” packages",
+      "Packages for day visitors"
+    ]
+  },
+  "thermalPackages": {
+    "heading": "Packages with the best Zagorje spas",
+    "text": "Together with nearby thermal spas and a water park, we put together packages that include a stay at Hotel Zagi. Get in touch for an offer.",
+    "partners": [
+      "Aqua Vivae water park",
+      "Terme Jezerčica",
+      "Terme Stubaki"
+    ]
+  },
+  "booking": {
+    "heading": "Book your session",
+    "text": "For information and session bookings, contact our reception by phone, email or using the enquiry form below."
+  },
+  "brochure": {
+    "file": "/uploads/brochures/hotel-zagi-wellness-brosura.pdf",
+    "title": "Wellness at Hotel Zagi",
+    "description": "Brochure with all facilities and opening hours (HR/EN)."
+  }
+}

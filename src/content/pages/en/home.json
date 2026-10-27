@@ -1,0 +1,145 @@
+{
+  "seo": {
+    "title": "Hotel Zagi Oroslavje | Hotel near Zagreb on the A2",
+    "description": "Family-run 3-star hotel in Oroslavje, 30 min from Zagreb: comfortable rooms, a sauna wellness centre, Zagorje cuisine and a conference hall.",
+    "ogImage": "/uploads/wellness/wellness-relax-zona.jpg"
+  },
+  "hero": {
+    "title": "Hotel Zagi*** – a family-run hotel in Oroslavje, 30 minutes from Zagreb"
+  },
+  "heroSlides": [
+    {
+      "image": {
+        "src": "/uploads/wellness/wellness-relax-zona.jpg",
+        "alt": "Wellness relaxation area with a whirlpool, loungers and a sauna in warm light"
+      },
+      "eyebrow": "New · Wellness centre",
+      "title": "Wellness like a dream",
+      "subtitle": "Finnish, bio and infrared saunas, a whirlpool and a relaxation area – a place where time stands still.",
+      "cta": {
+        "label": "Discover wellness",
+        "href": "wellness"
+      }
+    },
+    {
+      "image": {
+        "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg",
+        "alt": "Bright double room with a large bed, bathrobes and a door to the balcony"
+      },
+      "eyebrow": "Hotel accommodation",
+      "title": "Rest in the calm of Zagorje",
+      "subtitle": "Modern rooms, 30 minutes from Zagreb and a few minutes from the A2 motorway.",
+      "cta": {
+        "label": "See the rooms",
+        "href": "rooms"
+      }
+    },
+    {
+      "image": {
+        "src": "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg",
+        "alt": "Festively laid table with red candles, a rose and crystal glasses in the restaurant"
+      },
+      "eyebrow": "À la carte restaurant",
+      "title": "The flavours of Zagorje",
+      "subtitle": "Štrukli, turkey with mlinci and wines from our own OPG Čmarec winery – for every day and every celebration.",
+      "cta": {
+        "label": "Visit the restaurant",
+        "href": "restaurant"
+      }
+    },
+    {
+      "image": {
+        "src": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg",
+        "alt": "Conference hall in theatre layout with a projection screen and natural light"
+      },
+      "eyebrow": "Conference hall",
+      "title": "Meetings away from the city rush",
+      "subtitle": "A multimedia hall for up to 60 people, with rooms, catering and free parking.",
+      "cta": {
+        "label": "Send an enquiry",
+        "href": "conference"
+      }
+    },
+    {
+      "image": {
+        "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg",
+        "alt": "View from a hotel balcony over the green hills and rooftops of Oroslavje"
+      },
+      "eyebrow": "Croatian Zagorje",
+      "title": "Breathe in Zagorje",
+      "subtitle": "Breathe, taste and touch Croatian Zagorje – and it will touch your heart.",
+      "cta": {
+        "label": "Book your stay",
+        "href": "booking"
+      }
+    }
+  ],
+  "featureCardsIntro": {
+    "eyebrow": "Hotel Zagi",
+    "heading": "Everything for your stay in one place",
+    "lead": "Rooms, wellness, dining and a conference hall – under one roof, around thirty minutes from Zagreb."
+  },
+  "featureCards": [
+    {
+      "page": "rooms",
+      "title": "Hotel accommodation",
+      "text": "Double, triple and family rooms with air conditioning, Wi-Fi and a private bathroom.",
+      "image": {
+        "src": "/uploads/rooms/soba-trokrevetna.jpg",
+        "alt": "Triple room with a double bed and an extra single bed by the window"
+      }
+    },
+    {
+      "page": "wellness",
+      "title": "Wellness",
+      "text": "Three saunas, a whirlpool, an ice fountain and a relaxation area. Packages with or without an overnight stay.",
+      "image": {
+        "src": "/uploads/wellness/wellness-whirlpool.jpg",
+        "alt": "Illuminated whirlpool with wooden steps and candles in the wellness centre"
+      }
+    },
+    {
+      "page": "restaurant",
+      "title": "Restaurant",
+      "text": "Home-style Zagorje cooking, a Sunday buffet, celebrations and catering.",
+      "image": {
+        "src": "/uploads/restaurant/restoran-zagorska-plata.jpg",
+        "alt": "Zagorje platter with prosciutto, cheese, sausages and pickles on a wooden board"
+      }
+    },
+    {
+      "page": "conference",
+      "title": "Conference hall",
+      "text": "A multimedia hall for up to 60 people and a smaller room for 30.",
+      "image": {
+        "src": "/uploads/conference/kongresna-dvorana-u-raspored.jpg",
+        "alt": "Conference hall with tables arranged in a U-shape"
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "Since 1986",
+    "heading": "A place people come back to",
+    "paragraphs": [
+      "From chance visitors to travellers passing through, from family outings to important business meetings – Zagi is a place where people often stop by chance, and even more often return on purpose.",
+      "Among the gentle hills of Zagorje, in Oroslavje, just some thirty kilometres from Zagreb, we have been welcoming families, travellers and business guests since 1986."
+    ],
+    "image": {
+      "src": "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg",
+      "alt": "Entrance to the Zagi restaurant with a covered terrace and parked bicycles"
+    }
+  },
+  "sections": [],
+  "cta": {
+    "heading": "Book directly with us",
+    "text": "Book directly with us, with no middleman. For groups, celebrations and business events, send us an enquiry – we reply quickly.",
+    "primary": {
+      "label": "Book now",
+      "href": "booking"
+    },
+    "secondary": {
+      "label": "Contact us",
+      "href": "contact"
+    }
+  }
+}

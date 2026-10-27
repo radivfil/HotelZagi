@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "Privacy Policy | Hotel Zagi",
+    "description": "How Zagi Grupa d.o.o. processes the personal data of website visitors and Hotel Zagi guests: enquiries, bookings, your rights and data protection contact.",
+    "noindex": false
+  },
+  "hero": {
+    "eyebrow": "Legal",
+    "title": "Privacy policy"
+  },
+  "updated": "2026-10-27",
+  "sections": [
+    {
+      "id": "controller",
+      "heading": "Data controller",
+      "paragraphs": [
+        "The controller of your personal data is Zagi Grupa d.o.o., Milana Prpića 46, 49243 Oroslavje, Croatia, VAT ID HR90507583878. For any data protection questions, email info@zagi.hr or call +385 49 284 666."
+      ]
+    },
+    {
+      "id": "data",
+      "heading": "What data we process",
+      "paragraphs": [
+        "When you send us an enquiry by form, email or phone, we process the data you give us: your name, email address, phone number, preferred dates, number of guests and your message. We use this data only to reply to your enquiry and prepare an offer.",
+        "The legal basis is taking steps at your request before entering into a contract (Art. 6(1)(b) GDPR) and your consent (Art. 6(1)(a) GDPR)."
+      ]
+    },
+    {
+      "id": "bookings",
+      "heading": "Online bookings",
+      "paragraphs": [
+        "Room bookings are made through the WebBookingPro system (Sigma Grupa), which processes the data needed for your booking on behalf of the hotel. Stay data is also processed to meet legal obligations (guest registration, invoicing)."
+      ]
+    },
+    {
+      "id": "retention",
+      "heading": "How long we keep data",
+      "paragraphs": [
+        "We keep enquiry data for as long as needed to reply and handle any booking, and for no longer than 12 months unless the law requires a longer period."
+      ]
+    },
+    {
+      "id": "rights",
+      "heading": "Your rights",
+      "paragraphs": [
+        "You have the right to access, rectify and erase your data, to restrict processing, to data portability and to object, and you may withdraw your consent at any time. If you believe your rights have been infringed, you can lodge a complaint with the Croatian Personal Data Protection Agency (AZOP), www.azop.hr."
+      ]
+    },
+    {
+      "id": "cookies",
+      "heading": "Cookies",
+      "paragraphs": [
+        "This website currently does not use tracking or advertising cookies. See the cookies page for details."
+      ]
+    },
+    {
+      "id": "chatbot",
+      "heading": "Virtual assistant (chatbot)",
+      "paragraphs": [
+        "The virtual assistant is not currently enabled. If we introduce it, we will publish here who provides it, what data it processes, where the data is stored and how long it is kept."
+      ]
+    }
+  ]
+}

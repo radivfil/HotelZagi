@@ -1,0 +1,38 @@
+{
+  "order": 5,
+  "name": "Double room with wellness package",
+  "summary": "A stay for two with half board and access to the new wellness centre.",
+  "description": [
+    "The double room has a large king-size bed. Your stay includes half board and access to our newly opened wellness centre – on the day of departure too."
+  ],
+  "beds": "King-size double bed",
+  "maxGuests": 2,
+  "features": [
+    "Free Wi-Fi",
+    "LED TV with satellite channels",
+    "Work desk",
+    "Bathroom with shower and hairdryer",
+    "Air conditioning in summer, heating in winter",
+    "Direct-dial telephone",
+    "Room service on request"
+  ],
+  "includes": [
+    "Accommodation in a double room",
+    "Wellness centre access (Finnish sauna, bio sauna, whirlpool, infrared sauna with a Himalayan salt wall, vital corner, ice fountain …)",
+    "Bathrobes, slippers, wellness bag, towels and sheet",
+    "Wellness access on the day of departure",
+    "Half board for two",
+    "Buffet breakfast",
+    "Free Wi-Fi and parking"
+  ],
+  "image": {
+    "src": "/uploads/rooms/soba-bracni-krevet-crveni-tonovi.jpg",
+    "alt": "Double room with a large bed in warm red tones"
+  },
+  "gallery": [
+    {
+      "src": "/uploads/wellness/wellness-relax-lezaljke.jpg",
+      "alt": "Wooden loungers with cushions in the wellness relaxation area"
+    }
+  ]
+}

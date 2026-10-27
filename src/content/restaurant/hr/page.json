@@ -1,0 +1,152 @@
+{
+  "seo": {
+    "title": "Restoran Oroslavje | Zagorska kuhinja i catering – Zagi",
+    "description": "A la carte restoran Hotela Zagi: zagorski štrukli, purica s mlincima, nedjeljni švedski stol, proslave, vjenčanja i catering u Zagorju. Rezervirajte stol.",
+    "ogImage": "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg"
+  },
+  "hero": {
+    "eyebrow": "A la carte restoran",
+    "title": "Restoran Zagi – okusi Hrvatskog zagorja",
+    "lead": "Domaća zagorska i međunarodna kuhinja, vina iz naše vinarije i stol za svaku prigodu.",
+    "image": {
+      "src": "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg",
+      "alt": "Svečano postavljen stol sa svijećama, ružom i čašama za vino"
+    }
+  },
+  "story": {
+    "eyebrow": "Naša priča",
+    "heading": "Gostoljubivost koja se pamti",
+    "paragraphs": [
+      "U ugodnom ambijentu restorana, koji se sastoji od dvije dvorane i dvije terase, organiziramo proslave, vjenčanja, krštenja, poslovna okupljanja i razne druge događaje.",
+      "Ljubazno i stručno osoblje razlog je zašto je restoran Zagi rado posjećen tijekom cijele godine – i od gostiju iz bliže i dalje okolice i od brojnih tvrtki, udruga i sportskih klubova. Ponudu hrane i pića uvijek rado prilagodimo vašim potrebama i željama."
+    ],
+    "image": {
+      "src": "/uploads/restaurant/restoran-stol-detalj.jpg",
+      "alt": "Detalj stola s presavijenim salvetama, čašama i crvenim svijećama"
+    }
+  },
+  "facts": [
+    {
+      "value": "150",
+      "label": "mjesta u restoranu"
+    },
+    {
+      "value": "2 + 2",
+      "label": "dvorane i terase"
+    },
+    {
+      "value": "1986.",
+      "label": "kuhamo od"
+    }
+  ],
+  "dishes": {
+    "heading": "Istaknuta jela",
+    "lead": "S posebnim ponosom ističemo raznoliku i bogatu ponudu domaćih specijaliteta zagorske kuhinje.",
+    "items": [
+      {
+        "name": "Zagorski štrukli",
+        "text": "Nezaobilazni – kuhani ili zapečeni, onako kako se u Zagorju pripremaju generacijama.",
+        "image": {
+          "src": "/uploads/restaurant/restoran-zapeceni-strukli.jpg",
+          "alt": "Zapečeni zagorski štrukli u keramičkoj posudi na drvenoj dasci"
+        }
+      },
+      {
+        "name": "Patka ili purica s mlincima",
+        "text": "Pečena perad s domaćim mlincima – nedjeljni ručak kakav pamtimo iz djetinjstva.",
+        "image": {
+          "src": "/uploads/restaurant/restoran-patka-s-mlincima.jpg",
+          "alt": "Pečeni pačji batak s domaćim mlincima na bijelom tanjuru"
+        }
+      },
+      {
+        "name": "Zagorska juha",
+        "text": "Topla, gusta i mirisna – ili juha od buče, ovisno o sezoni.",
+        "image": {
+          "src": "/uploads/restaurant/restoran-zagorska-juha.jpg",
+          "alt": "Zagorska juha u dubokom bijelom tanjuru ukrašena peršinom"
+        }
+      },
+      {
+        "name": "Zagorska plata",
+        "text": "Domaći suhomesnati proizvodi, sirevi i zimnica za dobar početak ili zajedničko druženje.",
+        "image": {
+          "src": "/uploads/restaurant/restoran-zagorska-plata.jpg",
+          "alt": "Zagorska plata s pršutom, sirom i kiselim povrćem na drvenoj dasci"
+        }
+      }
+    ]
+  },
+  "specialities": [
+    "Zagorska juha i juha od buče",
+    "Purica ili patka s mlincima",
+    "Kuhani buncek",
+    "Pečenica i krvavica",
+    "Bučnica i zlevanka",
+    "Orahnjača i makovnjača",
+    "Zagorski štrukli – kuhani ili zapečeni"
+  ],
+  "buffet": {
+    "eyebrow": "Svake nedjelje",
+    "heading": "Nedjeljni ručak – švedski stol",
+    "paragraphs": [
+      "Neka nedjeljom ne kuhaju doma – mi kuhamo za vas. Švedski stol vratio se u ponudu još veći i bogatiji: mesni, riblji, hladni i topli specijaliteti, prilozi, slastice te vegetarijanska jela i jela bez glutena.",
+      "Rezervirajte mjesto za svoju obitelj i najdraže na 049 284 666 ili 099 228 3919."
+    ],
+    "prices": [
+      {
+        "label": "Odrasli",
+        "price": "28 €"
+      },
+      {
+        "label": "Djeca od 6 do 12 godina",
+        "price": "16 €"
+      },
+      {
+        "label": "Djeca do 6 godina",
+        "price": "besplatno"
+      }
+    ],
+    "note": "Cijene vrijede za sezonu od 20. 9. 2026.",
+    "image": {
+      "src": "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg",
+      "alt": "Bogat švedski stol s narescima, salatama i toplim jelima"
+    }
+  },
+  "catering": {
+    "eyebrow": "Proslave i catering",
+    "heading": "Vaša proslava, naša briga",
+    "paragraphs": [
+      "Organiziramo vjenčanja, krštenja, rođendane, obljetnice, poslovna druženja i domjenke – u restoranu, na terasi ili kao catering na vašoj lokaciji u Zagorju.",
+      "Jelovnik, piće i raspored prilagodit ćemo broju gostiju i prigodi. Pošaljite nam upit s datumom i brojem osoba."
+    ],
+    "list": [
+      "Vjenčanja i krštenja",
+      "Rođendani i obljetnice",
+      "Poslovni ručkovi i domjenci",
+      "Catering za vanjske događaje"
+    ],
+    "image": {
+      "src": "/uploads/restaurant/restoran-svedski-stol-predjela.jpg",
+      "alt": "Predjela i hladni naresci posluženi na švedskom stolu za proslavu"
+    }
+  },
+  "wine": {
+    "eyebrow": "Vino",
+    "heading": "Vina iz naše vinarije OPG Čmarec",
+    "paragraphs": [
+      "Uz domaće specijalitete nudimo široku paletu biranih pića i vina iz naše vinarije OPG Čmarec – domaći proizvodi u kuhinji i u čaši."
+    ]
+  },
+  "haccp": {
+    "heading": "Zdravlje i sigurnost hrane – HACCP",
+    "paragraphs": [
+      "Uspjeh restorana Hotela Zagi temelji se na visokoj razini HACCP sustava koji osigurava zdravlje i sigurnost hrane. Održavanje i stalno poboljšanje tog sustava naš je prioritet."
+    ]
+  },
+  "brochure": {
+    "file": "/uploads/brochures/hotel-zagi-opca-brosura-2019.pdf",
+    "title": "Hotel Zagi – brošura",
+    "description": "Restoran, nedjeljni švedski stol, sobe i dvorana (HR/EN/DE)."
+  }
+}

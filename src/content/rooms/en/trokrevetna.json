@@ -1,0 +1,25 @@
+{
+  "order": 3,
+  "name": "Triple room",
+  "summary": "A double bed plus a single bed – room for a family with a child or three friends.",
+  "description": [
+    "The triple room has a large double bed and one 90 cm single bed."
+  ],
+  "beds": "Double bed + 1 single bed (90 cm)",
+  "maxGuests": 3,
+  "features": [
+    "Free Wi-Fi",
+    "LED TV with satellite channels",
+    "Work desk",
+    "Bathroom with shower and hairdryer",
+    "Air conditioning in summer, heating in winter",
+    "Direct-dial telephone",
+    "Room service on request"
+  ],
+  "priceFrom": 62,
+  "image": {
+    "src": "/uploads/rooms/soba-trokrevetna.jpg",
+    "alt": "Triple room with a double bed, a single bed and a balcony door"
+  },
+  "gallery": []
+}

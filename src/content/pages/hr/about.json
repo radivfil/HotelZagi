@@ -1,0 +1,65 @@
+{
+  "seo": {
+    "title": "O nama | Hotel Zagi u Oroslavju od 1986.",
+    "description": "Hotel Zagi je obiteljski hotel s tri zvjezdice u Oroslavju, među zagorskim brežuljcima 30 km od Zagreba. Gostoljubivost i domaća kuhinja od 1986.",
+    "ogImage": "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg"
+  },
+  "hero": {
+    "eyebrow": "O nama",
+    "title": "Hotel Zagi – gostoljubivost Zagorja od 1986.",
+    "lead": "Udahnite, okusite, dodirnite Hrvatsko zagorje – i ono će dotaknuti vaše srce.",
+    "image": { "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg", "alt": "Pogled s balkona hotela na Oroslavje i zagorske brežuljke" }
+  },
+  "intro": {
+    "heading": "U mirnoći pitomih zagorskih brežuljaka",
+    "paragraphs": [
+      "U Oroslavju, povijesno poznatom i mirnom gradiću udaljenom od Zagreba svega 30-ak kilometara, odnosno 30 minuta vožnje, nalazi se Hotel Zagi. Svojom ponudom zadovoljava visoke ugostiteljske i hotelske standarde.",
+      "Nekoliko minuta od autoceste na glavnoj trasi prema moru, idealan je i za kratki predah na putu. Od slučajnih turista do putnika namjernika, od obiteljskih izleta do važnih poslovnih sastanaka – Zagi je mjesto na koje se rado vraća."
+    ],
+    "image": { "src": "/uploads/hotel/hotel-zagi-procelje.jpg", "alt": "Pročelje Hotela Zagi s natpisom, ulazom i parkiralištem" }
+  },
+  "sections": [
+    {
+      "id": "hotel",
+      "eyebrow": "Hotel",
+      "heading": "Sve za ugodan boravak",
+      "paragraphs": [
+        "Hotel raspolaže sa 60 moderno uređenih soba (150 kreveta). Sobe imaju telefon s izravnim biranjem, satelitsku i LCD televiziju, radni stol s priključkom za internet, kupaonicu s tušem, sušilo za kosu i potrebnu kozmetiku. Sve su opremljene sustavom „Smart room“ i detektorima dima.",
+        "Uz smještaj, gostima su na raspolaganju a la carte restoran, novi wellness centar, multifunkcionalna dvorana za do 60 osoba i manja dvorana za 30 osoba te besplatan parking za automobile i autobuse."
+      ],
+      "image": { "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg", "alt": "Uređena dvokrevetna soba s ogrtačima na krevetu" }
+    },
+    {
+      "id": "restoran",
+      "eyebrow": "Restoran i proslave",
+      "heading": "Domaće, iskreno i od srca",
+      "paragraphs": [
+        "Organiziramo proslave i svečanosti, svadbe, krštenja, poslovna druženja i razna druga događanja. S ponosom ističemo bogatu ponudu domaćih i međunarodnih specijaliteta, birana pića i domaće vino iz naše vinarije OPG Čmarec.",
+        "Ljubazno i stručno osoblje razlog je zašto nam se tijekom cijele godine rado vraćaju gosti iz bliže i dalje okolice, tvrtke, udruge i sportski klubovi."
+      ],
+      "image": { "src": "/uploads/restaurant/restoran-zagorska-plata.jpg", "alt": "Zagorska plata s domaćim proizvodima" }
+    },
+    {
+      "id": "zagorje",
+      "eyebrow": "Visit Zagorje",
+      "heading": "Zagorje oko nas",
+      "paragraphs": [
+        "Hrvatsko zagorje mami dvorcima, brežuljcima, vinarijama i toplicama. Hotel Zagi ugovorni je partner za aktivni odmor i bike friendly hotel – idealna polazna točka za izlete."
+      ],
+      "list": [
+        "Park znanosti u Oroslavju – gdje je znanost zabava",
+        "Nacionalno svetište Majke Božje Bistričke",
+        "Muzej krapinskih neandertalaca",
+        "Biciklističke rute Zagorje Bike",
+        "Terme Jezerčica, Terme Stubaki i vodeni park Aqua Vivae"
+      ],
+      "image": { "src": "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg", "alt": "Bicikli parkirani ispred restorana Zagi" }
+    }
+  ],
+  "cta": {
+    "heading": "Dođite nas upoznati",
+    "text": "Rezervirajte boravak ili nas nazovite – rado ćemo vam pomoći isplanirati posjet Zagorju.",
+    "primary": { "label": "Rezerviraj", "href": "booking" },
+    "secondary": { "label": "Kontakt", "href": "contact" }
+  }
+}

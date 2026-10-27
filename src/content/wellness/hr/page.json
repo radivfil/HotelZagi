@@ -1,0 +1,206 @@
+{
+  "seo": {
+    "title": "Wellness Zagorje | Saune i whirlpool – Hotel Zagi Oroslavje",
+    "description": "Novi wellness centar u Oroslavju: finska, bio i infracrvena sauna sa zidom od himalajske soli, whirlpool, ledena fontana i relax zona. Rezervirajte termin.",
+    "ogImage": "/uploads/wellness/wellness-relax-zona.jpg"
+  },
+  "hero": {
+    "eyebrow": "Wellness u Hotelu Zagi",
+    "title": "Wellness kao san u srcu Zagorja",
+    "lead": "Opustite um i tijelo, oslobodite se stresa i obnovite energiju.",
+    "image": {
+      "src": "/uploads/wellness/wellness-relax-zona.jpg",
+      "alt": "Relax zona wellness centra s whirlpoolom, ležaljkama i staklenom saunom"
+    }
+  },
+  "quote": "Zamislite mjesto gdje vrijeme stane.",
+  "intro": {
+    "heading": "Mjesto gdje vrijeme stane",
+    "paragraphs": [
+      "…gdje svaki korak vodi dublje u mir, a svaki dah donosi olakšanje.",
+      "…gdje toplina saune grli poput zagrljaja, a mirisi himalajske soli bude uspavanu energiju u tijelu.",
+      "…gdje voda pleše po koži, brišući tragove stresa, a tišina govori više od riječi."
+    ]
+  },
+  "saunasIntro": {
+    "heading": "Tri saune, tri načina opuštanja",
+    "lead": "Nježna bio sauna, infracrvena sauna sa zidom od himalajske soli i klasična finska sauna."
+  },
+  "relaxIntro": {
+    "heading": "Voda, toplina i tišina",
+    "lead": "Whirlpool, grijane klupe, ledena fontana i relax zona – za potpuni odmor između saunanja."
+  },
+  "facilities": [
+    {
+      "id": "bio-sauna",
+      "name": "Bio sauna",
+      "tagline": "Nježna toplina i mirisi eteričnih ulja",
+      "paragraphs": [
+        "Ugodna temperatura i umjerena vlažnost zraka u bio sauni stvaraju posebno nježnu klimu za opuštanje i osjećaj ugode. Toplina opušta mišiće i blagotvorno djeluje na tijelo.",
+        "Poseban ovlaživač upušta paru u saunu, a para se oplemenjuje mirisom eteričnih ulja, što pomaže čišćenju kože i dišnih putova. U bio sauni preporučujemo duboko i umjereno disanje za potpuni učinak."
+      ],
+      "image": {
+        "src": "/uploads/wellness/wellness-bio-sauna.jpg",
+        "alt": "Drvena bio sauna s klupama, kantom za vodu i toplom rasvjetom"
+      }
+    },
+    {
+      "id": "infra-sauna",
+      "name": "Infra sauna sa zidom od himalajske soli",
+      "tagline": "Toplina koja prodire duboko",
+      "paragraphs": [
+        "Infracrveni grijači griju manji prostor, a toplina infracrvenog zračenja nježno se prenosi duboko u tkivo cijelog tijela i pomaže mu osloboditi se toksina koji opterećuju organizam.",
+        "Zid od himalajske soli obogaćuje zrak blagotvornim negativnim ionima soli. Prema brošuri, oni pomažu čišćenju organizma, imaju antibakterijska svojstva i ugodni su kod respiratornih tegoba, upala grla i nosne šupljine, glavobolja, problema s kožom i reume."
+      ],
+      "image": {
+        "src": "/uploads/wellness/wellness-infracrvena-sauna-himalajska-sol.jpg",
+        "alt": "Infracrvena sauna s osvijetljenim zidom od himalajske soli i drvenim klupama"
+      }
+    },
+    {
+      "id": "finska-sauna",
+      "name": "Finska sauna",
+      "tagline": "Klasika za tijelo i duh",
+      "paragraphs": [
+        "Finska sauna izvrsna je za opuštanje mišića, pročišćavanje tijela od štetnih tvari, jačanje otpornosti i osvježavanje duha.",
+        "Nakon boravka u finskoj sauni osvježite tijelo hladnom vodom iz vjedra ili pod tušem, a zatim upotrijebite led na područjima tijela koja traže dodatnu stimulaciju."
+      ],
+      "image": {
+        "src": "/uploads/wellness/wellness-finska-sauna.jpg",
+        "alt": "Prostrana finska sauna s drvenim klupama u više razina"
+      }
+    },
+    {
+      "id": "whirlpool",
+      "name": "Whirlpool sa zračnom i vodenom masažom",
+      "tagline": "…ples mjehurića i dodira",
+      "paragraphs": [
+        "Topla voda, zračna i vodena masaža za potpunu relaksaciju – okružena svijećama, zelenilom i mekim svjetlom."
+      ],
+      "image": {
+        "src": "/uploads/wellness/wellness-whirlpool.jpg",
+        "alt": "Okrugli whirlpool s plavim osvjetljenjem, drvenim stepenicama i svijećama"
+      }
+    },
+    {
+      "id": "grijane-klupe",
+      "name": "Grijane klupe",
+      "tagline": "…topli zagrljaj za umorne misli",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-grijane-klupe.jpg",
+        "alt": "Grijana klupa obložena mozaikom s jastucima i indirektnom rasvjetom"
+      }
+    },
+    {
+      "id": "relax-zona",
+      "name": "Relax zona",
+      "tagline": "…tišina koja liječi",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-relax-lezaljke.jpg",
+        "alt": "Drvene ležaljke s jastucima i ručnicima u mirnoj relax zoni"
+      }
+    },
+    {
+      "id": "ledena-fontana",
+      "name": "Ledena fontana",
+      "tagline": "…osvježenje koje budi",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-ledena-fontana.jpg",
+        "alt": "Ledena fontana sa smrvljenim ledom osvijetljenim plavim svjetlom"
+      }
+    },
+    {
+      "id": "vital-corner",
+      "name": "Vital corner",
+      "tagline": "…kutak za obnovu energije",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-vital-corner.jpg",
+        "alt": "Vital corner sa svježim voćem, vodom s limunom i čajem"
+      }
+    },
+    {
+      "id": "tus-osvjezenja",
+      "name": "Tuš osvježenja",
+      "tagline": "…kapljice koje brišu dan",
+      "paragraphs": [],
+      "image": {
+        "src": "/uploads/wellness/wellness-tus-osvjezenja.jpg",
+        "alt": "Tuš osvježenja s drvenim vjedrom za polijevanje hladnom vodom"
+      }
+    }
+  ],
+  "hours": [
+    {
+      "days": "Ponedjeljak – četvrtak",
+      "time": "11 – 22 h",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+      ],
+      "opens": "11:00",
+      "closes": "22:00"
+    },
+    {
+      "days": "Petak",
+      "time": "11 – 23 h",
+      "dayOfWeek": [
+        "Friday"
+      ],
+      "opens": "11:00",
+      "closes": "23:00"
+    },
+    {
+      "days": "Subota",
+      "time": "10 – 23 h",
+      "dayOfWeek": [
+        "Saturday"
+      ],
+      "opens": "10:00",
+      "closes": "23:00"
+    },
+    {
+      "days": "Nedjelja",
+      "time": "10 – 21 h",
+      "dayOfWeek": [
+        "Sunday"
+      ],
+      "opens": "10:00",
+      "closes": "21:00"
+    }
+  ],
+  "packages": {
+    "heading": "Paketi za najbolji doživljaj opuštanja",
+    "text": "Provjerite dostupnost i naše posebne pakete – za hotelske goste i za one koji dolaze samo na wellness.",
+    "items": [
+      "Wellness paketi s uključenim noćenjem",
+      "Vikend paketi",
+      "„Private SPA“",
+      "„Girls wanna relax“ paketi",
+      "Paketi za vanjske goste"
+    ]
+  },
+  "thermalPackages": {
+    "heading": "Paketi s najboljim zagorskim toplicama",
+    "text": "U suradnji s obližnjim toplicama i vodenim parkom pripremamo pakete s noćenjem u Hotelu Zagi. Javite nam se za ponudu.",
+    "partners": [
+      "Vodeni park Aqua Vivae",
+      "Terme Jezerčica",
+      "Terme Stubaki"
+    ]
+  },
+  "booking": {
+    "heading": "Rezervirajte svoj termin",
+    "text": "Informacije i rezervacije termina dobit ćete na recepciji – telefonom, e-mailom ili putem upita ispod."
+  },
+  "brochure": {
+    "file": "/uploads/brochures/hotel-zagi-wellness-brosura.pdf",
+    "title": "Wellness u Hotelu Zagi",
+    "description": "Brošura sa svim sadržajima i radnim vremenom (HR/EN)."
+  }
+}

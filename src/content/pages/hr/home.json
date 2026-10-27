@@ -1,0 +1,145 @@
+{
+  "seo": {
+    "title": "Hotel Zagi Oroslavje | Hotel blizu Zagreba uz A2",
+    "description": "Obiteljski hotel s 3 zvjezdice u Oroslavju, 30 min od Zagreba: sobe, wellness sa saunama, restoran zagorske kuhinje i kongresna dvorana.",
+    "ogImage": "/uploads/wellness/wellness-relax-zona.jpg"
+  },
+  "hero": {
+    "title": "Hotel Zagi*** – obiteljski hotel u Oroslavju, 30 minuta od Zagreba"
+  },
+  "heroSlides": [
+    {
+      "image": {
+        "src": "/uploads/wellness/wellness-relax-zona.jpg",
+        "alt": "Relax zona wellness centra s whirlpoolom, ležaljkama i saunom u toplom svjetlu"
+      },
+      "eyebrow": "Novo · Wellness centar",
+      "title": "Wellness kao san",
+      "subtitle": "Finska, bio i infracrvena sauna, whirlpool i relax zona – mjesto gdje vrijeme stane.",
+      "cta": {
+        "label": "Otkrijte wellness",
+        "href": "wellness"
+      }
+    },
+    {
+      "image": {
+        "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg",
+        "alt": "Svijetla dvokrevetna soba s bračnim krevetom, ogrtačima i izlazom na balkon"
+      },
+      "eyebrow": "Hotel smještaj",
+      "title": "Odmor u zagorskom miru",
+      "subtitle": "Moderno opremljene sobe, 30 minuta od Zagreba i nekoliko minuta od autoceste A2.",
+      "cta": {
+        "label": "Pogledajte sobe",
+        "href": "rooms"
+      }
+    },
+    {
+      "image": {
+        "src": "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg",
+        "alt": "Svečano postavljen stol s crvenim svijećama, ružom i kristalnim čašama u restoranu"
+      },
+      "eyebrow": "A la carte restoran",
+      "title": "Okusi Zagorja",
+      "subtitle": "Štrukli, purica s mlincima i vina iz naše vinarije OPG Čmarec – za svaki dan i svaku proslavu.",
+      "cta": {
+        "label": "Upoznajte restoran",
+        "href": "restaurant"
+      }
+    },
+    {
+      "image": {
+        "src": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg",
+        "alt": "Kongresna dvorana s kino rasporedom stolica, projekcijskim platnom i dnevnim svjetlom"
+      },
+      "eyebrow": "Kongresna dvorana",
+      "title": "Sastanci izvan gradske gužve",
+      "subtitle": "Multimedijska dvorana za do 60 osoba, uz smještaj, catering i besplatan parking.",
+      "cta": {
+        "label": "Pošaljite upit",
+        "href": "conference"
+      }
+    },
+    {
+      "image": {
+        "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg",
+        "alt": "Pogled s hotelskog balkona na zelene brežuljke i krovove Oroslavja"
+      },
+      "eyebrow": "Hrvatsko zagorje",
+      "title": "Udahnite Zagorje",
+      "subtitle": "Udahnite, okusite, dodirnite Hrvatsko zagorje – i ono će dotaknuti vaše srce.",
+      "cta": {
+        "label": "Rezervirajte boravak",
+        "href": "booking"
+      }
+    }
+  ],
+  "featureCardsIntro": {
+    "eyebrow": "Hotel Zagi",
+    "heading": "Sve za vaš boravak na jednom mjestu",
+    "lead": "Smještaj, wellness, restoran i dvorana – pod istim krovom, tridesetak minuta od Zagreba."
+  },
+  "featureCards": [
+    {
+      "page": "rooms",
+      "title": "Hotel smještaj",
+      "text": "Dvokrevetne, trokrevetne i obiteljske sobe s klimom, Wi-Fi-jem i vlastitom kupaonicom.",
+      "image": {
+        "src": "/uploads/rooms/soba-trokrevetna.jpg",
+        "alt": "Trokrevetna soba s bračnim krevetom i dodatnim ležajem uz prozor"
+      }
+    },
+    {
+      "page": "wellness",
+      "title": "Wellness",
+      "text": "Tri saune, whirlpool, ledena fontana i relax zona. Paketi s noćenjem i za vanjske goste.",
+      "image": {
+        "src": "/uploads/wellness/wellness-whirlpool.jpg",
+        "alt": "Osvijetljeni whirlpool s drvenim stepenicama i svijećama u wellness centru"
+      }
+    },
+    {
+      "page": "restaurant",
+      "title": "Restoran",
+      "text": "Domaća zagorska kuhinja, nedjeljni švedski stol, proslave i catering.",
+      "image": {
+        "src": "/uploads/restaurant/restoran-zagorska-plata.jpg",
+        "alt": "Zagorska plata s pršutom, sirom, kobasicama i kiselim povrćem na drvenoj dasci"
+      }
+    },
+    {
+      "page": "conference",
+      "title": "Kongresna dvorana",
+      "text": "Multimedijska dvorana za do 60 osoba i manja dvorana za 30 osoba.",
+      "image": {
+        "src": "/uploads/conference/kongresna-dvorana-u-raspored.jpg",
+        "alt": "Kongresna dvorana sa stolovima složenim u obliku slova U"
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "Od 1986.",
+    "heading": "Mjesto na koje se vraća",
+    "paragraphs": [
+      "Od slučajnih turista do putnika namjernika, od obiteljskih izleta do važnih poslovnih sastanaka – Zagi je mjesto na kojem se često slučajno zaustavi, a još češće mjesto na koje se namjerno vraća.",
+      "U mirnoći pitomih zagorskih brežuljaka, u Oroslavju, svega tridesetak kilometara od Zagreba, ugošćujemo obitelji, putnike i poslovne goste od 1986. godine."
+    ],
+    "image": {
+      "src": "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg",
+      "alt": "Ulaz u restoran Zagi s natkrivenom terasom i parkiranim biciklima"
+    }
+  },
+  "sections": [],
+  "cta": {
+    "heading": "Rezervirajte izravno kod nas",
+    "text": "Izravnom rezervacijom dogovarate boravak s nama, bez posrednika. Za grupe, proslave i poslovne skupove pošaljite nam upit – odgovaramo brzo.",
+    "primary": {
+      "label": "Rezerviraj",
+      "href": "booking"
+    },
+    "secondary": {
+      "label": "Kontaktirajte nas",
+      "href": "contact"
+    }
+  }
+}

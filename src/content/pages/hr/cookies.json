@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Kolačići | Hotel Zagi",
+    "description": "Informacije o kolačićima na webu Hotela Zagi: koje kolačiće koristimo, zašto i kako ih možete kontrolirati u svom pregledniku."
+  },
+  "hero": {
+    "eyebrow": "Pravne informacije",
+    "title": "Kolačići"
+  },
+  "updated": "2026-10-27",
+  "sections": [
+    {
+      "id": "sto-su",
+      "heading": "Što su kolačići",
+      "paragraphs": [
+        "Kolačići su male tekstualne datoteke koje web sprema u vaš preglednik. Mogu biti nužni za rad weba ili služiti za analitiku, oglašavanje i vanjske usluge."
+      ]
+    },
+    {
+      "id": "koje-koristimo",
+      "heading": "Koje kolačiće koristimo",
+      "paragraphs": [
+        "Ovaj web trenutačno ne postavlja kolačiće za praćenje, analitiku ni oglašavanje. Preglednik može lokalno spremiti samo tehničke postavke (npr. vaš odabir o kolačićima).",
+        "Kad otvorite stranicu za rezervaciju, sustav WebBookingPro može postaviti vlastite kolačiće nužne za rezervaciju."
+      ]
+    },
+    {
+      "id": "promjene",
+      "heading": "Buduće usluge",
+      "paragraphs": [
+        "Ako uvedemo usluge koje traže kolačiće (npr. virtualnog asistenta ili analitiku), prije njihova učitavanja tražit ćemo vašu privolu, a ovdje ćemo navesti svaki kolačić, njegovu svrhu i trajanje."
+      ]
+    },
+    {
+      "id": "kontrola",
+      "heading": "Kako kontrolirati kolačiće",
+      "paragraphs": [
+        "Kolačiće možete pregledati i obrisati u postavkama svog preglednika. Blokiranje nužnih kolačića može utjecati na rad rezervacijskog sustava."
+      ]
+    }
+  ]
+}

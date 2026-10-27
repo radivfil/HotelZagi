@@ -1,0 +1,36 @@
+{
+  "seo": {
+    "title": "Smještaj u Oroslavju | Sobe Hotela Zagi blizu Zagreba",
+    "description": "Dvokrevetne, trokrevetne i obiteljske sobe s Wi-Fi-jem, klimom i balkonom u Hotelu Zagi u Oroslavju, uz besplatan parking. Rezervirajte izravno.",
+    "ogImage": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg"
+  },
+  "hero": {
+    "eyebrow": "Hotel smještaj",
+    "title": "Sobe za miran odmor u Oroslavju",
+    "lead": "60 moderno opremljenih soba za parove, obitelji i poslovne goste – tridesetak minuta od Zagreba.",
+    "image": { "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg", "alt": "Pogled s balkona hotelske sobe na zelene zagorske brežuljke" }
+  },
+  "intro": {
+    "heading": "Udobnost, mir i sve što vam treba",
+    "paragraphs": [
+      "U Hotelu Zagi možete se odmoriti i prenoćiti u jednoj od 60 moderno opremljenih soba. Svaka soba ima vlastitu kupaonicu, televizor sa satelitskim programima, telefon s izravnom linijom i internetsku vezu.",
+      "Sve sobe opremljene su sustavom „Smart room“ i detektorima dima. Vaši će „limeni ljubimci“ biti sigurni na prostranom besplatnom parkiralištu uz hotel, koje prima i autobuse s grupnim dolascima."
+    ]
+  },
+  "sections": [
+    {
+      "id": "ostali-tipovi",
+      "heading": "Ostali tipovi soba",
+      "paragraphs": [
+        "Hotel nudi i jednokrevetne sobe te obiteljsku sobu za do sedam osoba s balkonom. Dostupnost i cijene za vaše datume provjerite u rezervaciji ili nas kontaktirajte."
+      ],
+      "list": ["Jednokrevetna soba – 1 osoba, od 33 € po noćenju", "Obiteljska soba s balkonom – do 7 osoba, od 120 € po noćenju"]
+    }
+  ],
+  "cta": {
+    "heading": "Putujete u grupi ili s obitelji?",
+    "text": "Za grupne dolaske, sportske klubove i dulje boravke pripremit ćemo ponudu po mjeri.",
+    "primary": { "label": "Rezerviraj", "href": "booking" },
+    "secondary": { "label": "Pošaljite upit", "href": "contact" }
+  }
+}

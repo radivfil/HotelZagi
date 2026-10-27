@@ -1,0 +1,38 @@
+{
+  "order": 5,
+  "name": "Dvokrevetna soba s wellness paketom",
+  "summary": "Noćenje za dvoje s polupansionom i neograničenim ulaskom u novi wellness centar.",
+  "description": [
+    "Dvokrevetna soba opremljena je velikim „king size“ bračnim krevetom. Uz noćenje dobivate polupansion i ulazak u novootvoreni wellness centar – i na dan odlaska."
+  ],
+  "beds": "Bračni krevet king size",
+  "maxGuests": 2,
+  "features": [
+    "Besplatan Wi-Fi",
+    "LED TV sa satelitskim programima",
+    "Radni stol",
+    "Kupaonica s tušem i sušilom za kosu",
+    "Klimatizacija ljeti, grijanje zimi",
+    "Telefon s izravnim biranjem",
+    "Posluga u sobu na upit"
+  ],
+  "includes": [
+    "Smještaj u dvokrevetnoj sobi",
+    "Ulazak u wellness centar (finska sauna, bio sauna, whirlpool, infracrvena sauna sa zidom od himalajske soli, vital corner, ledena fontana …)",
+    "Ogrtači, papuče, wellness torba, ručnici i plahta",
+    "Ulazak u wellness centar i na dan odlaska",
+    "Polupansion za dvije osobe",
+    "Buffet doručak",
+    "Besplatan Wi-Fi i parking"
+  ],
+  "image": {
+    "src": "/uploads/rooms/soba-bracni-krevet-crveni-tonovi.jpg",
+    "alt": "Dvokrevetna soba s bračnim krevetom u toplim crvenim tonovima"
+  },
+  "gallery": [
+    {
+      "src": "/uploads/wellness/wellness-relax-lezaljke.jpg",
+      "alt": "Drvene ležaljke s jastucima u relax zoni wellness centra"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "seo": {
+    "title": "Restaurant in Oroslavje | Zagorje Cuisine – Hotel Zagi",
+    "description": "Hotel Zagi’s à la carte restaurant: Zagorje štrukli, turkey with mlinci, a Sunday buffet, celebrations, weddings and catering near Zagreb. Book a table.",
+    "ogImage": "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg"
+  },
+  "hero": {
+    "eyebrow": "À la carte restaurant",
+    "title": "Restaurant Zagi – the flavours of Croatian Zagorje",
+    "lead": "Home-style Zagorje and international cooking, wines from our own winery and a table for every occasion.",
+    "image": {
+      "src": "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg",
+      "alt": "Festively laid table with candles, a rose and wine glasses"
+    }
+  },
+  "story": {
+    "eyebrow": "Our story",
+    "heading": "Hospitality you remember",
+    "paragraphs": [
+      "Our restaurant has two dining rooms and two terraces, where we host celebrations, weddings, christenings, business gatherings and all kinds of events.",
+      "Friendly, professional staff are the reason Restaurant Zagi is busy all year round – with guests from near and far, and with many companies, associations and sports clubs. We are always happy to adapt our food and drinks to your needs and wishes."
+    ],
+    "image": {
+      "src": "/uploads/restaurant/restoran-stol-detalj.jpg",
+      "alt": "Table detail with folded napkins, glasses and red candles"
+    }
+  },
+  "facts": [
+    {
+      "value": "150",
+      "label": "restaurant seats"
+    },
+    {
+      "value": "2 + 2",
+      "label": "dining rooms and terraces"
+    },
+    {
+      "value": "1986",
+      "label": "cooking since"
+    }
+  ],
+  "dishes": {
+    "heading": "Signature dishes",
+    "lead": "We are especially proud of our rich choice of traditional Zagorje specialities.",
+    "items": [
+      {
+        "name": "Zagorje štrukli",
+        "text": "A must – boiled or baked, made the way Zagorje has made them for generations.",
+        "image": {
+          "src": "/uploads/restaurant/restoran-zapeceni-strukli.jpg",
+          "alt": "Baked Zagorje štrukli in a ceramic dish on a wooden board"
+        }
+      },
+      {
+        "name": "Duck or turkey with mlinci",
+        "text": "Roast poultry with homemade mlinci flatbread – the Sunday lunch we remember from childhood.",
+        "image": {
+          "src": "/uploads/restaurant/restoran-patka-s-mlincima.jpg",
+          "alt": "Roast duck leg with homemade mlinci on a white plate"
+        }
+      },
+      {
+        "name": "Zagorje soup",
+        "text": "Warm, hearty and fragrant – or pumpkin soup, depending on the season.",
+        "image": {
+          "src": "/uploads/restaurant/restoran-zagorska-juha.jpg",
+          "alt": "Zagorje soup in a deep white plate garnished with parsley"
+        }
+      },
+      {
+        "name": "Zagorje platter",
+        "text": "Local cured meats, cheeses and pickles – a great start or something to share.",
+        "image": {
+          "src": "/uploads/restaurant/restoran-zagorska-plata.jpg",
+          "alt": "Zagorje platter with prosciutto, cheese and pickles on a wooden board"
+        }
+      }
+    ]
+  },
+  "specialities": [
+    "Zagorje soup and pumpkin soup",
+    "Turkey or duck with mlinci",
+    "Boiled pork knuckle (buncek)",
+    "Pečenica and krvavica sausages",
+    "Bučnica and zlevanka pastries",
+    "Walnut and poppy seed rolls",
+    "Zagorje štrukli – boiled or baked"
+  ],
+  "buffet": {
+    "eyebrow": "Every Sunday",
+    "heading": "Sunday lunch – buffet",
+    "paragraphs": [
+      "Give the family a Sunday off from cooking – we will cook for you. The buffet is back, bigger and richer than ever: meat, fish, cold and hot specialities, side dishes, desserts, plus vegetarian and gluten-free options.",
+      "Reserve a table for your family and friends on +385 49 284 666 or +385 99 228 3919."
+    ],
+    "prices": [
+      {
+        "label": "Adults",
+        "price": "€28"
+      },
+      {
+        "label": "Children aged 6–12",
+        "price": "€16"
+      },
+      {
+        "label": "Children under 6",
+        "price": "free"
+      }
+    ],
+    "note": "Prices valid for the season starting 20 September 2026.",
+    "image": {
+      "src": "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg",
+      "alt": "Generous buffet with cold cuts, salads and hot dishes"
+    }
+  },
+  "catering": {
+    "eyebrow": "Celebrations and catering",
+    "heading": "Your celebration, our care",
+    "paragraphs": [
+      "We organise weddings, christenings, birthdays, anniversaries, business get-togethers and receptions – in the restaurant, on the terrace or as catering at your venue in Zagorje.",
+      "We tailor the menu, drinks and layout to your occasion and number of guests. Send us an enquiry with the date and number of people."
+    ],
+    "list": [
+      "Weddings and christenings",
+      "Birthdays and anniversaries",
+      "Business lunches and receptions",
+      "Catering for external events"
+    ],
+    "image": {
+      "src": "/uploads/restaurant/restoran-svedski-stol-predjela.jpg",
+      "alt": "Starters and cold cuts served on a buffet for a celebration"
+    }
+  },
+  "wine": {
+    "eyebrow": "Wine",
+    "heading": "Wines from our own OPG Čmarec winery",
+    "paragraphs": [
+      "Alongside our home cooking, we offer a wide selection of drinks and wines from our own OPG Čmarec winery – local produce in the kitchen and in the glass."
+    ]
+  },
+  "haccp": {
+    "heading": "Food health and safety – HACCP",
+    "paragraphs": [
+      "The success of Hotel Zagi’s restaurant rests on a high-level HACCP system that ensures food health and safety. Maintaining and continuously improving this system is our priority."
+    ]
+  },
+  "brochure": {
+    "file": "/uploads/brochures/hotel-zagi-opca-brosura-2019.pdf",
+    "title": "Hotel Zagi – brochure",
+    "description": "Restaurant, Sunday buffet, rooms and conference hall (HR/EN/DE)."
+  }
+}

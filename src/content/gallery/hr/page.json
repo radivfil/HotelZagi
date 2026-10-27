@@ -1,0 +1,224 @@
+{
+  "categories": [
+    {
+      "id": "rooms",
+      "label": "Smještaj"
+    },
+    {
+      "id": "wellness",
+      "label": "Wellness"
+    },
+    {
+      "id": "restaurant",
+      "label": "Restoran"
+    },
+    {
+      "id": "conference",
+      "label": "Kongresna dvorana"
+    },
+    {
+      "id": "hotel",
+      "label": "Hotel i okolica"
+    }
+  ],
+  "items": [
+    {
+      "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg",
+      "alt": "Dvokrevetna soba s bračnim krevetom i ogrtačima",
+      "category": "rooms",
+      "wide": true
+    },
+    {
+      "src": "/uploads/wellness/wellness-relax-zona.jpg",
+      "alt": "Relax zona s whirlpoolom i saunom",
+      "category": "wellness",
+      "wide": true
+    },
+    {
+      "src": "/uploads/restaurant/restoran-svecano-postavljen-stol.jpg",
+      "alt": "Svečano postavljen stol u restoranu",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-whirlpool.jpg",
+      "alt": "Whirlpool s plavim osvjetljenjem",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-balkon-pogled-na-zagorje.jpg",
+      "alt": "Pogled s balkona na zagorske brežuljke",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-patka-s-mlincima.jpg",
+      "alt": "Patka s domaćim mlincima",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/conference/kongresna-dvorana-kino-raspored.jpg",
+      "alt": "Kongresna dvorana u kino rasporedu",
+      "category": "conference",
+      "wide": true
+    },
+    {
+      "src": "/uploads/wellness/wellness-infracrvena-sauna-himalajska-sol.jpg",
+      "alt": "Infracrvena sauna sa zidom od himalajske soli",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-zagorska-plata.jpg",
+      "alt": "Zagorska plata na drvenoj dasci",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-trokrevetna.jpg",
+      "alt": "Trokrevetna soba",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-finska-sauna.jpg",
+      "alt": "Finska sauna s drvenim klupama",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg",
+      "alt": "Nedjeljni švedski stol",
+      "category": "restaurant",
+      "wide": true
+    },
+    {
+      "src": "/uploads/wellness/wellness-relax-lezaljke.jpg",
+      "alt": "Ležaljke u relax zoni",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-cetverokrevetna.jpg",
+      "alt": "Obiteljska četverokrevetna soba",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/conference/kongresna-dvorana-u-raspored.jpg",
+      "alt": "Dvorana sa stolovima u obliku slova U",
+      "category": "conference",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-zapeceni-strukli.jpg",
+      "alt": "Zapečeni zagorski štrukli",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-ledena-fontana.jpg",
+      "alt": "Ledena fontana",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-grijane-klupe.jpg",
+      "alt": "Grijane klupe obložene mozaikom",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-dvokrevetna-odvojeni-kreveti.jpg",
+      "alt": "Dvokrevetna soba s odvojenim krevetima",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-zagorska-juha.jpg",
+      "alt": "Zagorska juha",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/conference/kongresna-dvorana-ucionica.jpg",
+      "alt": "Dvorana u rasporedu učionice",
+      "category": "conference",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-vital-corner.jpg",
+      "alt": "Vital corner s voćem i čajem",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/hotel/restoran-zagi-ulaz-bike-friendly.jpg",
+      "alt": "Ulaz u restoran Zagi s biciklima",
+      "category": "hotel",
+      "wide": true
+    },
+    {
+      "src": "/uploads/restaurant/restoran-strudla.jpg",
+      "alt": "Domaća štrudla s višnjama",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-kupaonica.jpg",
+      "alt": "Kupaonica s tušem",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-bio-sauna.jpg",
+      "alt": "Bio sauna",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-svedski-stol-predjela.jpg",
+      "alt": "Predjela na švedskom stolu",
+      "category": "restaurant",
+      "wide": false
+    },
+    {
+      "src": "/uploads/conference/kongresna-dvorana-sastanak.jpg",
+      "alt": "Dvorana pripremljena za sastanak",
+      "category": "conference",
+      "wide": false
+    },
+    {
+      "src": "/uploads/wellness/wellness-tus-osvjezenja.jpg",
+      "alt": "Tuš osvježenja s drvenim vjedrom",
+      "category": "wellness",
+      "wide": false
+    },
+    {
+      "src": "/uploads/hotel/hotel-zagi-procelje.jpg",
+      "alt": "Pročelje Hotela Zagi s natpisom i parkiralištem",
+      "category": "hotel",
+      "wide": false
+    },
+    {
+      "src": "/uploads/hotel/oroslavje-iz-zraka.jpg",
+      "alt": "Oroslavje iz zraka",
+      "category": "hotel",
+      "wide": false
+    },
+    {
+      "src": "/uploads/rooms/soba-bracni-krevet-crveni-tonovi.jpg",
+      "alt": "Soba s bračnim krevetom u crvenim tonovima",
+      "category": "rooms",
+      "wide": false
+    },
+    {
+      "src": "/uploads/restaurant/restoran-stol-detalj.jpg",
+      "alt": "Detalj svečano postavljenog stola",
+      "category": "restaurant",
+      "wide": false
+    }
+  ]
+}

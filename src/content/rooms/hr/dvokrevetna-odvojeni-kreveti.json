@@ -1,0 +1,25 @@
+{
+  "order": 2,
+  "name": "Dvokrevetna soba s dva odvojena kreveta",
+  "summary": "Praktična soba s dva odvojena ležaja – za prijatelje, kolege ili poslovni put.",
+  "description": [
+    "Dvokrevetna soba opremljena je s dva odvojena ležaja širine 90 cm. Odličan izbor za poslovne goste, sudionike seminara i prijatelje na putovanju."
+  ],
+  "beds": "Dva odvojena ležaja (90 cm)",
+  "maxGuests": 2,
+  "features": [
+    "Besplatan Wi-Fi",
+    "LED TV sa satelitskim programima",
+    "Radni stol",
+    "Kupaonica s tušem i sušilom za kosu",
+    "Klimatizacija ljeti, grijanje zimi",
+    "Telefon s izravnim biranjem",
+    "Posluga u sobu na upit"
+  ],
+  "priceFrom": 48,
+  "image": {
+    "src": "/uploads/rooms/soba-dvokrevetna-odvojeni-kreveti.jpg",
+    "alt": "Dvokrevetna soba s dva odvojena kreveta i zidnom rasvjetom"
+  },
+  "gallery": []
+}

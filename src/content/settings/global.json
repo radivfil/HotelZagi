@@ -1,0 +1,43 @@
+{
+  "hotelName": "Hotel Zagi",
+  "legalName": "Zagi Grupa d.o.o.",
+  "stars": 3,
+  "foundedYear": 1986,
+  "address": {
+    "street": "Milana Prpića 46",
+    "postalCode": "49243",
+    "city": "Oroslavje",
+    "region": "Krapinsko-zagorska županija",
+    "country": "Hrvatska",
+    "countryCode": "HR"
+  },
+  "geo": { "lat": 45.992205, "lng": 15.917981 },
+  "phones": {
+    "main": "+385 49 284 666",
+    "mobile": "+385 99 228 3919",
+    "reception": "+385 99 234 8086"
+  },
+  "emails": { "info": "info@zagi.hr", "reception": "recepcija@zagi.hr" },
+  "vatId": "HR90507583878",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Zagi%2C%20Milana%20Prpi%C4%87a%2046%2C%2049243%20Oroslavje",
+  "reviews": {
+    "rating": 4.4,
+    "count": 1800,
+    "url": "https://www.google.com/maps/search/?api=1&query=Hotel%20Zagi%20Oroslavje",
+    "source": "Google"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/hotelzagi",
+    "instagram": "https://www.instagram.com/hotel_zagi/"
+  },
+  "facts": {
+    "rooms": 60,
+    "beds": 150,
+    "restaurantSeats": 150,
+    "conferenceCapacity": 60,
+    "smallHallCapacity": 30,
+    "distanceZagrebKm": 30,
+    "distanceZagrebMin": 30
+  },
+  "slider": { "intervalMs": 5000, "maxSlidesOnSmallScreens": 3 }
+}
