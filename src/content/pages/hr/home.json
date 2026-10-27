@@ -26,7 +26,7 @@
         "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg",
         "alt": "Svijetla dvokrevetna soba s bračnim krevetom, ogrtačima i izlazom na balkon"
       },
-      "eyebrow": "Hotel smještaj",
+      "eyebrow": "Smještaj",
       "title": "Odmor u zagorskom miru",
       "subtitle": "Moderno opremljene sobe, 30 minuta od Zagreba i nekoliko minuta od autoceste A2.",
       "cta": {
@@ -82,7 +82,7 @@
   "featureCards": [
     {
       "page": "rooms",
-      "title": "Hotel smještaj",
+      "title": "Smještaj",
       "text": "Dvokrevetne, trokrevetne i obiteljske sobe s klimom, Wi-Fi-jem i vlastitom kupaonicom.",
       "image": {
         "src": "/uploads/rooms/soba-trokrevetna.jpg",

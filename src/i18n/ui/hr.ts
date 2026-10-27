@@ -21,7 +21,7 @@ const hr = {
 
   // Navigacija
   'nav.main': 'Glavni izbornik',
-  'nav.rooms': 'Hotel smještaj',
+  'nav.rooms': 'Smještaj',
   'nav.wellness': 'Wellness',
   'nav.restaurant': 'Restoran',
   'nav.conference': 'Kongresna dvorana',

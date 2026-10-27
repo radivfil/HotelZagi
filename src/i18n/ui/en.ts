@@ -18,7 +18,7 @@ const en: UiDict = {
   'common.newWindow': '(opens in a new window)',
 
   'nav.main': 'Main menu',
-  'nav.rooms': 'Hotel accommodation',
+  'nav.rooms': 'Accommodation',
   'nav.wellness': 'Wellness',
   'nav.restaurant': 'Restaurant',
   'nav.conference': 'Conference hall',

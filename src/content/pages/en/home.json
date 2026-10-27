@@ -26,7 +26,7 @@
         "src": "/uploads/rooms/soba-dvokrevetna-bracni-krevet.jpg",
         "alt": "Bright double room with a large bed, bathrobes and a door to the balcony"
       },
-      "eyebrow": "Hotel accommodation",
+      "eyebrow": "Accommodation",
       "title": "Rest in the calm of Zagorje",
       "subtitle": "Modern rooms, 30 minutes from Zagreb and a few minutes from the A2 motorway.",
       "cta": {
@@ -82,7 +82,7 @@
   "featureCards": [
     {
       "page": "rooms",
-      "title": "Hotel accommodation",
+      "title": "Accommodation",
       "text": "Double, triple and family rooms with air conditioning, Wi-Fi and a private bathroom.",
       "image": {
         "src": "/uploads/rooms/soba-trokrevetna.jpg",
