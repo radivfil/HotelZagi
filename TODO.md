@@ -36,7 +36,7 @@ Pravilo: kad se izvori razilaze, korištena je brošura.
 
 - [ ] **Probne ponude – ZAMIJENITI stvarnima** (podaci iz brošure / od hotela): `src/content/restaurant-offers/{hr,en}/primjer-sezonska-ponuda.json` („Primjer: Sezonska ponuda”, status aktivno) i `primjer-riblji-svedski-stol.json` („Primjer: Riblji švedski stol”, status uskoro). Nemaju jela, cijene ni datume – namjerno. Na webu imaju oznaku „Primjer”.
 - [ ] **Nedjeljni švedski stol** premješten je iz stranice Restoran u kolekciju kao stvarna ponuda (cijene 28 € / 16 € / besplatno i početak 20. 9. 2026. sa zagi.hr). Nedostaje **vrijeme posluživanja** i **datum završetka sezone** (`validTo`).
-- [ ] Postaviti **deploy hook** i GitHub secret `DEPLOY_HOOK_URL` da dnevni build radi (ili cron na hostingu).
+- [x] Dnevni build: na GitHub Pages ga radi `schedule` u `deploy.yml`. Pri prelasku na Cloudflare/Netlify postaviti deploy hook (docs/OBJAVA.md).
 - [ ] JSON-LD: `Restaurant.makesOffer` sadrži samo stvarne aktivne ponude s potvrđenom cijenom; `Menu` nije dodan dok jelovnik nije potvrđen.
 
 ## 3. Fotografije
@@ -100,6 +100,17 @@ Pravilo: kad se izvori razilaze, korištena je brošura.
 ## 6c. Provjera kvalitete
 
 - [ ] U projektu **nema ESLinta** – provjera koda je `npm run check` (TypeScript + Zod sheme, 0 grešaka / 0 upozorenja / 0 savjeta) i Playwright testovi. Prijedlog: dodati ESLint (`eslint-plugin-astro`, `typescript-eslint`) i Prettier u sljedećem koraku.
+
+## 6d. Objava na GitHub Pages – ručni koraci na GitHubu
+
+- [ ] Napraviti repozitorij (npr. `radivfil/HotelZagi`). Besplatni GitHub Pages traži **javni** repozitorij (izvor tada vide svi; za privatni izvor vidi docs/OBJAVA.md).
+- [ ] `git remote add origin https://github.com/radivfil/HotelZagi.git` → `git push -u origin main` (lokalna grana je preimenovana iz `master` u `main`).
+- [ ] **Settings → Pages → Source = „GitHub Actions”.**
+- [ ] **Actions → „Objava na GitHub Pages” → Run workflow** (ako se nije pokrenuo sam) i pričekati zelenu kvačicu (build + testovi + deploy).
+- [ ] (opcionalno) Variables: `SITE_URL`, `BASE_PATH`, `DEMO_MODE` – inače se čitaju iz Pages postavki, `DEMO_MODE=true`.
+- [ ] Ako se repozitorij ne zove `HotelZagi`, ništa ne treba mijenjati – podmapa se čita automatski.
+- [ ] Prije slanja linka klijentu proći kontrolni popis iz docs/OBJAVA.md / završnog izvještaja.
+- Napomena: `robots.txt` na project site adresi nema učinka; zaštita je meta `noindex` (provjereno testom na svim stranicama).
 
 ## 7. Sljedeći koraci (prijedlog)
 

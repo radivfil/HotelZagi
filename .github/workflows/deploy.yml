@@ -1,0 +1,97 @@
+# Objava dema na GitHub Pages (project site: https://<korisnik>.github.io/<repozitorij>/)
+#
+# Jednokratno u repozitoriju: Settings → Pages → Build and deployment → Source = "GitHub Actions".
+# Adresa i podmapa čitaju se automatski iz GitHub Pages postavki; po želji ih nadjačajte
+# varijablama repozitorija (Settings → Secrets and variables → Actions → Variables):
+#   SITE_URL   npr. https://radivfil.github.io      (zadano: origin iz Pages postavki)
+#   BASE_PATH  npr. /HotelZagi                      (zadano: podmapa iz Pages postavki)
+#   DEMO_MODE  true | false                         (zadano: true – noindex, bez sitemapa)
+name: Objava na GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+  schedule:
+    # svaki dan oko 03:15 / 04:15 po hrvatskom vremenu – ponude restorana se uključuju/isključuju po datumu
+    - cron: '15 2 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Pages postavke
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Varijable objave
+        id: cfg
+        run: |
+          echo "site_url=${{ vars.SITE_URL || steps.pages.outputs.origin }}" >> "$GITHUB_OUTPUT"
+          echo "base_path=${{ vars.BASE_PATH || steps.pages.outputs.base_path }}" >> "$GITHUB_OUTPUT"
+          echo "demo_mode=${{ vars.DEMO_MODE || 'true' }}" >> "$GITHUB_OUTPUT"
+
+      - name: Instalacija ovisnosti
+        run: npm ci
+
+      - name: Playwright (Chromium za testove)
+        run: npx playwright install --with-deps chromium
+
+      - name: Provjera tipova i sadržaja
+        run: npm run check
+
+      - name: Build
+        env:
+          SITE_URL: ${{ steps.cfg.outputs.site_url }}
+          BASE_PATH: ${{ steps.cfg.outputs.base_path }}
+          DEMO_MODE: ${{ steps.cfg.outputs.demo_mode }}
+        run: npm run build
+
+      - name: Testovi (nevidljivi znakovi, putanje, slider, crtice)
+        env:
+          SITE_URL: ${{ steps.cfg.outputs.site_url }}
+          BASE_PATH: ${{ steps.cfg.outputs.base_path }}
+          DEMO_MODE: ${{ steps.cfg.outputs.demo_mode }}
+          BASE_URL: http://localhost:4321
+          OUT: /tmp/screens
+        run: |
+          npm run test:invisible
+          npx astro preview --port 4321 > /tmp/preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf "http://localhost:4321${BASE_PATH}/hr/" > /dev/null && break; sleep 1; done
+          npm run test:paths
+          npm run test:hero
+          npm run test:dashes
+
+      - name: Upload
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Objava
+        id: deployment
+        uses: actions/deploy-pages@v4

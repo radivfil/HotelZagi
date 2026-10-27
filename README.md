@@ -19,9 +19,11 @@ npm run build     # statični web u dist/
 npm run preview   # pregled builda
 npm run check     # provjera tipova i shema sadržaja
 npm run screens   # Playwright screenshotovi + provjere (potreban `npm run preview`)
-npm run test:hero    # slider: preklapanje kontrola i booking trake (10 veličina) + autoplay
-npm run test:dashes  # nijedna crtica na početku/kraju retka (375/768/1024/1440)
-npm test             # sve tri provjere
+npm run test:hero      # slider: preklapanje kontrola i booking trake (10 veličina) + autoplay
+npm run test:dashes    # nijedna crtica na početku/kraju retka (375/768/1024/1440)
+npm run test:paths     # obilazak svih stranica: nijedan 404, svi interni URL-ovi s base-om
+npm run test:invisible # nema NBSP/WJ u title, meta, JSON-LD, alt i URL-ovima (čita dist/)
+npm test               # sve četiri provjere (potreban build + preview)
 ```
 
 Node 20+ (testirano na Node 24). Konfiguracija ide kroz `.env` (predložak: `.env.example`).
@@ -68,22 +70,23 @@ vrsta, naslov, kratki opis, opis ili popis jela, slika + alt, cijene (opcionalno
 
 Datumi se provjeravaju **pri izradi weba** i **u pregledniku posjetitelja** (mala skripta, bez treperenja), pa istekla ponuda nestane točno na vrijeme.
 Ipak, **nakon svake izmjene ponude stranica se mora ponovno objaviti** (git push / spremanje u CMS-u pokreće build).
-Za automatsko osvježavanje uključen je `.github/workflows/daily-rebuild.yml` – svaki dan pokreće build preko *deploy hooka*
-(Cloudflare Pages ili Netlify → Deploy hooks → URL spremiti kao GitHub secret `DEPLOY_HOOK_URL`). Bez GitHuba isto se može postaviti cronom na hostingu.
+Na GitHub Pages web se gradi i objavljuje **svaki dan** (`schedule` u `.github/workflows/deploy.yml`).
+Na Cloudflare Pages / Netlify isto se postiže deploy hookom (vidi [docs/OBJAVA.md](docs/OBJAVA.md)).
 
 Probne ponude imaju `"example": true` i oznaku „Primjer” – zamijeniti stvarnima (vidi `TODO.md`).
 
 ## Objava
 
-Web je potpuno statičan (`dist/`).
+Detaljno: **[docs/OBJAVA.md](docs/OBJAVA.md)**. Ukratko, objava se podešava s tri varijable okoline:
 
-**Cloudflare Pages** – Build command `npm run build`, output `dist`, varijabla `NODE_VERSION=22`. Preusmjerenje `/` → `/hr/` radi preko `public/_redirects`.
+- `SITE_URL` – izvor weba (npr. `https://radivfil.github.io`; zadano `https://www.zagi.hr`)
+- `BASE_PATH` – podmapa (npr. `/HotelZagi` za GitHub Pages project site; zadano `/`)
+- `DEMO_MODE` – `true`: noindex na svim stranicama, bez sitemapa, robots `Disallow: /`; `false` (zadano) za produkciju
 
-**Netlify** – isto (`npm run build`, `dist`); `_redirects` se čita automatski. Za obrasce možete koristiti Netlify Forms (vidi dolje).
+**GitHub Pages (demo):** `.github/workflows/deploy.yml` gradi, testira i objavljuje web na svaki push u `main`, ručno i jednom dnevno. U repozitoriju jednom postaviti *Settings → Pages → Source = GitHub Actions*.
+Napomena: `robots.txt` na project site adresi (`korisnik.github.io/repozitorij/`) **nema učinka** – zaštitu daje meta `noindex` na svakoj stranici.
 
-**GitHub Pages** – GitHub Action s `withastro/action`; korijen preusmjerava `dist/index.html` (meta refresh). Za podstazu postavite `base` u `astro.config.mjs`.
-
-Za **demo objavu** postavite `PUBLIC_NOINDEX=true` (noindex na svim stranicama + `Disallow: /` u robots.txt) i `PUBLIC_SITE_URL` na demo domenu.
+**Cloudflare Pages / Netlify (kasnije):** build `npm run build`, output `dist`, `BASE_PATH=/`, `SITE_URL` nove domene; za demo `DEMO_MODE=true` + `public/_headers` s `X-Robots-Tag: noindex`.
 
 ## WebBooking (WebBookingPro, Sigma Grupa)
 

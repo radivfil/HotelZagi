@@ -15,7 +15,9 @@
     "screens": "node scripts/screens.mjs",
     "test:dashes": "node scripts/test-dashes.mjs",
     "test:hero": "node scripts/test-hero.mjs",
-    "test": "node scripts/test-hero.mjs && node scripts/test-dashes.mjs && node scripts/screens.mjs"
+    "test:paths": "node scripts/test-paths.mjs",
+    "test:invisible": "node scripts/test-invisible.mjs",
+    "test": "node scripts/test-invisible.mjs && node scripts/test-paths.mjs && node scripts/test-hero.mjs && node scripts/test-dashes.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
