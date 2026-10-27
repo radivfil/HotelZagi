@@ -1,0 +1,14 @@
+{
+  "id": "primjer-sezonska-ponuda",
+  "type": "sezonski",
+  "title": "Primjer: Sezonska ponuda",
+  "summary": "Probni sadržaj – ovdje hotel upisuje stvarnu sezonsku ponudu, a jela, cijenu, dane i razdoblje valjanosti samo ako su poznati.",
+  "image": {
+    "src": "/uploads/restaurant/restoran-patka-s-mlincima.jpg",
+    "alt": "Pečeni pačji batak s domaćim mlincima na bijelom tanjuru"
+  },
+  "status": "aktivno",
+  "featured": false,
+  "order": 2,
+  "example": true
+}

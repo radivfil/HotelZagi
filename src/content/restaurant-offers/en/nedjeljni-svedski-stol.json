@@ -1,0 +1,41 @@
+{
+  "id": "nedjeljni-svedski-stol",
+  "type": "svedski-stol",
+  "title": "Sunday lunch – buffet",
+  "summary": "Give the family a Sunday off from cooking – we will cook for you. The buffet is back, bigger and richer than ever.",
+  "details": [
+    "Meat, fish, cold and hot specialities",
+    "Side dishes and desserts",
+    "Vegetarian and gluten-free options",
+    "Reservations: +385 49 284 666 or +385 99 228 3919"
+  ],
+  "image": {
+    "src": "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg",
+    "alt": "Generous buffet with cold cuts, salads and hot dishes"
+  },
+  "prices": [
+    {
+      "label": "Adults",
+      "price": "€28",
+      "amount": 28
+    },
+    {
+      "label": "Children aged 6 to 12",
+      "price": "€16",
+      "amount": 16
+    },
+    {
+      "label": "Children under 6",
+      "price": "free",
+      "amount": 0
+    }
+  ],
+  "schedule": {
+    "days": "on Sundays"
+  },
+  "validFrom": "2026-09-20",
+  "status": "aktivno",
+  "featured": true,
+  "order": 1,
+  "example": false
+}

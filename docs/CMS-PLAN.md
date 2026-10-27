@@ -8,7 +8,23 @@ Cilj: zaposlenik hotela mijenja tekstove, slike, sobe, slajdove i kontakt bez pr
 - **Zod sheme** u `src/content.config.ts` imaju opisna imena polja i `.describe()` pomoćne tekstove = buduća polja i upute u panelu. Shema štiti od pogrešnog unosa (npr. predug SEO naslov, slika bez alt teksta).
 - **Slike** su u `public/uploads/<kategorija>/` s obveznim alt tekstom na svakom jeziku; AVIF/WebP varijante generira `scripts/optimize-images.mjs` automatski pri buildu.
 - **Prekidač** `PUBLIC_CMS_ENABLED=false` u `.env`. `astro.config.mjs` učitava Keystatic samo kad je prekidač uključen **i** paketi su instalirani; tada `/admin` preusmjerava na `/keystatic`.
-- **Konfiguracija panela** `cms/keystatic.config.ts`: globalne postavke, naslovnica (slajdovi, kartice), tekstovi weba i tipovi soba – za svaki uključeni jezik automatski.
+- **Konfiguracija panela** `cms/keystatic.config.ts`: globalne postavke, naslovnica (slajdovi, kartice), tekstovi weba, tipovi soba i ponude restorana – za svaki uključeni jezik automatski.
+
+## Promjenjive ponude
+
+**Ponude restorana** već su izdvojene u kolekciju `restaurantOffers` (`src/content/restaurant-offers/{hr,en}/`) i u Keystatic predložak
+(„Ponude restorana”, stupci naslov / status / datumi). Osoblje dodaje novu ponudu, postavlja status i razdoblje valjanosti, a web je sam svrstava u
+„Aktualna ponuda”, „Uskoro” ili skriva. Dnevni build (`.github/workflows/daily-rebuild.yml`) osigurava da se promjene po datumu objave i bez ručne izmjene.
+
+Isto razmišljanje preporučeno je za (ne izrađuje se dok ne bude potrebno):
+
+| Kolekcija | Što sadrži | Gdje se prikazuje |
+|---|---|---|
+| `wellnessPackages` | wellness paketi (s noćenjem, vikend, „Private SPA”, za vanjske goste): naziv, opis, što uključuje, cijena, trajanje, valjanost, status | Wellness, naslovnica (istaknuto) |
+| `roomOffers` | posebne ponude smještaja (npr. paketi s toplicama, rani booking, blagdani): naziv, opis, uvjeti, poveznica na WBP ponudu, valjanost, status | Smještaj, naslovnica |
+| `events` | jednokratni događaji (Advent, Valentinovo, degustacije) s datumom i upitom | Restoran / naslovnica |
+
+Sve bi koristile istu shemu statusa i datuma (`src/lib/offers.ts` – `offerPhase`) i istu komponentu kartice, pa je dodavanje nove kolekcije malo posla.
 
 ## Preporuka
 

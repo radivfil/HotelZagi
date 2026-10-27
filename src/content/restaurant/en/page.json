@@ -86,32 +86,12 @@
     "Walnut and poppy seed rolls",
     "Zagorje štrukli – boiled or baked"
   ],
-  "buffet": {
-    "eyebrow": "Every Sunday",
-    "heading": "Sunday lunch – buffet",
-    "paragraphs": [
-      "Give the family a Sunday off from cooking – we will cook for you. The buffet is back, bigger and richer than ever: meat, fish, cold and hot specialities, side dishes, desserts, plus vegetarian and gluten-free options.",
-      "Reserve a table for your family and friends on +385 49 284 666 or +385 99 228 3919."
-    ],
-    "prices": [
-      {
-        "label": "Adults",
-        "price": "€28"
-      },
-      {
-        "label": "Children aged 6–12",
-        "price": "€16"
-      },
-      {
-        "label": "Children under 6",
-        "price": "free"
-      }
-    ],
-    "note": "Prices valid for the season starting 20 September 2026.",
-    "image": {
-      "src": "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg",
-      "alt": "Generous buffet with cold cuts, salads and hot dishes"
-    }
+  "offers": {
+    "eyebrow": "Something special every week",
+    "heading": "Current offers",
+    "lead": "Our buffets and seasonal offers change throughout the year – this is always what we are serving right now.",
+    "soonHeading": "Coming soon",
+    "emptyText": "There is no special offer at the moment. Call us or send an enquiry – we will gladly prepare a table or a tailored menu."
   },
   "catering": {
     "eyebrow": "Celebrations and catering",

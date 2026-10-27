@@ -86,32 +86,12 @@
     "Orahnjača i makovnjača",
     "Zagorski štrukli – kuhani ili zapečeni"
   ],
-  "buffet": {
-    "eyebrow": "Svake nedjelje",
-    "heading": "Nedjeljni ručak – švedski stol",
-    "paragraphs": [
-      "Neka nedjeljom ne kuhaju doma – mi kuhamo za vas. Švedski stol vratio se u ponudu još veći i bogatiji: mesni, riblji, hladni i topli specijaliteti, prilozi, slastice te vegetarijanska jela i jela bez glutena.",
-      "Rezervirajte mjesto za svoju obitelj i najdraže na 049 284 666 ili 099 228 3919."
-    ],
-    "prices": [
-      {
-        "label": "Odrasli",
-        "price": "28 €"
-      },
-      {
-        "label": "Djeca od 6 do 12 godina",
-        "price": "16 €"
-      },
-      {
-        "label": "Djeca do 6 godina",
-        "price": "besplatno"
-      }
-    ],
-    "note": "Cijene vrijede za sezonu od 20. 9. 2026.",
-    "image": {
-      "src": "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg",
-      "alt": "Bogat švedski stol s narescima, salatama i toplim jelima"
-    }
+  "offers": {
+    "eyebrow": "Svaki tjedan nešto posebno",
+    "heading": "Aktualna ponuda",
+    "lead": "Švedski stolovi i sezonske ponude mijenjaju se tijekom godine – ovdje je uvijek ono što trenutačno poslužujemo.",
+    "soonHeading": "Uskoro",
+    "emptyText": "Trenutačno nemamo posebnu ponudu. Nazovite nas ili pošaljite upit – rado ćemo vam pripremiti stol ili jelovnik po mjeri."
   },
   "catering": {
     "eyebrow": "Proslave i catering",

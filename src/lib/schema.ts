@@ -61,7 +61,20 @@ export function websiteSchema(locale: string, name: string) {
   };
 }
 
-export function restaurantSchema(g: Global, locale: string, opts: { name: string; description: string; image: string; cuisine: string[] }) {
+type OfferData = {
+  title: string;
+  summary: string;
+  validFrom?: string;
+  validTo?: string;
+  prices: { label: string; amount?: number }[];
+};
+
+export function restaurantSchema(
+  g: Global,
+  locale: string,
+  opts: { name: string; description: string; image: string; cuisine: string[]; offers?: OfferData[] },
+) {
+  const priced = (opts.offers ?? []).filter((o) => o.prices.some((p) => p.amount !== undefined));
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
@@ -75,6 +88,20 @@ export function restaurantSchema(g: Global, locale: string, opts: { name: string
     servesCuisine: opts.cuisine,
     acceptsReservations: true,
     containedInPlace: { '@id': hotelId() },
+    // Offer samo za ponude s potvrđenom cijenom; Menu se ne navodi dok jelovnik nije potvrđen
+    ...(priced.length > 0 && {
+      makesOffer: priced.map((o) => ({
+        '@type': 'Offer',
+        name: o.title,
+        description: o.summary,
+        url: `${abs(pathFor('restaurant', locale))}#ponuda`,
+        ...(o.validFrom && { validFrom: o.validFrom }),
+        ...(o.validTo && { validThrough: o.validTo }),
+        priceSpecification: o.prices
+          .filter((p) => p.amount !== undefined)
+          .map((p) => ({ '@type': 'UnitPriceSpecification', name: p.label, price: p.amount, priceCurrency: 'EUR' })),
+      })),
+    }),
   };
 }
 

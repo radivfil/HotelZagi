@@ -1,0 +1,41 @@
+{
+  "id": "nedjeljni-svedski-stol",
+  "type": "svedski-stol",
+  "title": "Nedjeljni ručak – švedski stol",
+  "summary": "Neka nedjeljom ne kuhaju doma – mi kuhamo za vas. Švedski stol vratio se u ponudu još veći i bogatiji.",
+  "details": [
+    "Mesni, riblji, hladni i topli specijaliteti",
+    "Prilozi i slastice",
+    "Vegetarijanska jela i jela bez glutena",
+    "Rezervacije: 049 284 666 ili 099 228 3919"
+  ],
+  "image": {
+    "src": "/uploads/restaurant/restoran-nedjeljni-svedski-stol.jpg",
+    "alt": "Bogat švedski stol s narescima, salatama i toplim jelima"
+  },
+  "prices": [
+    {
+      "label": "Odrasli",
+      "price": "28 €",
+      "amount": 28
+    },
+    {
+      "label": "Djeca od 6 do 12 godina",
+      "price": "16 €",
+      "amount": 16
+    },
+    {
+      "label": "Djeca do 6 godina",
+      "price": "besplatno",
+      "amount": 0
+    }
+  ],
+  "schedule": {
+    "days": "nedjeljom"
+  },
+  "validFrom": "2026-09-20",
+  "status": "aktivno",
+  "featured": true,
+  "order": 1,
+  "example": false
+}

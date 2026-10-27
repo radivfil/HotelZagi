@@ -1,0 +1,14 @@
+{
+  "id": "primjer-sezonska-ponuda",
+  "type": "sezonski",
+  "title": "Example: Seasonal offer",
+  "summary": "Placeholder content – the hotel enters the real seasonal offer here, adding dishes, price, days and validity only when they are known.",
+  "image": {
+    "src": "/uploads/restaurant/restoran-patka-s-mlincima.jpg",
+    "alt": "Roast duck leg with homemade mlinci on a white plate"
+  },
+  "status": "aktivno",
+  "featured": false,
+  "order": 2,
+  "example": true
+}

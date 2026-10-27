@@ -1,0 +1,14 @@
+{
+  "id": "primjer-riblji-svedski-stol",
+  "type": "riblji",
+  "title": "Example: Fish buffet",
+  "summary": "Placeholder content for an offer with the “coming soon” status – replace with real details from the hotel’s brochure.",
+  "image": {
+    "src": "/uploads/restaurant/restoran-svedski-stol-predjela.jpg",
+    "alt": "Starters and cold cuts served on a buffet"
+  },
+  "status": "uskoro",
+  "featured": false,
+  "order": 3,
+  "example": true
+}

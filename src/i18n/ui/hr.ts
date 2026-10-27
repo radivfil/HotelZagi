@@ -99,6 +99,19 @@ const hr = {
   'restaurant.inquiry': 'Upit za stol ili proslavu',
   'restaurant.buffetPrices': 'Cijene švedskog stola',
 
+  'offers.example': 'Primjer',
+  'offers.schedule': 'Posluživanje',
+  'offers.validFrom': 'od',
+  'offers.validTo': 'do',
+  'offers.validity': 'Vrijedi',
+  'offers.prices': 'Cijene',
+  'offers.inquiry': 'Rezervirajte stol',
+  'offers.type.svedski-stol': 'Švedski stol',
+  'offers.type.riblji': 'Riblji švedski stol',
+  'offers.type.sezonski': 'Sezonska ponuda',
+  'offers.type.blagdanski': 'Blagdanska ponuda',
+  'offers.type.ostalo': 'Posebna ponuda',
+
   // Kongresna dvorana
   'conference.capacity': 'Kapacitet',
   'conference.equipment': 'Oprema',

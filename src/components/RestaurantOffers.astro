@@ -1,0 +1,379 @@
+---
+/**
+ * Aktualna i nadolazeća ponuda restorana iz kolekcije restaurantOffers.
+ * - pri izradi weba: arhivirane i istekle ponude se izostavljaju, ostale se dijele na „aktualno” i „uskoro”
+ * - u pregledniku: mala inline skripta (izvodi se prije iscrtavanja, bez treperenja) ponovno
+ *   primjenjuje ista pravila prema današnjem datumu – istekle skriva, započete premješta u „aktualno”
+ * - bez ijedne aktivne ponude prikazuje se zamjenska poruka s pozivom na kontakt
+ */
+import Picture from './Picture.astro';
+import Button from './Button.astro';
+import FeatureList from './FeatureList.astro';
+import { useTranslations, type UiKey } from '@/i18n';
+import { offerPhase, sortOffers, todayIso, formatDate, type Offer } from '@/lib/offers';
+import { telHref } from '@/lib/content';
+
+interface Props {
+  locale: string;
+  offers: Offer[];
+  meta: { eyebrow?: string; heading: string; lead?: string; soonHeading: string; emptyText: string };
+  phones: { main: string; mobile: string };
+  inquiryHref: string;
+}
+const { locale, offers, meta, phones, inquiryHref } = Astro.props;
+const t = useTranslations(locale);
+const today = todayIso();
+const sorted = [...offers].sort(sortOffers);
+const active = sorted.filter((o) => offerPhase(o, today) === 'active');
+const soon = sorted.filter((o) => offerPhase(o, today) === 'soon');
+const featured = active.filter((o) => o.featured);
+const regular = active.filter((o) => !o.featured);
+
+const typeLabel = (o: Offer) => t(`offers.type.${o.type}` as UiKey);
+const validity = (o: Offer) =>
+  [o.validFrom && `${t('offers.validFrom')} ${formatDate(o.validFrom, locale)}`, o.validTo && `${t('offers.validTo')} ${formatDate(o.validTo, locale)}`]
+    .filter(Boolean)
+    .join(' ');
+const schedule = (o: Offer) => [o.schedule?.days, o.schedule?.time].filter(Boolean).join(', ');
+---
+
+<div class="offers" data-offers>
+  <div class="container offers__head" data-reveal>
+    {meta.eyebrow && <p class="eyebrow">{meta.eyebrow}</p>}
+    <h2 id="ponuda-title">{meta.heading}</h2>
+    {meta.lead && <p class="lead">{meta.lead}</p>}
+  </div>
+
+  <div data-offers-featured>
+    {
+      featured.map((o) => (
+        <article class="feature" id={o.id} data-offer data-status={o.status} data-from={o.validFrom} data-to={o.validTo}>
+          {o.image && <Picture src={o.image.src} alt={o.image.alt} sizes="(min-width: 64em) 50vw, 100vw" class="feature__media" imgClass="feature__img" />}
+          <div class="feature__body">
+            <p class="eyebrow">
+              {typeLabel(o)}
+              {o.example && <span class="badge badge--example">{t('offers.example')}</span>}
+            </p>
+            <h3 class="feature__title">{o.title}</h3>
+            <p class="feature__summary">{o.summary}</p>
+            {o.details.length > 0 && <FeatureList items={o.details} class="feature__list" />}
+            {(schedule(o) || validity(o)) && (
+              <dl class="feature__meta">
+                {schedule(o) && (
+                  <div>
+                    <dt>{t('offers.schedule')}</dt>
+                    <dd>{schedule(o)}</dd>
+                  </div>
+                )}
+                {validity(o) && (
+                  <div>
+                    <dt>{t('offers.validity')}</dt>
+                    <dd>{validity(o)}</dd>
+                  </div>
+                )}
+              </dl>
+            )}
+            {o.prices.length > 0 && (
+              <>
+                <h4 class="feature__prices-title">{t('offers.prices')}</h4>
+                <dl class="prices">
+                  {o.prices.map((p) => (
+                    <div>
+                      <dt>{p.label}</dt>
+                      <dd>{p.price}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </>
+            )}
+            <div class="cluster">
+              <Button href={inquiryHref} icon="arrowRight">{t('offers.inquiry')}</Button>
+              <Button href={telHref(phones.main)} variant="ghost" iconStart="phone">{phones.main}</Button>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="container">
+    <div class="cards" data-offers-active>
+      {
+        regular.map((o) => (
+          <article class="offer" id={o.id} data-offer data-status={o.status} data-from={o.validFrom} data-to={o.validTo}>
+            {o.image && <Picture src={o.image.src} alt={o.image.alt} ratio="4/3" sizes="(min-width: 64em) 33vw, (min-width: 40em) 50vw, 100vw" imgClass="offer__img" />}
+            <div class="offer__body">
+              <p class="eyebrow">
+                {typeLabel(o)}
+                {o.example && <span class="badge badge--example">{t('offers.example')}</span>}
+              </p>
+              <h3 class="offer__title">{o.title}</h3>
+              <p class="offer__summary">{o.summary}</p>
+              {o.details.length > 0 && <FeatureList items={o.details} />}
+              {(schedule(o) || validity(o)) && (
+                <p class="offer__meta">{[schedule(o), validity(o)].filter(Boolean).join(' · ')}</p>
+              )}
+              {o.prices.length > 0 && (
+                <dl class="offer__prices">
+                  {o.prices.map((p) => (
+                    <div>
+                      <dt>{p.label}</dt>
+                      <dd>{p.price}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+              <Button href={inquiryHref} variant="link" icon="arrowRight">{t('offers.inquiry')}</Button>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="offers__empty" hidden={active.length > 0} data-offers-empty>
+      <p>{meta.emptyText}</p>
+      <div class="cluster">
+        <Button href={inquiryHref} icon="arrowRight">{t('offers.inquiry')}</Button>
+        <Button href={telHref(phones.main)} variant="secondary" iconStart="phone">{phones.main}</Button>
+      </div>
+    </div>
+
+    {
+      soon.length > 0 && (
+        <div class="offers__soon" data-offers-soon-wrap>
+          <h3 class="offers__soon-title">{meta.soonHeading}</h3>
+          <div class="cards" data-offers-soon>
+            {soon.map((o) => (
+              <article class="offer offer--soon" id={o.id} data-offer data-status={o.status} data-from={o.validFrom} data-to={o.validTo}>
+                {o.image && <Picture src={o.image.src} alt={o.image.alt} ratio="4/3" sizes="(min-width: 64em) 33vw, (min-width: 40em) 50vw, 100vw" imgClass="offer__img" />}
+                <div class="offer__body">
+                  <p class="eyebrow">
+                    {typeLabel(o)}
+                    {o.example && <span class="badge badge--example">{t('offers.example')}</span>}
+                  </p>
+                  <h4 class="offer__title">{o.title}</h4>
+                  <p class="offer__summary">{o.summary}</p>
+                  {(schedule(o) || validity(o)) && <p class="offer__meta">{[schedule(o), validity(o)].filter(Boolean).join(' · ')}</p>}
+                  <Button href={inquiryHref} variant="link" icon="arrowRight">{t('offers.inquiry')}</Button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </div>
+</div>
+
+<!-- Izvodi se odmah nakon oznaka (prije iscrtavanja): ponuda se ažurira prema današnjem datumu bez treperenja -->
+<script is:inline>
+  {
+    var root = document.querySelector('[data-offers]');
+    if (root) {
+      var n = new Date();
+      var pad = function (x) {
+        return String(x).padStart(2, '0');
+      };
+      var today = n.getFullYear() + '-' + pad(n.getMonth() + 1) + '-' + pad(n.getDate());
+      var activeGrid = root.querySelector('[data-offers-active]');
+      root.querySelectorAll('[data-offer]').forEach(function (el) {
+        var to = el.dataset.to;
+        var from = el.dataset.from;
+        if (to && to < today) {
+          el.hidden = true;
+          return;
+        }
+        if (el.dataset.status === 'aktivno' && (!from || from <= today) && el.closest('[data-offers-soon]')) {
+          el.classList.remove('offer--soon');
+          activeGrid.appendChild(el);
+        }
+      });
+      var visibleActive = root.querySelectorAll(
+        '[data-offers-featured] [data-offer]:not([hidden]), [data-offers-active] [data-offer]:not([hidden])',
+      ).length;
+      root.querySelector('[data-offers-empty]').hidden = visibleActive > 0;
+      var soonWrap = root.querySelector('[data-offers-soon-wrap]');
+      if (soonWrap) soonWrap.hidden = !soonWrap.querySelector('[data-offer]:not([hidden])');
+    }
+  }
+</script>
+
+<style>
+  .offers__head {
+    display: grid;
+    gap: var(--s-2);
+    margin-bottom: clamp(var(--s-4), 4vw, var(--s-6));
+  }
+  .offers__head h2 {
+    max-width: 22ch;
+  }
+  .badge {
+    display: inline-block;
+    margin-left: 0.6rem;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    vertical-align: middle;
+  }
+  .badge--example {
+    background: #fff4d6;
+    color: #6b4e00;
+  }
+
+  /* Istaknuta ponuda – isti vizualni jezik kao dosadašnji blok švedskog stola */
+  .feature {
+    display: grid;
+    background: var(--c-dark);
+    color: var(--c-on-dark);
+  }
+  .feature + .feature {
+    margin-top: 2px;
+  }
+  .feature :global(.feature__media),
+  .feature :global(.feature__img) {
+    width: 100%;
+    height: 100%;
+    min-height: 18rem;
+    object-fit: cover;
+  }
+  .feature__body {
+    display: grid;
+    gap: var(--s-2);
+    align-content: center;
+    padding: clamp(var(--s-5), 6vw, var(--s-7)) var(--gutter);
+    max-width: 40rem;
+  }
+  .feature__body .eyebrow,
+  .feature__summary,
+  .feature__meta dt {
+    color: var(--c-on-dark-muted);
+  }
+  .feature__title {
+    font-size: var(--step-3);
+  }
+  .feature :global(.feature__list .icon) {
+    color: var(--c-on-dark-muted);
+  }
+  .feature__meta {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .feature__meta div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.6rem;
+  }
+  .feature__meta dd {
+    margin: 0;
+  }
+  .feature__prices-title {
+    margin-top: var(--s-1);
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-on-dark-muted);
+  }
+  .prices div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-2);
+    padding-block: 0.7rem;
+    border-bottom: 1px solid rgb(243 237 228 / 0.18);
+  }
+  .prices dd {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1;
+  }
+  @media (min-width: 64em) {
+    .feature {
+      grid-template-columns: 1fr 1fr;
+    }
+    .feature__body {
+      padding-inline: clamp(var(--s-5), 6vw, var(--s-7));
+    }
+  }
+
+  /* Ostale ponude */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: var(--s-4) clamp(1rem, 2vw, 2rem);
+  }
+  .cards {
+    min-height: 0;
+  }
+  [data-offers-active] {
+    margin-top: clamp(var(--s-5), 6vw, var(--s-6));
+  }
+  .offer {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+  }
+  .offer :global(.offer__img) {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-l);
+  }
+  .offer__body {
+    display: grid;
+    gap: var(--s-1);
+    justify-items: start;
+  }
+  .offer__title {
+    font-size: var(--step-2);
+  }
+  .offer__summary,
+  .offer__meta {
+    color: var(--c-text-muted);
+  }
+  .offer__meta {
+    font-size: var(--step--1);
+  }
+  .offer__prices {
+    width: 100%;
+  }
+  .offer__prices div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-2);
+    padding-block: 0.35rem;
+    border-bottom: 1px solid var(--c-line);
+  }
+  .offer__prices dd {
+    margin: 0;
+    font-weight: 600;
+  }
+  .offer--soon :global(.offer__img) {
+    filter: saturate(0.7);
+  }
+  .offers__empty {
+    display: grid;
+    gap: var(--s-3);
+    justify-items: start;
+    max-width: 44rem;
+    margin-top: var(--s-3);
+    padding: clamp(var(--s-3), 3vw, var(--s-5));
+    border-radius: var(--radius-l);
+    background: var(--c-surface);
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+  .offers__soon {
+    margin-top: clamp(var(--s-6), 8vw, var(--s-7));
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--c-line);
+  }
+  .offers__soon-title {
+    font-size: var(--step-3);
+  }
+  .offers__soon .cards {
+    margin-top: var(--s-4);
+  }
+</style>

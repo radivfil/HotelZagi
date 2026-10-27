@@ -32,6 +32,13 @@ Pravilo: kad se izvori razilaze, korištena je brošura.
 - [ ] **Pravni tekstovi** (Privatnost, Kolačići) – predložak; rok čuvanja 12 mjeseci je pretpostavka. Pregled pravnika / DPO-a.
 - [ ] **Društvene mreže** – potvrditi da su /hotelzagi i @hotel_zagi aktivni profili (brošura) i ugasiti/preusmjeriti stari „Pansion ZAGI”.
 
+## 2a. Ponude restorana (nova kolekcija)
+
+- [ ] **Probne ponude – ZAMIJENITI stvarnima** (podaci iz brošure / od hotela): `src/content/restaurant-offers/{hr,en}/primjer-sezonska-ponuda.json` („Primjer: Sezonska ponuda”, status aktivno) i `primjer-riblji-svedski-stol.json` („Primjer: Riblji švedski stol”, status uskoro). Nemaju jela, cijene ni datume – namjerno. Na webu imaju oznaku „Primjer”.
+- [ ] **Nedjeljni švedski stol** premješten je iz stranice Restoran u kolekciju kao stvarna ponuda (cijene 28 € / 16 € / besplatno i početak 20. 9. 2026. sa zagi.hr). Nedostaje **vrijeme posluživanja** i **datum završetka sezone** (`validTo`).
+- [ ] Postaviti **deploy hook** i GitHub secret `DEPLOY_HOOK_URL` da dnevni build radi (ili cron na hostingu).
+- [ ] JSON-LD: `Restaurant.makesOffer` sadrži samo stvarne aktivne ponude s potvrđenom cijenom; `Menu` nije dodan dok jelovnik nije potvrđen.
+
 ## 3. Fotografije
 
 - [ ] **Nema kvalitetne vanjske fotografije hotela.** Pročelje (`hotel-zagi-procelje.jpg`, 603×569) i Oroslavje iz zraka (`oroslavje-iz-zraka.jpg`, 910×544) izvučeni su iz brošure 2019 i **premali su** – koriste se samo u manjim prikazima. Potrebne nove fotografije pročelja, terase, parkirališta i okolice.

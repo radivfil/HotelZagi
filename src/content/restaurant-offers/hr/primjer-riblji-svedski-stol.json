@@ -1,0 +1,14 @@
+{
+  "id": "primjer-riblji-svedski-stol",
+  "type": "riblji",
+  "title": "Primjer: Riblji švedski stol",
+  "summary": "Probni sadržaj za ponudu sa statusom „uskoro” – zamijeniti stvarnim podacima iz brošure hotela.",
+  "image": {
+    "src": "/uploads/restaurant/restoran-svedski-stol-predjela.jpg",
+    "alt": "Predjela i hladni naresci posluženi na švedskom stolu"
+  },
+  "status": "uskoro",
+  "featured": false,
+  "order": 3,
+  "example": true
+}

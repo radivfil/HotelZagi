@@ -8,9 +8,11 @@ import PdfDownload from '@/components/PdfDownload.astro';
 import InquiryForm from '@/components/InquiryForm.astro';
 import Button from '@/components/Button.astro';
 import Icon from '@/components/Icon.astro';
+import RestaurantOffers from '@/components/RestaurantOffers.astro';
 import { useTranslations } from '@/i18n';
 import { pathFor } from '@/i18n/routes';
-import { getGlobal, getLocalized, telHref } from '@/lib/content';
+import { getGlobal, getLocalized, getLocalizedList, telHref } from '@/lib/content';
+import { offerPhase, todayIso } from '@/lib/offers';
 import { restaurantSchema } from '@/lib/schema';
 
 interface Props {
@@ -25,11 +27,15 @@ const crumbs = [
   { label: t('nav.restaurant'), href: pathFor('restaurant', locale) },
 ];
 const [leadDish, ...dishes] = r.dishes.items;
+const offers = (await getLocalizedList('restaurantOffers', locale)).entries.map((e) => e.data);
+const today = todayIso();
 const jsonLd = [
   restaurantSchema(g, locale, {
     name: `Restoran ${g.hotelName}`,
     description: r.seo.description,
-    image: r.hero.image?.src ?? r.buffet.image.src,
+    image: r.hero.image?.src ?? '/uploads/restaurant/restoran-svecano-postavljen-stol.jpg',
+    // Samo stvarne (ne probne) aktivne ponude s poznatom cijenom
+    offers: offers.filter((o) => !o.example && offerPhase(o, today) === 'active'),
     cuisine: locale === 'hr' ? ['Zagorska kuhinja', 'Hrvatska kuhinja', 'Međunarodna kuhinja'] : ['Zagorje cuisine', 'Croatian cuisine', 'International cuisine'],
   }),
 ];
@@ -89,29 +95,8 @@ const jsonLd = [
     </ul>
   </Section>
 
-  <section class="buffet" id="svedski-stol" aria-labelledby="buffet-title">
-    <Picture src={r.buffet.image.src} alt={r.buffet.image.alt} sizes="(min-width: 64em) 50vw, 100vw" class="buffet__media" imgClass="buffet__img" />
-    <div class="buffet__body" data-reveal>
-      {r.buffet.eyebrow && <p class="eyebrow">{r.buffet.eyebrow}</p>}
-      <h2 id="buffet-title">{r.buffet.heading}</h2>
-      {r.buffet.paragraphs.map((p) => <p>{p}</p>)}
-      <h3 class="buffet__prices-title">{t('restaurant.buffetPrices')}</h3>
-      <dl class="prices">
-        {
-          r.buffet.prices.map((p) => (
-            <div>
-              <dt>{p.label}</dt>
-              <dd>{p.price}</dd>
-            </div>
-          ))
-        }
-      </dl>
-      {r.buffet.note && <p class="buffet__note">{r.buffet.note}</p>}
-      <div class="cluster">
-        <Button href={telHref(g.phones.main)} variant="ghost" iconStart="phone">{g.phones.main}</Button>
-        <Button href={telHref(g.phones.mobile)} variant="ghost" iconStart="phone">{g.phones.mobile}</Button>
-      </div>
-    </div>
+  <section class="offers-section" id="ponuda" aria-labelledby="ponuda-title">
+    <RestaurantOffers locale={locale} offers={offers} meta={r.offers} phones={g.phones} inquiryHref="#upit" />
   </section>
 
   <Section id="catering">
@@ -253,65 +238,8 @@ const jsonLd = [
     color: var(--c-logo);
   }
 
-  .buffet {
-    display: grid;
-    background: var(--c-dark);
-    color: var(--c-on-dark);
-  }
-  .buffet :global(.buffet__media),
-  .buffet :global(.buffet__img) {
-    width: 100%;
-    height: 100%;
-    min-height: 18rem;
-    object-fit: cover;
-  }
-  .buffet__body {
-    display: grid;
-    gap: var(--s-2);
-    align-content: center;
-    padding: clamp(var(--s-5), 6vw, var(--s-7)) var(--gutter);
-    max-width: 40rem;
-  }
-  .buffet__body .eyebrow {
-    color: var(--c-on-dark-muted);
-  }
-  .buffet__body > p:not(.eyebrow):not(.buffet__note) {
-    color: var(--c-on-dark-muted);
-  }
-  .buffet__prices-title {
-    margin-top: var(--s-2);
-    font-family: var(--font-sans);
-    font-size: var(--step--1);
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--c-on-dark-muted);
-  }
-  .prices div {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--s-2);
-    padding-block: 0.7rem;
-    border-bottom: 1px solid rgb(243 237 228 / 0.18);
-  }
-  .prices dd {
-    margin: 0;
-    font-family: var(--font-serif);
-    font-size: var(--step-2);
-    font-weight: 600;
-    line-height: 1;
-  }
-  .buffet__note {
-    font-size: var(--step--1);
-    color: var(--c-on-dark-muted);
-  }
-  @media (min-width: 64em) {
-    .buffet {
-      grid-template-columns: 1fr 1fr;
-    }
-    .buffet__body {
-      padding-inline: clamp(var(--s-5), 6vw, var(--s-7));
-    }
+  .offers-section {
+    padding-block: var(--section-y);
   }
   .notes {
     display: grid;

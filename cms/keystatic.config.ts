@@ -61,6 +61,7 @@ export default config({
     navigation: {
       Naslovnica: enabledLocales.map((l) => `home_${l.code}`),
       Sobe: enabledLocales.map((l) => `rooms_${l.code}`),
+      'Ponude restorana': enabledLocales.map((l) => `offers_${l.code}`),
       Postavke: ['global', ...enabledLocales.map((l) => `settings_${l.code}`)],
     },
   },
@@ -150,6 +151,57 @@ export default config({
     // – ista načela; polja preslikati iz src/content.config.ts.
   },
   collections: {
+    ...perLocale((code, name) => [
+      `offers_${code}`,
+      collection({
+        label: `Ponude restorana (${name})`,
+        path: `src/content/restaurant-offers/${code}/*`,
+        slugField: 'title',
+        format: { data: 'json' },
+        columns: ['title', 'status', 'validFrom', 'validTo'],
+        schema: {
+          id: fields.text({ label: 'Oznaka', description: 'Ista na svim jezicima, npr. riblji-svedski-stol' }),
+          type: fields.select({
+            label: 'Vrsta',
+            options: [
+              { label: 'Švedski stol', value: 'svedski-stol' },
+              { label: 'Riblji švedski stol', value: 'riblji' },
+              { label: 'Sezonska', value: 'sezonski' },
+              { label: 'Blagdanska', value: 'blagdanski' },
+              { label: 'Ostalo', value: 'ostalo' },
+            ],
+            defaultValue: 'svedski-stol',
+          }),
+          title: fields.slug({ name: { label: 'Naslov' } }),
+          summary: fields.text({ label: 'Kratki opis', multiline: true }),
+          details: fields.array(fields.text({ label: 'Stavka' }), { label: 'Opis ili popis jela', itemLabel: (d) => d.value }),
+          image: img('restaurant'),
+          prices: fields.array(
+            fields.object({
+              label: fields.text({ label: 'Za koga (npr. Odrasli)' }),
+              price: fields.text({ label: 'Cijena za prikaz (npr. 28 €)' }),
+              amount: fields.number({ label: 'Iznos u EUR (za Google)' }),
+            }),
+            { label: 'Cijene (samo potvrđene)', itemLabel: (p) => `${p.fields.label.value}: ${p.fields.price.value}` },
+          ),
+          schedule: fields.object({ days: fields.text({ label: 'Dani (npr. nedjeljom)' }), time: fields.text({ label: 'Vrijeme (npr. 12:00 – 16:00)' }) }, { label: 'Posluživanje' }),
+          validFrom: fields.date({ label: 'Vrijedi od' }),
+          validTo: fields.date({ label: 'Vrijedi do' }),
+          status: fields.select({
+            label: 'Status',
+            options: [
+              { label: 'Aktivno', value: 'aktivno' },
+              { label: 'Uskoro', value: 'uskoro' },
+              { label: 'Arhivirano (ne prikazuje se)', value: 'arhivirano' },
+            ],
+            defaultValue: 'aktivno',
+          }),
+          featured: fields.checkbox({ label: 'Istaknuto (veliki blok)', defaultValue: false }),
+          order: fields.integer({ label: 'Redoslijed', defaultValue: 0 }),
+          example: fields.checkbox({ label: 'Probni sadržaj', defaultValue: false }),
+        },
+      }),
+    ]),
     ...perLocale((code, name) => [
       `rooms_${code}`,
       collection({

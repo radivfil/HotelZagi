@@ -141,18 +141,57 @@ const restaurant = defineCollection({
     facts: z.array(z.object({ value: z.string(), label: z.string() })),
     dishes: z.object({ heading: z.string(), lead: z.string(), items: z.array(z.object({ name: z.string(), text: z.string(), image: image.optional() })) }),
     specialities: z.array(z.string()).describe('Popis domaćih specijaliteta'),
-    buffet: z.object({
-      eyebrow: z.string().optional(),
-      heading: z.string(),
-      paragraphs: z.array(z.string()),
-      prices: z.array(z.object({ label: z.string(), price: z.string() })),
-      note: z.string().optional(),
-      image,
-    }),
+    offers: z
+      .object({
+        eyebrow: z.string().optional(),
+        heading: z.string().describe('Naslov bloka aktualne ponude'),
+        lead: z.string().optional(),
+        soonHeading: z.string().describe('Naslov bloka „Uskoro”'),
+        emptyText: z.string().describe('Poruka kad nema nijedne aktivne ponude'),
+      })
+      .describe('Naslovi bloka ponuda – same ponude su u kolekciji restaurantOffers'),
     catering: textSection,
     wine: textSection,
     haccp: textSection,
     brochure: z.object({ file: z.string(), title: z.string(), description: z.string() }).optional(),
+  }),
+});
+
+const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Datum u obliku GGGG-MM-DD');
+
+/**
+ * Ponude restorana (švedski stol, riblji, sezonski, blagdanski …) – jedan JSON po ponudi i jeziku.
+ * Prikaz ovisi o statusu i razdoblju valjanosti (filtrira se pri izradi weba i u pregledniku).
+ */
+const restaurantOffers = defineCollection({
+  loader: glob({ pattern: '*/*.json', base: './src/content/restaurant-offers' }),
+  schema: z.object({
+    id: z.string().describe('Jedinstvena oznaka ponude (ista na svim jezicima)'),
+    type: z.enum(['svedski-stol', 'riblji', 'sezonski', 'blagdanski', 'ostalo']).describe('Vrsta ponude'),
+    title: z.string().describe('Naslov ponude'),
+    summary: z.string().describe('Kratki opis (1–2 rečenice)'),
+    details: z.array(z.string()).default([]).describe('Detaljni opis ili popis jela – samo potvrđeni podaci'),
+    image: image.optional(),
+    prices: z
+      .array(
+        z.object({
+          label: z.string().describe('npr. „Odrasli”'),
+          price: z.string().describe('Prikaz cijene, npr. „28 €” ili „besplatno”'),
+          amount: z.number().nonnegative().optional().describe('Iznos u EUR za strukturirane podatke (opcionalno)'),
+        }),
+      )
+      .default([])
+      .describe('Cijene – samo ako su poznate'),
+    schedule: z
+      .object({ days: z.string().optional().describe('npr. „nedjeljom”'), time: z.string().optional().describe('npr. „12:00 – 16:00”') })
+      .optional()
+      .describe('Dani i vrijeme posluživanja – samo ako su poznati'),
+    validFrom: isoDate.optional().describe('Vrijedi od (GGGG-MM-DD)'),
+    validTo: isoDate.optional().describe('Vrijedi do (GGGG-MM-DD)'),
+    status: z.enum(['aktivno', 'uskoro', 'arhivirano']).describe('Arhivirane ponude se ne prikazuju'),
+    featured: z.boolean().default(false).describe('Istaknuto – prikazuje se velikim blokom'),
+    order: z.number().int().default(0).describe('Redoslijed (manji broj = prije)'),
+    example: z.boolean().default(false).describe('PROBNI sadržaj – zamijeniti stvarnom ponudom'),
   }),
 });
 
@@ -215,4 +254,4 @@ const global = defineCollection({
   }),
 });
 
-export const collections = { pages, rooms, wellness, restaurant, conference, gallery, settings, global };
+export const collections = { pages, rooms, wellness, restaurant, restaurantOffers, conference, gallery, settings, global };

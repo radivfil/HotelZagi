@@ -46,10 +46,29 @@ Sav tekst je u `src/content/**` – u komponentama nema sadržaja.
 
 - **Hero slajdovi:** `src/content/pages/<jezik>/home.json` → `heroSlides` (slika, naslov, podnaslov, gumb). Redoslijed u popisu = redoslijed slajdova. Trajanje slajda: `src/content/settings/global.json` → `slider.intervalMs`.
 - **Sobe:** jedan JSON po tipu sobe u `src/content/rooms/<jezik>/`.
+- **Ponude restorana** (švedski stol, riblji, sezonski, blagdanski): jedan JSON po ponudi u `src/content/restaurant-offers/<jezik>/` – vidi niže.
 - **Kontakt, ocjena, koordinate:** `src/content/settings/global.json`.
 - **Nova fotografija:** spremite JPG u `public/uploads/<kategorija>/` i upišite putanju + alt tekst u sadržaj. `npm run dev`/`build` sami generiraju AVIF/WebP (postojeće varijante se preskaču; `npm run images -- --force` za ponovno generiranje).
 
 Pogrešan unos (npr. predug SEO naslov, slika bez alt teksta) zaustavlja build s jasnom porukom.
+
+## Ponude restorana
+
+Svaka ponuda je zasebna datoteka (`src/content/restaurant-offers/hr/<oznaka>.json` i ista oznaka u `en/`) s poljima:
+vrsta, naslov, kratki opis, opis ili popis jela, slika + alt, cijene (opcionalno), dani i vrijeme posluživanja (opcionalno),
+`validFrom` / `validTo` (GGGG-MM-DD, opcionalno), `status` (`aktivno` / `uskoro` / `arhivirano`), `featured`, `order`.
+
+- **Aktualna ponuda** = status `aktivno` i današnji datum unutar razdoblja valjanosti. Istaknute (`featured`) dobivaju veliki blok.
+- **Uskoro** = status `uskoro` ili `aktivno` s datumom početka u budućnosti.
+- **Arhivirano** ili isteklo (`validTo` u prošlosti) – ne prikazuje se.
+- Nema li nijedne aktivne ponude, prikazuje se poruka s pozivom na kontakt.
+
+Datumi se provjeravaju **pri izradi weba** i **u pregledniku posjetitelja** (mala skripta, bez treperenja), pa istekla ponuda nestane točno na vrijeme.
+Ipak, **nakon svake izmjene ponude stranica se mora ponovno objaviti** (git push / spremanje u CMS-u pokreće build).
+Za automatsko osvježavanje uključen je `.github/workflows/daily-rebuild.yml` – svaki dan pokreće build preko *deploy hooka*
+(Cloudflare Pages ili Netlify → Deploy hooks → URL spremiti kao GitHub secret `DEPLOY_HOOK_URL`). Bez GitHuba isto se može postaviti cronom na hostingu.
+
+Probne ponude imaju `"example": true` i oznaku „Primjer” – zamijeniti stvarnima (vidi `TODO.md`).
 
 ## Objava
 
