@@ -1,0 +1,82 @@
+---
+/** Značka recenzija (Google). Vrijednosti dolaze iz settings/global.json. */
+import Icon from './Icon.astro';
+import { useTranslations } from '@/i18n';
+
+interface Props {
+  locale: string;
+  rating: number;
+  count: number;
+  url: string;
+  source: string;
+}
+const { locale, rating, count, url, source } = Astro.props;
+const t = useTranslations(locale);
+const fmt = new Intl.NumberFormat(locale === 'hr' ? 'hr-HR' : locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const countFmt = new Intl.NumberFormat(locale === 'hr' ? 'hr-HR' : locale).format(count);
+const full = Math.round(rating);
+---
+
+<div class="review">
+  <p class="review__score">
+    <span class="review__value">{fmt.format(rating)}</span>
+    <span class="review__stars" role="img" aria-label={`${fmt.format(rating)} / 5`}>
+      {Array.from({ length: 5 }, (_, i) => <Icon name="star" size={20} fill={i < full} />)}
+    </span>
+  </p>
+  <p class="review__meta">
+    <strong>{t('reviews.label')}</strong>
+    <span>{t('reviews.count', { n: countFmt })} · {source}</span>
+  </p>
+  <a class="review__link" href={url} rel="noopener" target="_blank">
+    {t('reviews.link')}
+    <span class="visually-hidden">{t('common.newWindow')}</span>
+    <Icon name="external" size={16} />
+  </a>
+</div>
+
+<style>
+  .review {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2) var(--s-4);
+  }
+  .review__score {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .review__value {
+    font-family: var(--font-serif);
+    font-size: var(--step-4);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .review__stars {
+    display: flex;
+    gap: 2px;
+    color: var(--c-logo);
+  }
+  .review__meta {
+    display: grid;
+    line-height: 1.4;
+  }
+  .review__meta span {
+    color: var(--c-text-muted);
+    font-size: var(--step--1);
+  }
+  .review__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: var(--tap);
+    margin-left: auto;
+    font-weight: 600;
+  }
+  @media (max-width: 47.99em) {
+    .review__link {
+      margin-left: 0;
+    }
+  }
+</style>

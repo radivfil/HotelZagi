@@ -1,0 +1,106 @@
+---
+/**
+ * Banner pristanka na kolačiće. Renderira se samo kad ga nešto traži
+ * (CONSENT_REQUIRED – npr. uključen chatbot). U demu nije prisutan.
+ */
+import { CONSENT_REQUIRED } from '@/config/site';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+{
+  CONSENT_REQUIRED && (
+    <section class="consent" aria-label={t('nav.cookies')} hidden data-consent>
+      <p>
+        {t('consent.text')} <a href={pathFor('cookies', locale)}>{t('consent.more')}</a>
+      </p>
+      <div class="consent__actions">
+        <button type="button" data-consent-choice="rejected">
+          {t('consent.reject')}
+        </button>
+        <button type="button" data-consent-choice="accepted" class="consent__accept">
+          {t('consent.accept')}
+        </button>
+      </div>
+    </section>
+  )
+}
+
+{
+  CONSENT_REQUIRED && (
+    <style is:inline>
+      .consent {
+        position: fixed;
+        left: var(--gutter);
+        right: var(--gutter);
+        bottom: calc(80px + env(safe-area-inset-bottom));
+        z-index: 46;
+        display: grid;
+        gap: var(--s-2);
+        max-width: 34rem;
+        padding: var(--s-3);
+        border-radius: var(--radius-l);
+        background: var(--c-bg);
+        box-shadow: var(--shadow-m);
+        font-size: var(--step--1);
+      }
+      @media (min-width: 48em) {
+        .consent {
+          bottom: var(--s-3);
+          right: auto;
+        }
+      }
+      .consent__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--s-1);
+      }
+      .consent button {
+        min-height: var(--tap);
+        padding: 0 1.2rem;
+        border: 1px solid var(--c-accent);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--c-accent);
+        font-weight: 600;
+      }
+      .consent .consent__accept {
+        background: var(--c-accent);
+        color: var(--c-on-accent);
+      }
+    </style>
+  )
+}
+
+{
+  CONSENT_REQUIRED && (
+    <script is:inline>
+      {
+      const banner = document.querySelector('[data-consent]');
+      const KEY = 'zagi-consent';
+      if (banner) {
+        let stored = null;
+        try {
+          stored = window.localStorage.getItem(KEY);
+        } catch {}
+        if (!stored) banner.hidden = false;
+        banner.querySelectorAll('[data-consent-choice]').forEach((btn) =>
+          btn.addEventListener('click', () => {
+            try {
+              window.localStorage.setItem(KEY, btn.dataset.consentChoice);
+            } catch {}
+            banner.hidden = true;
+            document.dispatchEvent(new CustomEvent('zagi:consent', { detail: btn.dataset.consentChoice }));
+          }),
+        );
+      }
+      }
+    </script>
+  )
+}

@@ -1,0 +1,198 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor, type PageKey } from '@/i18n/routes';
+import { getGlobal, getSettings, telHref } from '@/lib/content';
+import { CHATBOT, SITE } from '@/config/site';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const g = await getGlobal();
+const s = await getSettings(locale);
+
+const explore: { key: PageKey; label: string }[] = [
+  { key: 'rooms', label: t('nav.rooms') },
+  { key: 'wellness', label: t('nav.wellness') },
+  { key: 'restaurant', label: t('nav.restaurant') },
+  { key: 'conference', label: t('nav.conference') },
+  { key: 'about', label: t('nav.about') },
+  { key: 'gallery', label: t('nav.gallery') },
+  { key: 'contact', label: t('nav.contact') },
+];
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a href={pathFor('home', locale)} aria-label={t('nav.homeLink')} class="site-footer__logo">
+        <img src="/logo.svg" alt="" width="320" height="170" loading="lazy" />
+      </a>
+      <p>{s.footerAbout}</p>
+      {
+        (g.social.facebook || g.social.instagram) && (
+          <ul role="list" class="site-footer__social" aria-label={t('footer.follow')}>
+            {g.social.facebook && (
+              <li>
+                <a href={g.social.facebook} rel="noopener" target="_blank">
+                  <Icon name="facebook" label="Facebook" />
+                </a>
+              </li>
+            )}
+            {g.social.instagram && (
+              <li>
+                <a href={g.social.instagram} rel="noopener" target="_blank">
+                  <Icon name="instagram" label="Instagram" />
+                </a>
+              </li>
+            )}
+          </ul>
+        )
+      }
+    </div>
+
+    <div>
+      <h2 class="site-footer__title">{t('footer.contact')}</h2>
+      <address class="site-footer__contact">
+        <p>
+          <strong>{g.hotelName}</strong><br />
+          {g.address.street}<br />
+          {g.address.postalCode} {g.address.city}, {g.address.country}
+        </p>
+        <p>
+          <a href={telHref(g.phones.main)}><Icon name="phone" size={18} />{g.phones.main}</a>
+          <a href={telHref(g.phones.mobile)}><Icon name="phone" size={18} />{g.phones.mobile}</a>
+          <a href={`mailto:${g.emails.info}`}><Icon name="mail" size={18} />{g.emails.info}</a>
+          <a href={`mailto:${g.emails.reception}`}><Icon name="mail" size={18} />{g.emails.reception}</a>
+          <a href={g.mapUrl} rel="noopener" target="_blank"><Icon name="pin" size={18} />{t('contact.map')}<span class="visually-hidden"> {t('common.newWindow')}</span></a>
+        </p>
+      </address>
+    </div>
+
+    <nav class="site-footer__nav" aria-label={t('footer.explore')}>
+      <h2 class="site-footer__title">{t('footer.explore')}</h2>
+      <ul role="list">
+        {explore.map((item) => <li><a href={pathFor(item.key, locale)}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="site-footer__title">{t('footer.legal')}</h2>
+      <ul role="list" class="site-footer__nav-list">
+        <li><a href={pathFor('privacy', locale)}>{t('nav.privacy')}</a></li>
+        <li><a href={pathFor('cookies', locale)}>{t('nav.cookies')}</a></li>
+      </ul>
+      {/* Rezervirano mjesto za izjavu o obradi podataka chatbota (vidi docs/CHATBOT-PLAN.md) */}
+      {!CHATBOT.enabled && <p class="site-footer__note" data-chatbot-notice>{t('footer.chatbotNotice')}</p>}
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>© {year} {g.legalName} · OIB {g.vatId?.replace(/^HR/, '')}. {t('footer.rights')}</p>
+    {SITE.noindex && <p>{t('footer.demo')}</p>}
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--s-7) var(--s-4);
+    background: var(--c-dark);
+    color: var(--c-on-dark);
+    font-size: var(--step--1);
+  }
+  .site-footer a {
+    color: var(--c-on-dark);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .site-footer__grid {
+    display: grid;
+    gap: var(--s-5) var(--s-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  }
+  @media (min-width: 64em) {
+    .site-footer__grid {
+      grid-template-columns: 1.4fr 1.2fr 1fr 1fr;
+    }
+  }
+  .site-footer__brand {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    max-width: 22rem;
+  }
+  .site-footer__brand p {
+    color: var(--c-on-dark-muted);
+  }
+  .site-footer__logo img {
+    width: 9rem;
+    height: auto;
+    filter: brightness(0) invert(0.92);
+  }
+  .site-footer__title {
+    margin-bottom: var(--s-2);
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-on-dark-muted);
+  }
+  .site-footer__contact {
+    display: grid;
+    gap: var(--s-2);
+    font-style: normal;
+  }
+  .site-footer__contact a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: var(--tap);
+    word-break: break-word;
+  }
+  .site-footer__nav ul,
+  .site-footer__nav-list {
+    display: grid;
+  }
+  .site-footer__nav a,
+  .site-footer__nav-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+  .site-footer__note {
+    margin-top: var(--s-2);
+    max-width: 26ch;
+    color: var(--c-on-dark-muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  .site-footer__social {
+    display: flex;
+    gap: var(--s-1);
+  }
+  .site-footer__social a {
+    display: grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    border: 1px solid rgb(243 237 228 / 0.3);
+    border-radius: 50%;
+  }
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-1) var(--s-3);
+    margin-top: var(--s-6);
+    padding-top: var(--s-3);
+    border-top: 1px solid rgb(243 237 228 / 0.15);
+    color: var(--c-on-dark-muted);
+  }
+</style>

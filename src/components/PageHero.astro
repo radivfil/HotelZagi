@@ -1,0 +1,104 @@
+---
+/**
+ * Zaglavlje podstranice: velika fotografija (ili mirna pozadina), H1, uvod i breadcrumbs.
+ * S fotografijom header iznad njega je proziran.
+ */
+import Picture from './Picture.astro';
+import Breadcrumbs, { type Crumb } from './Breadcrumbs.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  image?: { src: string; alt: string };
+  crumbs: Crumb[];
+  locale: string;
+}
+const { eyebrow, title, lead, image, crumbs, locale } = Astro.props;
+---
+
+<section class:list={['page-hero', { 'page-hero--image': image }]}>
+  {
+    image && (
+      <Picture
+        src={image.src}
+        alt={image.alt}
+        sizes="100vw"
+        class="page-hero__picture"
+        imgClass="page-hero__img"
+        loading="eager"
+        fetchpriority="high"
+      />
+    )
+  }
+  <div class="page-hero__inner container">
+    <Breadcrumbs crumbs={crumbs} locale={locale} inverse={!!image} />
+    <div class="page-hero__text">
+      {eyebrow && <p class="eyebrow page-hero__eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {lead && <p class="lead page-hero__lead">{lead}</p>}
+    </div>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    padding-top: calc(var(--header-h) + var(--s-2));
+    padding-bottom: clamp(var(--s-5), 6vw, var(--s-7));
+    background: var(--c-surface);
+  }
+  .page-hero__text {
+    display: grid;
+    gap: var(--s-2);
+    margin-top: clamp(var(--s-3), 4vw, var(--s-5));
+    max-width: 52rem;
+  }
+  .page-hero h1 {
+    max-width: 20ch;
+  }
+  .page-hero__lead {
+    max-width: 46ch;
+  }
+
+  .page-hero--image {
+    display: flex;
+    min-height: min(72svh, 40rem);
+    padding-bottom: clamp(var(--s-4), 5vw, var(--s-6));
+    color: #fff;
+    background: var(--c-dark);
+    overflow: hidden;
+  }
+  .page-hero--image .page-hero__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .page-hero--image :global(.page-hero__picture),
+  .page-hero--image :global(.page-hero__img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .page-hero--image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgb(20 16 14 / 0.8) 0%, rgb(20 16 14 / 0.3) 50%, rgb(20 16 14 / 0.45) 100%);
+  }
+  .page-hero--image .page-hero__eyebrow,
+  .page-hero--image .page-hero__lead {
+    color: rgb(255 255 255 / 0.92);
+  }
+  @media (min-width: 64em) {
+    .page-hero--image {
+      min-height: min(80svh, 46rem);
+    }
+  }
+</style>

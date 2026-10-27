@@ -1,0 +1,58 @@
+---
+/**
+ * SEO glava: title, meta opis, canonical, hreflang (uključeni jezici + x-default),
+ * Open Graph, Twitter kartica, robots i JSON-LD. Sve vrijednosti dolaze iz
+ * sadržajnih polja `seo` po stranici i jeziku.
+ */
+import { SITE } from '@/config/site';
+import { defaultLocale, getLocale } from '@/i18n/config';
+import { alternatesFor, pathFor, type PageKey } from '@/i18n/routes';
+import { largestVariant } from '@/lib/images';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: string;
+  pageKey?: PageKey;
+  ogImage?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>[];
+  /** Za 404 i slične stranice bez jezičnih inačica */
+  standalone?: boolean;
+}
+const { title, description, locale, pageKey, ogImage, noindex = false, jsonLd = [], standalone = false } = Astro.props;
+
+const abs = (path: string) => new URL(path, SITE.url + '/').href;
+const canonical = pageKey ? abs(pathFor(pageKey, locale)) : undefined;
+const alternates = pageKey && !standalone ? alternatesFor(pageKey) : [];
+const image = abs(largestVariant(ogImage ?? SITE.defaultOgImage, 1440));
+const robots = noindex || SITE.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+const og = getLocale(locale);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={robots} />
+{canonical && <link rel="canonical" href={canonical} />}
+{alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={abs(alt.path)} />)}
+{alternates.length > 0 && pageKey && <link rel="alternate" hreflang="x-default" href={abs(pathFor(pageKey, defaultLocale))} />}
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Hotel Zagi" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{canonical && <meta property="og:url" content={canonical} />}
+<meta property="og:image" content={image} />
+<meta property="og:image:width" content="1440" />
+<meta property="og:locale" content={og.ogLocale} />
+{
+  alternates
+    .filter((a) => a.locale !== locale)
+    .map((a) => <meta property="og:locale:alternate" content={getLocale(a.locale).ogLocale} />)
+}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+
+{jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}

@@ -1,0 +1,88 @@
+---
+/** Gumb za preuzimanje brošure (PDF) s veličinom datoteke. */
+import fs from 'node:fs';
+import path from 'node:path';
+import Icon from './Icon.astro';
+import { useTranslations } from '@/i18n';
+
+interface Props {
+  file: string;
+  title: string;
+  description?: string;
+  locale: string;
+}
+const { file, title, description, locale } = Astro.props;
+const t = useTranslations(locale);
+
+let size = '';
+try {
+  const bytes = fs.statSync(path.join(process.cwd(), 'public', file)).size;
+  size = `${(bytes / 1024 / 1024).toLocaleString(locale === 'hr' ? 'hr-HR' : 'en-GB', { maximumFractionDigits: 1 })} MB`;
+} catch {
+  size = '';
+}
+---
+
+<a class="pdf" href={file} download>
+  <span class="pdf__icon">
+    <Icon name="download" size={24} />
+  </span>
+  <span class="pdf__text">
+    <span class="pdf__label">{t('pdf.download')}</span>
+    <span class="pdf__title">{title}</span>
+    {description && <span class="pdf__desc">{description}</span>}
+    <span class="pdf__meta">{t('pdf.label')}{size && ` · ${size}`}</span>
+  </span>
+</a>
+
+<style>
+  .pdf {
+    display: flex;
+    gap: var(--s-2);
+    align-items: flex-start;
+    padding: var(--s-3);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-l);
+    background: var(--c-bg);
+    color: var(--c-text);
+    text-decoration: none;
+    transition: border-color var(--dur-s), box-shadow var(--dur-s);
+  }
+  .pdf:hover {
+    color: var(--c-text);
+    border-color: var(--c-accent);
+    box-shadow: var(--shadow-s);
+  }
+  .pdf__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--c-accent);
+    color: var(--c-on-accent);
+  }
+  .pdf__text {
+    display: grid;
+    gap: 0.15rem;
+  }
+  .pdf__label {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+  }
+  .pdf__title {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .pdf__desc,
+  .pdf__meta {
+    font-size: var(--step--1);
+    color: var(--c-text-muted);
+  }
+</style>

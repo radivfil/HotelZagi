@@ -1,0 +1,74 @@
+---
+/** Sekcija s dosljednim vertikalnim ritmom i opcionalnim zaglavljem. */
+interface Props {
+  id?: string;
+  tone?: 'default' | 'surface' | 'dark';
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  align?: 'start' | 'center';
+  narrow?: boolean;
+  class?: string;
+  labelledby?: boolean;
+  tight?: boolean;
+}
+const { id, tone = 'default', eyebrow, heading, lead, align = 'start', narrow = false, class: className, tight = false } = Astro.props;
+const headingId = heading && id ? `${id}-title` : undefined;
+---
+
+<section
+  id={id}
+  class:list={['section', `section--${tone}`, { 'section--tight': tight }, className]}
+  aria-labelledby={headingId}
+>
+  <div class={narrow ? 'container--narrow' : 'container'}>
+    {
+      heading && (
+        <header class:list={['section__head', `section__head--${align}`]} data-reveal>
+          {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+          <h2 id={headingId}>{heading}</h2>
+          {lead && <p class="lead">{lead}</p>}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--section-y);
+  }
+  .section--tight {
+    padding-block: calc(var(--section-y) * 0.6);
+  }
+  .section--surface {
+    background: var(--c-surface);
+  }
+  .section--dark {
+    background: var(--c-dark);
+    color: var(--c-on-dark);
+  }
+  .section--dark :global(.eyebrow) {
+    color: var(--c-on-dark-muted);
+  }
+  .section--dark :global(.lead),
+  .section--dark :global(.muted) {
+    color: var(--c-on-dark-muted);
+  }
+  .section__head {
+    display: grid;
+    gap: var(--s-2);
+    margin-bottom: clamp(var(--s-4), 4vw, var(--s-6));
+  }
+  .section__head--center {
+    justify-items: center;
+    text-align: center;
+  }
+  .section__head--center :global(.lead) {
+    margin-inline: auto;
+  }
+  .section__head h2 {
+    max-width: 22ch;
+  }
+</style>

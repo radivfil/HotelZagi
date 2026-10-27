@@ -1,0 +1,86 @@
+---
+/** Editorijalni blok: tekst uz veliku fotografiju, asimetrično na mreži od 12 stupaca. */
+import Picture from './Picture.astro';
+import FeatureList from './FeatureList.astro';
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  heading: string;
+  paragraphs?: string[];
+  list?: string[];
+  image?: { src: string; alt: string };
+  reverse?: boolean;
+  headingLevel?: 'h2' | 'h3';
+  ratio?: string;
+}
+const { id, eyebrow, heading, paragraphs = [], list, image, reverse = false, headingLevel = 'h2', ratio = '4/5' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<div id={id} class:list={['ti', { 'ti--reverse': reverse, 'ti--text-only': !image }]}>
+  {
+    image && (
+      <div class="ti__media" data-reveal>
+        <Picture src={image.src} alt={image.alt} ratio={ratio} sizes="(min-width: 64em) 50vw, 100vw" imgClass="ti__img" />
+      </div>
+    )
+  }
+  <div class="ti__text" data-reveal style="--reveal-delay:120ms">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <Heading class="ti__heading">{heading}</Heading>
+    <div class="prose">
+      {paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    {list && list.length > 0 && <FeatureList items={list} />}
+    <slot />
+  </div>
+</div>
+
+<style>
+  .ti {
+    display: grid;
+    gap: var(--s-4);
+    align-items: center;
+  }
+  .ti :global(.ti__img) {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-l);
+  }
+  .ti__text {
+    display: grid;
+    gap: var(--s-2);
+    justify-items: start;
+  }
+  .ti__heading {
+    font-size: var(--step-3);
+    max-width: 18ch;
+  }
+  h3.ti__heading {
+    font-size: var(--step-2);
+  }
+  @media (min-width: 48em) {
+    .ti {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--s-4) clamp(1rem, 2vw, 2rem);
+    }
+    .ti__media {
+      grid-column: 1 / span 6;
+    }
+    .ti__text {
+      grid-column: 8 / span 5;
+    }
+    .ti--reverse .ti__media {
+      grid-column: 7 / span 6;
+      grid-row: 1;
+    }
+    .ti--reverse .ti__text {
+      grid-column: 1 / span 5;
+      grid-row: 1;
+    }
+    .ti--text-only .ti__text {
+      grid-column: 1 / span 8;
+    }
+  }
+</style>

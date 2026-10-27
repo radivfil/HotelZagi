@@ -1,0 +1,103 @@
+---
+/** Velika kartica sa slikom – cijela kartica je jedna poveznica (jasno ime poveznice = naslov). */
+import Picture from './Picture.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  text: string;
+  image: { src: string; alt: string };
+  linkLabel: string;
+  sizes?: string;
+  headingLevel?: 'h2' | 'h3';
+  index?: number;
+}
+const { href, title, text, image, linkLabel, sizes = '(min-width: 64em) 50vw, 100vw', headingLevel = 'h3', index = 0 } = Astro.props;
+const Heading = headingLevel;
+---
+
+<article class="card" data-reveal style={`--reveal-delay:${index * 90}ms`}>
+  <Picture src={image.src} alt={image.alt} sizes={sizes} ratio="4/3" class="card__media" imgClass="card__img" />
+  <div class="card__body">
+    <Heading class="card__title">
+      <a href={href} class="card__link">{title}</a>
+    </Heading>
+    <p class="card__text">{text}</p>
+    <span class="card__more" aria-hidden="true">
+      {linkLabel}
+      <Icon name="arrowRight" size={18} />
+    </span>
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background: var(--c-bg);
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    box-shadow: var(--shadow-s);
+    transition: box-shadow var(--dur-m), transform var(--dur-m) var(--ease-out);
+  }
+  .card:hover {
+    box-shadow: var(--shadow-m);
+  }
+  .card :global(.card__media) {
+    overflow: hidden;
+  }
+  .card :global(.card__img) {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease-out);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .card:hover :global(.card__img) {
+      transform: scale(1.04);
+    }
+  }
+  .card__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    padding: var(--s-3);
+  }
+  .card__title {
+    font-size: var(--step-2);
+  }
+  .card__link {
+    color: var(--c-text);
+    text-decoration: none;
+  }
+  /* Cijela kartica klikabilna, a poveznica ostaje naslov */
+  .card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .card__link:focus-visible {
+    outline: none;
+  }
+  .card:has(.card__link:focus-visible) {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 3px;
+  }
+  .card__text {
+    color: var(--c-text-muted);
+  }
+  .card__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: var(--s-1);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+  }
+</style>

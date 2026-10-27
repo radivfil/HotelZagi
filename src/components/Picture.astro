@@ -1,0 +1,58 @@
+---
+/**
+ * Responzivna slika iz public/uploads/: AVIF + WebP srcset, JPG rezerva,
+ * stvarne dimenzije (bez pomaka izgleda) i fiksni aspect-ratio po želji.
+ * Varijante generira scripts/optimize-images.mjs.
+ */
+import { imageInfo, srcset } from '@/lib/images';
+
+interface Props {
+  src: string;
+  alt: string;
+  sizes?: string;
+  /** npr. "4/3", "16/9" – slika se reže preko object-fit: cover */
+  ratio?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+  imgClass?: string;
+  /** Odgođeno učitavanje: srcset se postavlja tek iz JS-a (npr. slajdovi slidera) */
+  deferred?: boolean;
+  position?: string;
+}
+
+const {
+  src,
+  alt,
+  sizes = '100vw',
+  ratio,
+  loading = 'lazy',
+  fetchpriority,
+  class: className,
+  imgClass,
+  deferred = false,
+  position,
+} = Astro.props;
+
+const info = imageInfo(src);
+const avif = srcset(src, 'avif');
+const webp = srcset(src, 'webp');
+const attr = deferred ? 'data-srcset' : 'srcset';
+const style = [ratio ? `aspect-ratio:${ratio}` : '', position ? `object-position:${position}` : ''].filter(Boolean).join(';');
+---
+
+<picture class={className}>
+  {avif && <source type="image/avif" {...{ [attr]: avif }} sizes={sizes} />}
+  {webp && <source type="image/webp" {...{ [attr]: webp }} sizes={sizes} />}
+  <img
+    {...{ [deferred ? 'data-src' : 'src']: src }}
+    alt={alt}
+    width={info?.width}
+    height={info?.height}
+    loading={loading}
+    decoding={loading === 'eager' ? 'sync' : 'async'}
+    fetchpriority={fetchpriority}
+    class={imgClass}
+    style={style || undefined}
+  />
+</picture>

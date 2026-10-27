@@ -1,0 +1,159 @@
+---
+/**
+ * AI chatbot – SAMO rezervirano mjesto (vidi docs/CHATBOT-PLAN.md).
+ *
+ * CHATBOT_ENABLED=false (zadano): komponenta ne renderira NIŠTA – nema HTML-a,
+ * stila ni skripte, pa nema utjecaja na performanse.
+ *
+ * Kad se uključi: plutajući gumb (donji desni kut, iznad mobilne CTA trake i
+ * banera kolačića), prazan spremnik za vanjski widget i lijeno učitavanje skripte
+ * pružatelja nakon interakcije ili odgode – tek uz pristanak na kolačiće.
+ */
+import { CHATBOT } from '@/config/site';
+import { useTranslations } from '@/i18n';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const enabled = CHATBOT.enabled;
+---
+
+{
+  enabled && (
+    <div
+      class="chat"
+      data-chat
+      data-provider={CHATBOT.provider}
+      data-script={CHATBOT.scriptUrl}
+      data-bot-id={CHATBOT.id}
+      data-lang={locale}
+      data-greeting={t('chat.greeting')}
+      data-delay={CHATBOT.loadDelayMs}
+      data-consent={CHATBOT.requiresConsent ? 'required' : 'none'}
+    >
+      <button type="button" class="chat__toggle" aria-expanded="false" aria-controls="chat-panel" data-chat-toggle>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M4 5h16v11H9l-5 4V5Z" />
+          <path d="M8 10h8M8 13h5" />
+        </svg>
+        <span class="visually-hidden" data-label-open={t('chat.open')} data-label-close={t('chat.close')}>
+          {t('chat.open')}
+        </span>
+      </button>
+      <section id="chat-panel" class="chat__panel" aria-label={t('chat.title')} hidden data-chat-panel>
+        <h2 class="chat__title">{t('chat.title')}</h2>
+        <p class="chat__greeting">{t('chat.greeting')}</p>
+        <p class="chat__consent" hidden data-chat-consent>
+          {t('chat.consentNeeded')}
+        </p>
+        {/* Spremnik u koji vanjski widget montira sučelje */}
+        <div id="chat-root" data-chat-root />
+      </section>
+    </div>
+  )
+}
+
+{
+  enabled && (
+    <style is:inline>
+      .chat {
+        position: fixed;
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: calc(1rem + env(safe-area-inset-bottom));
+        z-index: 45;
+      }
+      /* na mobitelu iznad donje CTA trake */
+      @media (max-width: 47.99em) {
+        .chat {
+          bottom: calc(80px + env(safe-area-inset-bottom));
+        }
+      }
+      .chat__toggle {
+        display: grid;
+        place-items: center;
+        width: 56px;
+        height: 56px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--c-dark);
+        color: var(--c-on-dark);
+        box-shadow: var(--shadow-m);
+      }
+      .chat__panel {
+        position: absolute;
+        right: 0;
+        bottom: 68px;
+        width: min(22rem, calc(100vw - 2rem));
+        max-height: min(32rem, 70dvh);
+        padding: var(--s-3);
+        overflow: auto;
+        border-radius: var(--radius-l);
+        background: var(--c-bg);
+        box-shadow: var(--shadow-m);
+      }
+      .chat__title {
+        font-size: var(--step-1);
+      }
+    </style>
+  )
+}
+
+{
+  enabled && (
+    <script is:inline>
+      {
+      const root = document.querySelector('[data-chat]');
+      if (root) {
+        const toggle = root.querySelector('[data-chat-toggle]');
+        const panel = root.querySelector('[data-chat-panel]');
+        const label = toggle.querySelector('span');
+        const consentMsg = root.querySelector('[data-chat-consent]');
+        const d = root.dataset;
+        let loaded = false;
+
+        const hasConsent = () => {
+          if (d.consent !== 'required') return true;
+          try {
+            return window.localStorage.getItem('zagi-consent') === 'accepted';
+          } catch {
+            return false;
+          }
+        };
+
+        // Lijeno učitavanje skripte pružatelja – tek uz pristanak
+        const load = () => {
+          if (loaded || !d.script || !hasConsent()) return;
+          loaded = true;
+          const s = document.createElement('script');
+          s.src = d.script;
+          s.async = true;
+          s.dataset.botId = d.botId;
+          s.dataset.lang = d.lang;
+          document.head.append(s);
+        };
+
+        toggle.addEventListener('click', () => {
+          const open = panel.hidden;
+          panel.hidden = !open;
+          toggle.setAttribute('aria-expanded', String(open));
+          label.textContent = open ? label.dataset.labelClose : label.dataset.labelOpen;
+          consentMsg.hidden = hasConsent();
+          if (open) load();
+        });
+        root.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !panel.hidden) {
+            toggle.click();
+            toggle.focus();
+          }
+        });
+        // nakon odgode ili prve interakcije
+        const idle = () => window.setTimeout(load, Number(d.delay) || 8000);
+        ['pointerdown', 'keydown', 'scroll'].forEach((ev) => window.addEventListener(ev, idle, { once: true, passive: true }));
+        document.addEventListener('zagi:consent', load);
+      }
+      }
+    </script>
+  )
+}

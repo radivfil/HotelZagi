@@ -1,0 +1,409 @@
+---
+/**
+ * Sticky header: proziran preko hero dijela, pun nakon scrolla.
+ * Na računalu (≥ 1024 px) vodoravni izbornik; na mobitelu i tabletu hamburger
+ * s pristupačnim overlayem (zarobljen fokus, Escape zatvara, aria-expanded).
+ */
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor, type PageKey } from '@/i18n/routes';
+import { bookingHref } from '@/lib/links';
+import { getGlobal, telHref } from '@/lib/content';
+
+interface Props {
+  locale: string;
+  pageKey: PageKey;
+  transparent?: boolean;
+}
+const { locale, pageKey, transparent = false } = Astro.props;
+const t = useTranslations(locale);
+const global = await getGlobal();
+
+// Glavni izbornik: točno četiri stavke.
+const mainNav: { key: PageKey; label: string }[] = [
+  { key: 'rooms', label: t('nav.rooms') },
+  { key: 'wellness', label: t('nav.wellness') },
+  { key: 'restaurant', label: t('nav.restaurant') },
+  { key: 'conference', label: t('nav.conference') },
+];
+const secondaryNav: { key: PageKey; label: string }[] = [
+  { key: 'about', label: t('nav.about') },
+  { key: 'gallery', label: t('nav.gallery') },
+  { key: 'contact', label: t('nav.contact') },
+];
+---
+
+<header class="site-header" data-header data-transparent={transparent ? 'true' : 'false'}>
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href={pathFor('home', locale)} aria-label={t('nav.homeLink')}>
+      <img src="/logo.svg" alt="" width="320" height="170" />
+    </a>
+
+    <nav class="site-nav" aria-label={t('nav.main')}>
+      <ul role="list">
+        {
+          mainNav.map((item) => (
+            <li>
+              <a href={pathFor(item.key, locale)} aria-current={item.key === pageKey ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <LanguageSwitcher locale={locale} pageKey={pageKey} />
+      <Button href={bookingHref(locale)} class="site-header__book" data-booking-link>{t('book.cta')}</Button>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-open
+      >
+        <Icon name="menu" size={26} />
+        <span class="visually-hidden">{t('nav.menuOpen')}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Izvan <header> jer backdrop-filter headera stvara novi containing block za position: fixed -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label={t('nav.menu')} hidden data-menu>
+    <div class="mobile-menu__top container">
+      <a class="site-header__logo" href={pathFor('home', locale)} aria-label={t('nav.homeLink')}>
+        <img src="/logo.svg" alt="" width="320" height="170" />
+      </a>
+      <button class="menu-toggle menu-toggle--close" type="button" data-menu-close>
+        <Icon name="close" size={26} />
+        <span class="visually-hidden">{t('nav.menuClose')}</span>
+      </button>
+    </div>
+    <div class="mobile-menu__body container">
+      <nav aria-label={t('nav.main')}>
+        <ul role="list" class="mobile-menu__main">
+          {
+            mainNav.map((item) => (
+              <li>
+                <a href={pathFor(item.key, locale)} aria-current={item.key === pageKey ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <ul role="list" class="mobile-menu__secondary">
+          {
+            secondaryNav.map((item) => (
+              <li>
+                <a href={pathFor(item.key, locale)} aria-current={item.key === pageKey ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="mobile-menu__footer">
+        <Button href={bookingHref(locale)} size="l" data-booking-link>{t('book.ctaLong')}</Button>
+        <a class="mobile-menu__phone" href={telHref(global.phones.main)}>
+          <Icon name="phone" size={20} />
+          {global.phones.main}
+        </a>
+        <LanguageSwitcher locale={locale} pageKey={pageKey} variant="menu" />
+      </div>
+    </div>
+</div>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    height: var(--header-h);
+    color: var(--c-text);
+    background: rgb(250 247 242 / 0.96);
+    border-bottom: 1px solid var(--c-line);
+    transition:
+      background-color var(--dur-m),
+      color var(--dur-m),
+      border-color var(--dur-m),
+      box-shadow var(--dur-m);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .site-header {
+      background: rgb(250 247 242 / 0.88);
+      backdrop-filter: saturate(1.4) blur(12px);
+    }
+  }
+  /* Proziran preko hero dijela */
+  .site-header[data-transparent='true']:not(.is-scrolled) {
+    color: #fff;
+    background: linear-gradient(to bottom, rgb(20 16 14 / 0.55), rgb(20 16 14 / 0));
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+  }
+  .site-header[data-transparent='true']:not(.is-scrolled) .site-header__logo img {
+    filter: brightness(0) invert(1);
+  }
+  .site-header.is-scrolled {
+    box-shadow: var(--shadow-s);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    height: 100%;
+  }
+  .site-header__logo {
+    display: block;
+    flex-shrink: 0;
+    margin-right: auto;
+    padding-block: 0.25rem;
+  }
+  .site-header__logo img {
+    height: calc(var(--header-h) - 1rem);
+    width: auto;
+    transition: filter var(--dur-m);
+  }
+
+  .site-nav {
+    display: none;
+  }
+  .site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 clamp(0.75rem, 1.6vw, 2rem);
+  }
+  .site-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: inherit;
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) no-repeat left calc(100% - 8px) / 0 1px;
+    transition: background-size var(--dur-m) var(--ease-out);
+  }
+  .site-nav a:hover,
+  .site-nav a[aria-current='page'] {
+    background-size: 100% 1px;
+    color: inherit;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+  }
+  .site-header__actions :global(.site-header__book) {
+    display: none;
+  }
+  .menu-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+  }
+
+  @media (min-width: 48em) {
+    .site-header__actions :global(.site-header__book) {
+      display: inline-flex;
+    }
+  }
+  @media (min-width: 64em) {
+    .site-nav {
+      display: block;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .site-header__logo {
+      margin-right: 0;
+    }
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+  /* ---------------------------------------------- mobilni izbornik */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--c-bg);
+    color: var(--c-text);
+  }
+  .mobile-menu[hidden] {
+    display: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-menu:not([hidden]) {
+      animation: menu-in var(--dur-m) var(--ease-out);
+    }
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+  .mobile-menu__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--header-h);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .mobile-menu .site-header__logo img {
+    filter: none;
+  }
+  .mobile-menu__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--s-5);
+    padding-block: var(--s-4) var(--s-5);
+  }
+  .mobile-menu__main a {
+    display: block;
+    padding-block: 0.4rem;
+    font-family: var(--font-serif);
+    font-size: var(--step-3);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--c-text);
+    text-decoration: none;
+  }
+  .mobile-menu__main a[aria-current='page'] {
+    color: var(--c-accent);
+  }
+  .mobile-menu__secondary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--s-3);
+    margin-top: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--c-line);
+  }
+  .mobile-menu__secondary a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--c-text-muted);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .mobile-menu__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+  .mobile-menu__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: var(--tap);
+    font-weight: 600;
+    color: var(--c-text);
+    text-decoration: none;
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+
+  // Pun header nakon scrolla
+  if (header) {
+    let ticking = false;
+    const update = () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+      ticking = false;
+    };
+    update();
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+  }
+
+  // Mobilni izbornik
+  if (menu && openBtn && closeBtn) {
+    const outside = () => [...document.body.children].filter((el) => el !== header && el !== menu && el.tagName !== 'SCRIPT');
+    const focusables = () =>
+      [...menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter((el) => el.offsetParent !== null);
+
+    const open = () => {
+      menu.hidden = false;
+      openBtn.setAttribute('aria-expanded', 'true');
+      document.documentElement.style.overflow = 'hidden';
+      outside().forEach((el) => el.setAttribute('inert', ''));
+      header?.querySelector('.site-header__inner')?.setAttribute('inert', '');
+      closeBtn.focus();
+    };
+    const close = (restoreFocus = true) => {
+      menu.hidden = true;
+      openBtn.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+      outside().forEach((el) => el.removeAttribute('inert'));
+      header?.querySelector('.site-header__inner')?.removeAttribute('inert');
+      if (restoreFocus) openBtn.focus();
+    };
+
+    openBtn.addEventListener('click', open);
+    closeBtn.addEventListener('click', () => close());
+    menu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+      }
+      if (e.key !== 'Tab') return;
+      const items = focusables();
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+    // Klik na poveznicu (npr. sidro na istoj stranici) zatvara izbornik
+    menu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) close(false);
+    });
+    // Prelazak na računalni raspored zatvara otvoreni izbornik
+    window.matchMedia('(min-width: 64em)').addEventListener('change', (e) => {
+      if (e.matches && !menu.hidden) close(false);
+    });
+  }
+</script>

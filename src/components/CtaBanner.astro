@@ -1,0 +1,80 @@
+---
+/** Poziv na rezervaciju ili kontakt na dnu stranice. */
+import Button from './Button.astro';
+import { resolveHref, isExternal } from '@/lib/links';
+import { useTranslations } from '@/i18n';
+
+interface Props {
+  locale: string;
+  heading: string;
+  text: string;
+  primary: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+const { locale, heading, text, primary, secondary } = Astro.props;
+const t = useTranslations(locale);
+const primaryHref = resolveHref(primary.href, locale);
+---
+
+<section class="cta" aria-labelledby="cta-title">
+  <div class="container cta__inner" data-reveal>
+    <div class="cta__text">
+      <h2 id="cta-title">{heading}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="cta__actions">
+      <Button
+        href={primaryHref}
+        size="l"
+        icon="arrowRight"
+        data-booking-link={primary.href === 'booking' ? '' : undefined}
+        newTabLabel={isExternal(primaryHref) ? t('common.newWindow') : undefined}
+      >
+        {primary.label}
+      </Button>
+      {
+        secondary && (
+          <Button href={resolveHref(secondary.href, locale)} variant="ghost" size="l">
+            {secondary.label}
+          </Button>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding-block: clamp(var(--s-6), 8vw, var(--s-8));
+    background:
+      radial-gradient(ellipse at 85% 0%, rgb(134 102 87 / 0.35), transparent 60%),
+      var(--c-dark);
+    color: var(--c-on-dark);
+  }
+  .cta__inner {
+    display: grid;
+    gap: var(--s-4);
+    align-items: end;
+  }
+  .cta__text {
+    display: grid;
+    gap: var(--s-2);
+    max-width: 40rem;
+  }
+  .cta__text p {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--c-on-dark-muted);
+  }
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+  @media (min-width: 64em) {
+    .cta__inner {
+      grid-template-columns: 1fr auto;
+      gap: var(--s-6);
+    }
+  }
+</style>

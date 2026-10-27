@@ -1,0 +1,44 @@
+---
+/** Popis značajki s kvačicama (sadržaji sobe, oprema dvorane …). */
+import Icon from './Icon.astro';
+
+interface Props {
+  items: string[];
+  columns?: 1 | 2;
+  class?: string;
+}
+const { items, columns = 1, class: className } = Astro.props;
+---
+
+<ul role="list" class:list={['features', `features--${columns}`, className]}>
+  {
+    items.map((item) => (
+      <li>
+        <Icon name="check" size={18} />
+        <span>{item}</span>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .features {
+    display: grid;
+    gap: 0.6rem var(--s-3);
+  }
+  @media (min-width: 40em) {
+    .features--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .features li {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+  .features :global(.icon) {
+    margin-top: 0.15em;
+    color: var(--c-accent);
+  }
+</style>

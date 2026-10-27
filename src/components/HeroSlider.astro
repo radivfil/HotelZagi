@@ -1,0 +1,442 @@
+---
+/**
+ * Hero slider vođen podacima (src/content/pages/<jezik>/home.json → heroSlides).
+ * - crossfade (animira se samo opacity/transform), izmjena svakih N ms (global.json → slider)
+ * - prva slika u HTML-u s fetchpriority="high"; ostale se učitavaju tek prije prikaza
+ * - pauza/play gumb (WCAG 2.2.2), pauza na hover i fokus, bez autoplaya uz prefers-reduced-motion
+ * - strelice tipkovnice, swipe, indikatori slajdova
+ * - na malim zaslonima prikazuje se najviše `maxSmall` slajdova (performanse)
+ */
+import Picture from './Picture.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import BookingBar from './BookingBar.astro';
+import { useTranslations } from '@/i18n';
+import { resolveHref } from '@/lib/links';
+import type { CollectionEntry } from 'astro:content';
+
+type Slide = NonNullable<CollectionEntry<'pages'>['data']['heroSlides']>[number];
+interface Props {
+  slides: Slide[];
+  locale: string;
+  heading: string;
+  intervalMs: number;
+  maxSmall: number;
+}
+const { slides, locale, heading, intervalMs, maxSmall } = Astro.props;
+const t = useTranslations(locale);
+const n = slides.length;
+---
+
+<section
+  class="hero"
+  aria-roledescription="carousel"
+  aria-label={t('slider.label')}
+  data-hero
+  data-interval={intervalMs}
+  data-max-small={maxSmall}
+  data-label-pause={t('slider.pause')}
+  data-label-play={t('slider.play')}
+>
+  <div class="hero__media">
+    <h1 class="visually-hidden">{heading}</h1>
+    <div class="hero__slides" aria-live="off" data-slides>
+      {
+        slides.map((slide, i) => (
+          <div
+            class:list={['hero__slide', { 'is-active': i === 0 }]}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${t('slider.slide')} ${i + 1} ${t('slider.of')} ${n}: ${slide.title}`}
+            aria-hidden={i === 0 ? undefined : 'true'}
+            data-slide
+            data-small-hidden={slide.hideOnSmallScreens || i >= maxSmall ? 'true' : undefined}
+          >
+            <Picture
+              src={slide.image.src}
+              alt={slide.image.alt}
+              sizes="100vw"
+              class="hero__picture"
+              imgClass="hero__img"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : undefined}
+              deferred={i > 0}
+            />
+            <div class="hero__content container">
+              <div class="hero__text">
+                {slide.eyebrow && <p class="hero__kicker">{slide.eyebrow}</p>}
+                <h2 class="hero__title">{slide.title}</h2>
+                <p class="hero__subtitle">{slide.subtitle}</p>
+                <Button href={resolveHref(slide.cta.href, locale)} size="l" icon="arrowRight" tabindex={i === 0 ? undefined : '-1'}>
+                  {slide.cta.label}
+                </Button>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      n > 1 && (
+        <div class="hero__controls container" data-controls>
+          <div class="hero__dots" role="group" aria-label={t('slider.label')}>
+            {slides.map((slide, i) => (
+              <button
+                type="button"
+                class="hero__dot"
+                aria-label={`${t('slider.goTo')} ${i + 1}: ${slide.title}`}
+                aria-current={i === 0 ? 'true' : undefined}
+                data-dot={i}
+                data-small-hidden={slide.hideOnSmallScreens || i >= maxSmall ? 'true' : undefined}
+              >
+                <span />
+              </button>
+            ))}
+          </div>
+          <div class="hero__buttons">
+            <button type="button" class="hero__btn" data-prev aria-label={t('slider.prev')}>
+              <Icon name="chevronLeft" />
+            </button>
+            <button type="button" class="hero__btn" data-toggle aria-label={t('slider.pause')}>
+              <Icon name="pause" class="hero__icon-pause" />
+              <Icon name="play" class="hero__icon-play" />
+            </button>
+            <button type="button" class="hero__btn" data-next aria-label={t('slider.next')}>
+              <Icon name="chevronRight" />
+            </button>
+          </div>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="hero__booking container">
+    <BookingBar locale={locale} variant="hero" id="hero-booking" />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background: var(--c-dark);
+  }
+  .hero__media {
+    position: relative;
+    height: min(78svh, 46rem);
+    min-height: 31rem;
+    overflow: hidden;
+    color: #fff;
+  }
+  .hero__slides,
+  .hero__slide {
+    position: absolute;
+    inset: 0;
+  }
+  .hero__slide {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 1.2s var(--ease-out),
+      visibility 0s linear 1.2s;
+  }
+  .hero__slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1.2s var(--ease-out);
+  }
+  .hero__slide :global(.hero__picture),
+  .hero__slide :global(.hero__img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__slide :global(.hero__img) {
+      transform: scale(1.06);
+      transition: transform 7s linear;
+    }
+    .hero__slide.is-active :global(.hero__img) {
+      transform: scale(1);
+    }
+  }
+  /* Zatamnjenje radi čitljivosti teksta (kontrast ≥ 4,5:1) */
+  .hero__slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgb(20 16 14 / 0.78) 0%, rgb(20 16 14 / 0.35) 45%, rgb(20 16 14 / 0.1) 75%),
+      linear-gradient(to right, rgb(20 16 14 / 0.45), transparent 70%);
+  }
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    padding-bottom: calc(var(--s-6) + 1rem);
+  }
+  .hero__text {
+    max-width: 38rem;
+  }
+  .hero__kicker {
+    margin-bottom: var(--s-2);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.9);
+  }
+  .hero__title {
+    font-size: var(--step-5);
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+  }
+  .hero__subtitle {
+    max-width: 34rem;
+    margin-block: var(--s-2) var(--s-3);
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: rgb(255 255 255 / 0.92);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__slide .hero__text > * {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity 0.8s var(--ease-out),
+        transform 0.8s var(--ease-out);
+    }
+    .hero__slide.is-active .hero__text > * {
+      opacity: 1;
+      transform: none;
+    }
+    .hero__slide.is-active .hero__text > :nth-child(2) {
+      transition-delay: 0.15s;
+    }
+    .hero__slide.is-active .hero__text > :nth-child(3) {
+      transition-delay: 0.3s;
+    }
+    .hero__slide.is-active .hero__text > :nth-child(4) {
+      transition-delay: 0.45s;
+    }
+  }
+
+  .hero__controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--s-2);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-2);
+    margin-inline: auto;
+  }
+  .hero__dots {
+    display: flex;
+    gap: 0;
+  }
+  .hero__dot {
+    display: grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+  .hero__dot span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgb(255 255 255 / 0.45);
+    transition:
+      background-color var(--dur-m),
+      width var(--dur-m) var(--ease-out);
+  }
+  .hero__dot[aria-current='true'] span {
+    width: 40px;
+    background: #fff;
+  }
+  .hero__buttons {
+    display: flex;
+    gap: var(--s-1);
+  }
+  .hero__btn {
+    display: grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    padding: 0;
+    border: 1px solid rgb(255 255 255 / 0.55);
+    border-radius: 50%;
+    background: rgb(20 16 14 / 0.25);
+    color: #fff;
+    transition: background-color var(--dur-s);
+  }
+  .hero__btn:hover {
+    background: rgb(20 16 14 / 0.55);
+  }
+  .hero__btn :global(.hero__icon-play) {
+    display: none;
+  }
+  .hero.is-paused .hero__btn :global(.hero__icon-play) {
+    display: block;
+  }
+  .hero.is-paused .hero__btn :global(.hero__icon-pause) {
+    display: none;
+  }
+
+  /* Booking traka: na mobitelu ispod slike (okomito), na računalu preko slidera */
+  .hero__booking {
+    position: relative;
+    z-index: 3;
+    margin-top: calc(-1 * var(--s-3));
+    padding-bottom: var(--s-3);
+  }
+  @media (max-width: 29.99em) {
+    .hero [data-small-hidden='true'] {
+      display: none;
+    }
+  }
+  @media (min-width: 64em) {
+    .hero__media {
+      height: min(100svh, 60rem);
+      min-height: 40rem;
+    }
+    .hero__content {
+      padding-bottom: 11rem;
+    }
+    .hero__controls {
+      bottom: 7.5rem;
+    }
+    .hero__booking {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: var(--s-4);
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-hero]').forEach((hero) => {
+    const allSlides = [...hero.querySelectorAll<HTMLElement>('[data-slide]')];
+    const allDots = [...hero.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    const live = hero.querySelector<HTMLElement>('[data-slides]')!;
+    const toggle = hero.querySelector<HTMLButtonElement>('[data-toggle]');
+    const interval = Number(hero.dataset.interval) || 5000;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const small = window.matchMedia('(max-width: 29.99em)');
+    if (allSlides.length < 2) return;
+
+    let current = 0;
+    let timer: number | undefined;
+    let userPaused = reduced.matches; // bez autoplaya uz smanjeno kretanje
+    let hoverPaused = false;
+    let focusPaused = false;
+
+    const visible = () => allSlides.map((s, i) => i).filter((i) => !(small.matches && allSlides[i].dataset.smallHidden));
+
+    const load = (i: number) => {
+      const slide = allSlides[i];
+      slide?.querySelectorAll<HTMLElement>('[data-srcset]').forEach((el) => {
+        el.setAttribute('srcset', el.dataset.srcset!);
+        el.removeAttribute('data-srcset');
+      });
+      slide?.querySelectorAll<HTMLImageElement>('img[data-src]').forEach((img) => {
+        img.src = img.dataset.src!;
+        img.removeAttribute('data-src');
+      });
+    };
+
+    const show = (i: number) => {
+      current = i;
+      allSlides.forEach((slide, idx) => {
+        const active = idx === i;
+        slide.classList.toggle('is-active', active);
+        slide.toggleAttribute('inert', !active);
+        if (active) slide.removeAttribute('aria-hidden');
+        else slide.setAttribute('aria-hidden', 'true');
+        slide.querySelectorAll<HTMLElement>('a').forEach((a) => (active ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1')));
+      });
+      allDots.forEach((dot, idx) => (idx === i ? dot.setAttribute('aria-current', 'true') : dot.removeAttribute('aria-current')));
+      const order = visible();
+      load(i);
+      load(order[(order.indexOf(i) + 1) % order.length]); // unaprijed učitaj sljedeći
+    };
+
+    const step = (dir: 1 | -1) => {
+      const order = visible();
+      const pos = order.indexOf(current);
+      show(order[(pos + dir + order.length) % order.length]);
+    };
+
+    const isPlaying = () => !userPaused && !hoverPaused && !focusPaused && !document.hidden;
+    const schedule = () => {
+      window.clearTimeout(timer);
+      hero.classList.toggle('is-paused', userPaused);
+      toggle?.setAttribute('aria-label', userPaused ? hero.dataset.labelPlay! : hero.dataset.labelPause!);
+      live.setAttribute('aria-live', isPlaying() ? 'off' : 'polite');
+      if (isPlaying()) timer = window.setTimeout(() => (step(1), schedule()), interval);
+    };
+
+    hero.querySelector('[data-next]')?.addEventListener('click', () => (step(1), schedule()));
+    hero.querySelector('[data-prev]')?.addEventListener('click', () => (step(-1), schedule()));
+    allDots.forEach((dot) => dot.addEventListener('click', () => (show(Number(dot.dataset.dot)), schedule())));
+    toggle?.addEventListener('click', () => {
+      userPaused = !userPaused;
+      schedule();
+    });
+
+    const media = hero.querySelector<HTMLElement>('.hero__media')!;
+    media.addEventListener('mouseenter', () => ((hoverPaused = true), schedule()));
+    media.addEventListener('mouseleave', () => ((hoverPaused = false), schedule()));
+    hero.addEventListener('focusin', () => ((focusPaused = true), schedule()));
+    hero.addEventListener('focusout', (e) => {
+      if (!hero.contains(e.relatedTarget as Node)) {
+        focusPaused = false;
+        schedule();
+      }
+    });
+    document.addEventListener('visibilitychange', schedule);
+
+    // Strelice tipkovnice (osim dok se tipka u booking traci)
+    media.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') (step(1), schedule());
+      if (e.key === 'ArrowLeft') (step(-1), schedule());
+    });
+
+    // Swipe na dodirnim zaslonima
+    let startX = 0;
+    let startY = 0;
+    media.addEventListener('pointerdown', (e) => {
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+    media.addEventListener('pointerup', (e) => {
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(e.clientY - startY)) (step(dx < 0 ? 1 : -1), schedule());
+    });
+
+    small.addEventListener('change', () => {
+      if (!visible().includes(current)) show(visible()[0]);
+    });
+    reduced.addEventListener('change', (e) => {
+      if (e.matches) userPaused = true;
+      schedule();
+    });
+
+    show(0);
+    schedule();
+  });
+</script>

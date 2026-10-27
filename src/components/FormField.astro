@@ -1,0 +1,142 @@
+---
+/**
+ * Polje obrasca s labelom, pomoćnim tekstom i mjestom za poruku o grešci
+ * (aria-describedby). Poruke grešaka postavlja InquiryForm skripta.
+ */
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'date' | 'number' | 'textarea' | 'select';
+  required?: boolean;
+  requiredLabel?: string;
+  optionalLabel?: string;
+  autocomplete?: string;
+  options?: string[];
+  min?: number | string;
+  rows?: number;
+  hint?: string;
+  span?: 'full' | 'half';
+  value?: string;
+  inputmode?: string;
+}
+const {
+  id,
+  name,
+  label,
+  type = 'text',
+  required = false,
+  requiredLabel,
+  optionalLabel,
+  autocomplete,
+  options = [],
+  min,
+  rows = 5,
+  hint,
+  span = 'full',
+  value,
+  inputmode,
+} = Astro.props;
+const describedBy = [hint ? `${id}-hint` : '', `${id}-error`].filter(Boolean).join(' ');
+---
+
+<div class:list={['field', `field--${span}`]}>
+  <label for={id} class="field__label">
+    {label}
+    {required && requiredLabel && <span class="field__req">({requiredLabel})</span>}
+    {!required && optionalLabel && <span class="field__opt">({optionalLabel})</span>}
+  </label>
+  {hint && <p id={`${id}-hint`} class="field__hint">{hint}</p>}
+  {
+    type === 'textarea' ? (
+      <textarea id={id} name={name} rows={rows} required={required} aria-describedby={describedBy} class="field__control" />
+    ) : type === 'select' ? (
+      <select id={id} name={name} required={required} aria-describedby={describedBy} class="field__control">
+        {options.map((o) => (
+          <option value={o}>{o}</option>
+        ))}
+      </select>
+    ) : (
+      <input
+        id={id}
+        name={name}
+        type={type}
+        required={required}
+        autocomplete={autocomplete}
+        min={min}
+        value={value}
+        inputmode={inputmode}
+        aria-describedby={describedBy}
+        class="field__control"
+      />
+    )
+  }
+  <p id={`${id}-error`} class="field__error" data-error></p>
+</div>
+
+<style>
+  .field {
+    display: grid;
+    gap: 0.35rem;
+    grid-column: 1 / -1;
+  }
+  @media (min-width: 40em) {
+    .field--half {
+      grid-column: span 1;
+    }
+  }
+  .field__label {
+    font-weight: 600;
+    font-size: var(--step--1);
+    letter-spacing: 0.02em;
+  }
+  .field__req,
+  .field__opt {
+    margin-left: 0.35em;
+    font-weight: 400;
+    color: var(--c-text-muted);
+  }
+  .field__hint {
+    font-size: var(--step--1);
+    color: var(--c-text-muted);
+  }
+  .field__control {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #b7aa9b;
+    border-radius: var(--radius-m);
+    background: #fff;
+    font-size: max(16px, var(--step-0)); /* bez zumiranja na iOS-u */
+    line-height: 1.4;
+    transition: border-color var(--dur-s), box-shadow var(--dur-s);
+  }
+  textarea.field__control {
+    min-height: 8rem;
+    resize: vertical;
+  }
+  .field__control:hover {
+    border-color: var(--c-text-muted);
+  }
+  .field__control:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 1px;
+    border-color: var(--c-focus);
+  }
+  .field__control[aria-invalid='true'] {
+    border-color: var(--c-error);
+    box-shadow: inset 4px 0 0 var(--c-error);
+  }
+  .field__control:disabled {
+    background: var(--c-surface);
+    cursor: not-allowed;
+  }
+  .field__error {
+    font-size: var(--step--1);
+    font-weight: 500;
+    color: var(--c-error);
+  }
+  .field__error:empty {
+    display: none;
+  }
+</style>

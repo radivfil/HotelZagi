@@ -1,0 +1,357 @@
+---
+/**
+ * Upitni obrazac za statičan web.
+ * - action je konfigurabilan (FORMS.action / PUBLIC_FORM_ACTION); prazno = demo način
+ *   (validacija + ponuda slanja istog upita e-mailom)
+ * - honeypot polje protiv spama, validacija na klijentu, poruke na jeziku stranice
+ * - bez JS-a obrazac se šalje izravno na action (HTML5 validacija)
+ */
+import FormField from './FormField.astro';
+import Icon from './Icon.astro';
+import { FORMS } from '@/config/site';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+
+interface Props {
+  locale: string;
+  kind: 'contact' | 'restaurant' | 'conference' | 'wellness';
+  email: string;
+  heading?: string;
+}
+const { locale, kind, email, heading } = Astro.props;
+const t = useTranslations(locale);
+const id = `form-${kind}`;
+const withDetails = kind !== 'contact';
+const withEventType = kind === 'restaurant' || kind === 'conference';
+const subjects: Record<Props['kind'], string> = {
+  contact: t('common.sendInquiry'),
+  restaurant: t('restaurant.inquiry'),
+  conference: t('conference.inquiry'),
+  wellness: t('wellness.bookSlot'),
+};
+---
+
+<form
+  class="inquiry"
+  id={id}
+  action={FORMS.action || undefined}
+  method={FORMS.method}
+  novalidate
+  data-inquiry
+  data-demo={FORMS.action ? undefined : 'true'}
+  data-mailto={email}
+  data-subject={`${subjects[kind]} – Hotel Zagi`}
+  data-msg-required={t('form.err.required')}
+  data-msg-email={t('form.err.email')}
+  data-msg-phone={t('form.err.phone')}
+  data-msg-consent={t('form.err.consent')}
+  data-msg-min={t('form.err.min')}
+  data-msg-date={t('form.err.date')}
+  data-msg-sending={t('form.sending')}
+  data-msg-success={t('form.success')}
+  data-msg-error={t('form.error')}
+  aria-labelledby={heading ? `${id}-title` : undefined}
+>
+  {heading && <h3 id={`${id}-title`} class="inquiry__title">{heading}</h3>}
+
+  <div class="inquiry__summary" role="alert" tabindex="-1" hidden data-summary>
+    <p>{t('form.errorSummary')}</p>
+    <ul data-summary-list></ul>
+  </div>
+
+  <input type="hidden" name="form" value={kind} />
+  <input type="hidden" name="language" value={locale} />
+  <input type="hidden" name="_subject" value={`${subjects[kind]} – Hotel Zagi`} />
+
+  <div class="inquiry__grid">
+    <FormField id={`${id}-name`} name="name" label={t('form.name')} required requiredLabel={t('form.required')} autocomplete="name" span="half" />
+    <FormField id={`${id}-email`} name="email" type="email" label={t('form.email')} required requiredLabel={t('form.required')} autocomplete="email" span="half" />
+    <FormField id={`${id}-phone`} name="phone" type="tel" label={t('form.phone')} optionalLabel={t('form.optional')} autocomplete="tel" span={withDetails ? 'half' : 'full'} inputmode="tel" />
+    {
+      withDetails && (
+        <FormField id={`${id}-date`} name="date" type="date" label={t('form.date')} optionalLabel={t('form.optional')} span="half" />
+      )
+    }
+    {
+      withDetails && (
+        <FormField id={`${id}-guests`} name="guests" type="number" label={t('form.guests')} optionalLabel={t('form.optional')} min={1} span="half" inputmode="numeric" />
+      )
+    }
+    {withEventType && <FormField id={`${id}-type`} name="event_type" label={t('form.eventType')} optionalLabel={t('form.optional')} span="half" />}
+    <FormField id={`${id}-message`} name="message" type="textarea" label={t('form.message')} required requiredLabel={t('form.required')} />
+
+    <!-- Zamka za spam: ljudi je ne vide, botovi je ispune -->
+    <div class="inquiry__hp" aria-hidden="true">
+      <label for={`${id}-hp`}>{t('form.honeypot')}</label>
+      <input id={`${id}-hp`} type="text" name={FORMS.honeypot} tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="inquiry__consent">
+      <input id={`${id}-consent`} type="checkbox" name="consent" value="yes" required aria-describedby={`${id}-consent-error`} />
+      <label for={`${id}-consent`}>
+        {t('form.consent')} <a href={pathFor('privacy', locale)}>{t('form.privacyLink')}</a>
+      </label>
+      <p id={`${id}-consent-error`} class="inquiry__consent-error" data-error></p>
+    </div>
+  </div>
+
+  <div class="inquiry__actions">
+    <button type="submit" class="inquiry__submit" data-submit>
+      <span data-submit-label>{t('form.submit')}</span>
+      <Icon name="arrowRight" size={20} />
+    </button>
+  </div>
+
+  <div class="inquiry__status" role="status" aria-live="polite" data-status></div>
+  <div class="inquiry__demo" hidden data-demo-box>
+    <p>{t('form.demoNotice')}</p>
+    <a class="inquiry__mail" href={`mailto:${email}`} data-mail-link>
+      <Icon name="mail" size={20} />
+      {t('form.demoMail')}
+    </a>
+  </div>
+</form>
+
+<style>
+  .inquiry {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .inquiry__title {
+    font-size: var(--step-2);
+  }
+  .inquiry__grid {
+    display: grid;
+    gap: var(--s-3) var(--s-3);
+  }
+  @media (min-width: 40em) {
+    .inquiry__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .inquiry__summary {
+    padding: var(--s-2) var(--s-3);
+    border-left: 4px solid var(--c-error);
+    border-radius: var(--radius-s);
+    background: #fbeeee;
+    color: var(--c-text);
+  }
+  .inquiry__summary p {
+    font-weight: 600;
+  }
+  .inquiry__summary ul {
+    margin-top: 0.4rem;
+    padding-left: 1.2em;
+  }
+  .inquiry__summary a {
+    color: var(--c-error);
+  }
+  .inquiry__hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .inquiry__consent {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 0.75rem;
+    align-items: start;
+  }
+  .inquiry__consent input {
+    width: 24px;
+    height: 24px;
+    margin: 0.1rem 0 0;
+    accent-color: var(--c-accent);
+  }
+  .inquiry__consent label {
+    font-size: var(--step--1);
+    line-height: 1.55;
+  }
+  .inquiry__consent-error {
+    grid-column: 2;
+    font-size: var(--step--1);
+    color: var(--c-error);
+  }
+  .inquiry__consent-error:empty {
+    display: none;
+  }
+  .inquiry__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 52px;
+    padding: 0.8rem 1.8rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--c-accent);
+    color: var(--c-on-accent);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    transition: background-color var(--dur-s);
+  }
+  .inquiry__submit:hover {
+    background: var(--c-accent-hover);
+  }
+  .inquiry__submit:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+  .inquiry__status:empty {
+    display: none;
+  }
+  .inquiry__status {
+    padding: var(--s-2) var(--s-3);
+    border-radius: var(--radius-m);
+    background: var(--c-surface);
+    font-weight: 500;
+  }
+  .inquiry__status[data-state='success'] {
+    border-left: 4px solid var(--c-success);
+  }
+  .inquiry__status[data-state='error'] {
+    border-left: 4px solid var(--c-error);
+  }
+  .inquiry__demo {
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-2) var(--s-3);
+    border: 1px dashed var(--c-line);
+    border-radius: var(--radius-m);
+    font-size: var(--step--1);
+  }
+  .inquiry__mail {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: var(--tap);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const PHONE = /^\+?[\d\s()/-]{6,20}$/;
+
+  document.querySelectorAll<HTMLFormElement>('[data-inquiry]').forEach((form) => {
+    const d = form.dataset;
+    const summary = form.querySelector<HTMLElement>('[data-summary]')!;
+    const summaryList = form.querySelector<HTMLElement>('[data-summary-list]')!;
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
+    const demoBox = form.querySelector<HTMLElement>('[data-demo-box]')!;
+    const today = new Date().toISOString().slice(0, 10);
+    form.querySelectorAll<HTMLInputElement>('input[type="date"]').forEach((i) => (i.min = today));
+
+    const errorEl = (field: HTMLElement) => form.querySelector<HTMLElement>(`#${field.id}-error`);
+
+    const validate = (field: HTMLInputElement | HTMLTextAreaElement): string => {
+      const value = field.value.trim();
+      if (field.type === 'checkbox') return (field as HTMLInputElement).checked ? '' : d.msgConsent!;
+      if (field.required && !value) return d.msgRequired!;
+      if (!value) return '';
+      if (field.type === 'email' && !EMAIL.test(value)) return d.msgEmail!;
+      if (field.type === 'tel' && !PHONE.test(value)) return d.msgPhone!;
+      if (field.type === 'number' && Number(value) < Number(field.min || 1)) return d.msgMin!.replace('{n}', field.min || '1');
+      if (field.type === 'date' && value < today) return d.msgDate!;
+      return '';
+    };
+
+    const setError = (field: HTMLInputElement | HTMLTextAreaElement, message: string) => {
+      const el = errorEl(field);
+      if (message) field.setAttribute('aria-invalid', 'true');
+      else field.removeAttribute('aria-invalid');
+      if (el) el.textContent = message;
+    };
+
+    const fields = () =>
+      [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input:not([type="hidden"]), textarea')].filter(
+        (f) => !f.closest('[aria-hidden="true"]'),
+      );
+
+    // Provjera pri napuštanju polja (samo ako je već prikazana greška ili polje ima sadržaj)
+    fields().forEach((field) => {
+      field.addEventListener('blur', () => {
+        if (field.value || field.getAttribute('aria-invalid')) setError(field, validate(field));
+      });
+      field.addEventListener('input', () => {
+        if (field.getAttribute('aria-invalid')) setError(field, validate(field));
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      demoBox.hidden = true;
+
+      // Honeypot: tiho odbaci
+      const hp = form.querySelector<HTMLInputElement>('.inquiry__hp input');
+      if (hp?.value) return;
+
+      const errors: { field: HTMLElement; label: string; message: string }[] = [];
+      fields().forEach((field) => {
+        const message = validate(field);
+        setError(field, message);
+        if (message) {
+          const label = form.querySelector(`label[for="${field.id}"]`)?.firstChild?.textContent?.trim() ?? field.name;
+          errors.push({ field, label, message });
+        }
+      });
+
+      if (errors.length) {
+        summaryList.innerHTML = '';
+        errors.forEach(({ field, label, message }) => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = `#${field.id}`;
+          a.textContent = `${label}: ${message}`;
+          a.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            field.focus();
+          });
+          li.append(a);
+          summaryList.append(li);
+        });
+        summary.hidden = false;
+        summary.focus();
+        return;
+      }
+      summary.hidden = true;
+
+      const data = new FormData(form);
+
+      // Demo način: nema poslužitelja – ponudi slanje e-mailom s već upisanim podacima
+      if (d.demo) {
+        const body = [...data.entries()]
+          .filter(([k, v]) => v && !['form', 'language', '_subject', 'consent'].includes(k) && !k.includes('url'))
+          .map(([k, v]) => `${k}: ${v}`)
+          .join('\n');
+        const link = form.querySelector<HTMLAnchorElement>('[data-mail-link]')!;
+        link.href = `mailto:${d.mailto}?subject=${encodeURIComponent(d.subject!)}&body=${encodeURIComponent(body)}`;
+        demoBox.hidden = false;
+        link.focus();
+        return;
+      }
+
+      submit.disabled = true;
+      const original = submitLabel.textContent;
+      submitLabel.textContent = d.msgSending!;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.dataset.state = 'success';
+        status.textContent = d.msgSuccess!;
+      } catch {
+        status.dataset.state = 'error';
+        status.textContent = d.msgError!;
+      } finally {
+        submit.disabled = false;
+        submitLabel.textContent = original;
+      }
+    });
+  });
+</script>

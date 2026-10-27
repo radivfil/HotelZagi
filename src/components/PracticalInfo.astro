@@ -1,0 +1,64 @@
+---
+/** Traka praktičnih informacija (parking, EV punionica, doručak, udaljenost, ljubimci …). */
+import Icon from './Icon.astro';
+
+interface Props {
+  items: { icon: 'parking' | 'ev' | 'breakfast' | 'car' | 'pet' | 'bike' | 'wifi'; title: string; text: string }[];
+  heading: string;
+}
+const { items, heading } = Astro.props;
+---
+
+<div class="info">
+  <h2 class="visually-hidden">{heading}</h2>
+  <ul role="list" class="info__list">
+    {
+      items.map((item, i) => (
+        <li class="info__item" data-reveal style={`--reveal-delay:${i * 60}ms`}>
+          <span class="info__icon">
+            <Icon name={item.icon} size={26} />
+          </span>
+          <div>
+            <h3 class="info__title">{item.title}</h3>
+            <p class="info__text">{item.text}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .info__list {
+    display: grid;
+    gap: var(--s-3) var(--s-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .info__item {
+    display: flex;
+    gap: var(--s-2);
+    align-items: flex-start;
+  }
+  .info__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--c-accent-soft);
+    color: var(--c-accent);
+  }
+  .info__title {
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+  .info__text {
+    color: var(--c-text-muted);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+</style>

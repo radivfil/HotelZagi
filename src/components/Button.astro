@@ -1,0 +1,141 @@
+---
+/**
+ * Gumb ili poveznica izgleda gumba. Bez fiksne širine – podnosi duže riječi.
+ * Varijante: primary (akcent), secondary (obrub), ghost (na tamnoj/fotografiji), link.
+ */
+import Icon, { type IconName } from './Icon.astro';
+import { isExternal } from '@/lib/links';
+
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost' | 'link';
+  size?: 'm' | 'l';
+  type?: 'button' | 'submit';
+  icon?: IconName;
+  iconStart?: IconName;
+  class?: string;
+  disabled?: boolean;
+  newTabLabel?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'm',
+  type = 'button',
+  icon,
+  iconStart,
+  class: className,
+  disabled,
+  newTabLabel,
+  ...rest
+} = Astro.props;
+const external = href ? isExternal(href) : false;
+const classes = ['btn', `btn--${variant}`, `btn--${size}`, className];
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} {...rest}>
+      {iconStart && <Icon name={iconStart} size={20} />}
+      <span>
+        <slot />
+      </span>
+      {icon && <Icon name={icon} size={20} />}
+      {external && newTabLabel && <span class="visually-hidden">{newTabLabel}</span>}
+    </a>
+  ) : (
+    <button type={type} class:list={classes} disabled={disabled} {...rest}>
+      {iconStart && <Icon name={iconStart} size={20} />}
+      <span>
+        <slot />
+      </span>
+      {icon && <Icon name={icon} size={20} />}
+    </button>
+  )
+}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    min-height: var(--tap);
+    padding: 0.7em 1.4em;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: normal;
+    transition:
+      background-color var(--dur-s),
+      color var(--dur-s),
+      border-color var(--dur-s),
+      transform var(--dur-s);
+  }
+  .btn--l {
+    min-height: 52px;
+    padding: 0.85em 1.8em;
+    font-size: var(--step-0);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+  .btn--primary {
+    background: var(--c-accent);
+    color: var(--c-on-accent);
+  }
+  .btn--primary:hover {
+    background: var(--c-accent-hover);
+    color: var(--c-on-accent);
+  }
+  .btn--secondary {
+    border-color: currentColor;
+    color: var(--c-accent);
+    background: transparent;
+  }
+  .btn--secondary:hover {
+    background: var(--c-accent);
+    border-color: var(--c-accent);
+    color: var(--c-on-accent);
+  }
+  .btn--ghost {
+    border-color: rgb(255 255 255 / 0.75);
+    color: #fff;
+    background: rgb(20 16 14 / 0.2);
+    backdrop-filter: blur(4px);
+  }
+  .btn--ghost:hover {
+    background: #fff;
+    color: var(--c-text);
+  }
+  .btn--link {
+    min-height: var(--tap);
+    padding-inline: 0;
+    border-radius: 0;
+    color: var(--c-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+  .btn--link:hover {
+    color: var(--c-accent-hover);
+  }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .btn :global(.icon) {
+    transition: transform var(--dur-s) var(--ease-out);
+  }
+  .btn:hover :global(.icon:last-child) {
+    transform: translateX(3px);
+  }
+</style>

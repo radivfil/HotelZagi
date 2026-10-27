@@ -1,0 +1,72 @@
+---
+/** Breadcrumbs (vizualno); JSON-LD BreadcrumbList generira BaseLayout iz istih podataka. */
+import { useTranslations } from '@/i18n';
+
+export interface Crumb {
+  label: string;
+  href: string;
+}
+interface Props {
+  crumbs: Crumb[];
+  locale: string;
+  inverse?: boolean;
+}
+const { crumbs, locale, inverse = false } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<nav class:list={['crumbs', { 'crumbs--inverse': inverse }]} aria-label={t('nav.breadcrumbs')}>
+  <ol role="list">
+    {
+      crumbs.map((c, i) => (
+        <li>
+          {i < crumbs.length - 1 ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: var(--step--1);
+  }
+  .crumbs li {
+    display: flex;
+    align-items: center;
+  }
+  .crumbs li + li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    margin-inline: 0.6rem;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.6;
+  }
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--c-text-muted);
+    text-decoration: none;
+  }
+  .crumbs a:hover {
+    text-decoration: underline;
+  }
+  .crumbs [aria-current] {
+    color: var(--c-text);
+    font-weight: 600;
+  }
+  .crumbs--inverse a,
+  .crumbs--inverse [aria-current] {
+    color: #fff;
+  }
+  .crumbs--inverse a {
+    opacity: 0.85;
+  }
+</style>

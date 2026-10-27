@@ -1,0 +1,225 @@
+---
+/**
+ * Booking traka: dolazak, odlazak, gosti → postojeća stranica rezervacije.
+ * Šalje checkin_date i checkout_date (YYYY-MM-DD), kao i postojeći obrazac na zagi.hr.
+ * Bez JS-a radi kao običan GET obrazac.
+ */
+import Icon from './Icon.astro';
+import { BOOKING } from '@/config/site';
+import { pathFor } from '@/i18n/routes';
+import { bookingLanguage } from '@/lib/links';
+import { useTranslations, guestLabel } from '@/i18n';
+
+interface Props {
+  locale: string;
+  variant?: 'hero' | 'inline';
+  id?: string;
+}
+const { locale, variant = 'inline', id = 'booking' } = Astro.props;
+const t = useTranslations(locale);
+const action = BOOKING.embedEnabled ? pathFor('booking', locale) : BOOKING.url;
+const p = BOOKING.params;
+const guests = [1, 2, 3, 4, 5, 6];
+---
+
+<form
+  class:list={['booking-bar', `booking-bar--${variant}`]}
+  action={action}
+  method="get"
+  aria-label={t('book.formLabel')}
+  data-booking-form
+  data-err-checkout={t('book.errCheckout')}
+  data-err-past={t('book.errPast')}
+  novalidate
+>
+  {!BOOKING.embedEnabled && <input type="hidden" name={BOOKING.langParam} value={bookingLanguage(locale)} />}
+  <input type="hidden" name={p.source} value={BOOKING.source} />
+
+  <div class="booking-bar__field">
+    <label for={`${id}-in`}>
+      <Icon name="calendar" size={18} />
+      {t('book.checkIn')}
+    </label>
+    <input id={`${id}-in`} type="date" name={p.checkIn} data-checkin aria-describedby={`${id}-msg`} />
+  </div>
+  <div class="booking-bar__field">
+    <label for={`${id}-out`}>
+      <Icon name="calendar" size={18} />
+      {t('book.checkOut')}
+    </label>
+    <input id={`${id}-out`} type="date" name={p.checkOut} data-checkout aria-describedby={`${id}-msg`} />
+  </div>
+  <div class="booking-bar__field">
+    <label for={`${id}-guests`}>
+      <Icon name="users" size={18} />
+      {t('book.guests')}
+    </label>
+    <select id={`${id}-guests`} name={p.guests}>
+      {guests.map((n) => <option value={n} selected={n === 2}>{guestLabel(t, n)}</option>)}
+    </select>
+  </div>
+  <button type="submit" class="booking-bar__submit">
+    {t('book.submit')}
+    <Icon name="arrowRight" size={20} />
+  </button>
+  <p id={`${id}-msg`} class="booking-bar__msg" role="alert" aria-live="assertive"></p>
+</form>
+
+<style>
+  .booking-bar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-1);
+    padding: var(--s-2);
+    background: var(--c-bg);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-m);
+    color: var(--c-text);
+  }
+  .booking-bar__field {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-m);
+    background: #fff;
+    transition: border-color var(--dur-s);
+  }
+  .booking-bar__field:focus-within {
+    border-color: var(--c-accent);
+  }
+  .booking-bar label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--c-text-muted);
+  }
+  .booking-bar input,
+  .booking-bar select {
+    width: 100%;
+    min-height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: var(--step-0);
+    font-weight: 500;
+    color: var(--c-text);
+  }
+  .booking-bar input:focus-visible,
+  .booking-bar select:focus-visible {
+    outline: none;
+  }
+  .booking-bar__field:has(:focus-visible) {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+  .booking-bar input[aria-invalid='true'] {
+    color: var(--c-error);
+  }
+  .booking-bar__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 56px;
+    padding: 0.75rem 1.5rem;
+    border: 0;
+    border-radius: var(--radius-m);
+    background: var(--c-accent);
+    color: var(--c-on-accent);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    transition: background-color var(--dur-s);
+  }
+  .booking-bar__submit:hover {
+    background: var(--c-accent-hover);
+  }
+  .booking-bar__msg {
+    grid-column: 1 / -1;
+    font-size: var(--step--1);
+    color: var(--c-error);
+  }
+  .booking-bar__msg:empty {
+    display: none;
+  }
+
+  @media (min-width: 30em) {
+    .booking-bar {
+      grid-template-columns: 1fr 1fr;
+    }
+    .booking-bar__field:nth-of-type(3),
+    .booking-bar__submit {
+      grid-column: span 1;
+    }
+  }
+  @media (min-width: 64em) {
+    .booking-bar {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+      align-items: stretch;
+      padding: var(--s-1);
+    }
+    .booking-bar__field {
+      border: 0;
+      border-radius: var(--radius-m);
+    }
+    .booking-bar__field + .booking-bar__field {
+      border-left: 1px solid var(--c-line);
+      border-radius: 0;
+    }
+  }
+</style>
+
+<script>
+  const iso = (d: Date) => {
+    const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+    return z.toISOString().slice(0, 10);
+  };
+  document.querySelectorAll<HTMLFormElement>('[data-booking-form]').forEach((form) => {
+    const checkin = form.querySelector<HTMLInputElement>('[data-checkin]')!;
+    const checkout = form.querySelector<HTMLInputElement>('[data-checkout]')!;
+    const msg = form.querySelector<HTMLElement>('.booking-bar__msg')!;
+    const today = iso(new Date());
+    checkin.min = today;
+    checkout.min = today;
+
+    checkin.addEventListener('change', () => {
+      if (!checkin.value) return;
+      const next = new Date(checkin.value);
+      next.setDate(next.getDate() + 1);
+      checkout.min = iso(next);
+      if (!checkout.value || checkout.value <= checkin.value) checkout.value = iso(next);
+      checkin.removeAttribute('aria-invalid');
+      msg.textContent = '';
+    });
+    checkout.addEventListener('change', () => {
+      checkout.removeAttribute('aria-invalid');
+      msg.textContent = '';
+    });
+
+    form.addEventListener('submit', (e) => {
+      msg.textContent = '';
+      if (checkin.value && checkin.value < today) {
+        e.preventDefault();
+        checkin.setAttribute('aria-invalid', 'true');
+        msg.textContent = form.dataset.errPast ?? '';
+        checkin.focus();
+        return;
+      }
+      if (checkin.value && checkout.value && checkout.value <= checkin.value) {
+        e.preventDefault();
+        checkout.setAttribute('aria-invalid', 'true');
+        msg.textContent = form.dataset.errCheckout ?? '';
+        checkout.focus();
+        return;
+      }
+      // Prazna polja ne šaljemo – stranica rezervacije tada nudi vlastiti odabir datuma.
+      [checkin, checkout].forEach((input) => {
+        if (!input.value) input.disabled = true;
+      });
+      setTimeout(() => [checkin, checkout].forEach((input) => (input.disabled = false)), 0);
+    });
+  });
+</script>

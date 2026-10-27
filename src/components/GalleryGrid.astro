@@ -1,0 +1,164 @@
+---
+/** Mreža galerije s kategorijama (filtri) i lightboxom. Slike se učitavaju lijeno. */
+import Picture from './Picture.astro';
+import Lightbox from './Lightbox.astro';
+import { useTranslations } from '@/i18n';
+import { largestVariant, srcset } from '@/lib/images';
+
+interface Item {
+  src: string;
+  alt: string;
+  category: string;
+  caption?: string;
+  wide?: boolean;
+}
+interface Props {
+  locale: string;
+  items: Item[];
+  categories?: { id: string; label: string }[];
+  limit?: number;
+}
+const { locale, items, categories = [], limit } = Astro.props;
+const t = useTranslations(locale);
+const shown = limit ? items.slice(0, limit) : items;
+const used = categories.filter((c) => shown.some((i) => i.category === c.id));
+---
+
+<div class="gallery" data-gallery>
+  {
+    used.length > 1 && (
+      <div class="gallery__filters" role="group" aria-label={t('gallery.filter')}>
+        <button type="button" aria-pressed="true" data-filter="all">
+          {t('gallery.all')}
+        </button>
+        {used.map((c) => (
+          <button type="button" aria-pressed="false" data-filter={c.id}>
+            {c.label}
+          </button>
+        ))}
+      </div>
+    )
+  }
+  <ul role="list" class="gallery__grid" data-lightbox-group>
+    {
+      shown.map((item) => (
+        <li class:list={['gallery__item', { 'gallery__item--wide': item.wide }]} data-category={item.category}>
+          <button
+            type="button"
+            class="gallery__btn"
+            data-lightbox-item
+            data-full={largestVariant(item.src)}
+            data-srcset={srcset(item.src, 'webp')}
+            data-alt={item.alt}
+            data-caption={item.caption}
+          >
+            <Picture
+              src={item.src}
+              alt={item.alt}
+              sizes={item.wide ? '(min-width: 64em) 50vw, 100vw' : '(min-width: 64em) 25vw, (min-width: 40em) 50vw, 100vw'}
+              class="gallery__picture"
+              imgClass="gallery__img"
+            />
+            <span class="visually-hidden">{t('gallery.open')}</span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="visually-hidden" role="status" aria-live="polite" data-gallery-status></p>
+</div>
+<Lightbox locale={locale} />
+
+<style>
+  .gallery__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+    margin-bottom: var(--s-4);
+  }
+  .gallery__filters button {
+    min-height: var(--tap);
+    padding: 0.5rem 1.1rem;
+    border: 1px solid var(--c-line);
+    border-radius: 999px;
+    background: transparent;
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--c-text);
+    transition: background-color var(--dur-s), border-color var(--dur-s), color var(--dur-s);
+  }
+  .gallery__filters button:hover {
+    border-color: var(--c-accent);
+  }
+  .gallery__filters button[aria-pressed='true'] {
+    background: var(--c-accent);
+    border-color: var(--c-accent);
+    color: var(--c-on-accent);
+  }
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    grid-auto-flow: dense;
+    gap: clamp(0.5rem, 1vw, 1rem);
+  }
+  .gallery__item {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    background: var(--c-surface-2);
+  }
+  @media (min-width: 40em) {
+    .gallery__item--wide {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+  }
+  .gallery__btn {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+  .gallery__btn :global(.gallery__picture),
+  .gallery__btn :global(.gallery__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .gallery__btn :global(.gallery__img) {
+    transition: transform 1s var(--ease-out), opacity var(--dur-m);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .gallery__btn:hover :global(.gallery__img) {
+      transform: scale(1.04);
+    }
+  }
+  .gallery__btn:focus-visible {
+    outline-offset: -3px;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
+    const buttons = [...gallery.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const items = [...gallery.querySelectorAll<HTMLElement>('[data-category]')];
+    const status = gallery.querySelector<HTMLElement>('[data-gallery-status]');
+    buttons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.filter;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        let n = 0;
+        items.forEach((item) => {
+          const show = f === 'all' || item.dataset.category === f;
+          item.hidden = !show;
+          if (show) n++;
+        });
+        if (status) status.textContent = `${btn.textContent?.trim()}: ${n}`;
+      }),
+    );
+  });
+</script>
