@@ -34,6 +34,11 @@ const { items, heading } = Astro.props;
     gap: var(--s-3) var(--s-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   }
+  @media (min-width: 64em) {
+    .info__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
   .info__item {
     display: flex;
     gap: var(--s-2);
