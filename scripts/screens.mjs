@@ -57,8 +57,8 @@ for (const width of WIDTHS) {
       const h1 = document.querySelectorAll('h1').length;
       return { overflow, offenders: offenders.slice(0, 5), small: small.slice(0, 8), h1 };
     });
-    const name = `${path.replace(/\//g, '_').replace(/^_|_$/g, '') || 'root'}-${width}.png`;
-    await page.screenshot({ path: `${OUT}/${name}`, fullPage: FULL });
+    const name = `${path.replace(/\//g, '_').replace(/^_|_$/g, '') || 'root'}-${width}.jpg`;
+    await page.screenshot({ path: `${OUT}/${name}`, fullPage: FULL, type: 'jpeg', quality: 70 });
     if (check.overflow > 0 || errors.length || check.h1 !== 1 || check.small.length) {
       problems.push({ path, width, ...check, errors: errors.slice(0, 5) });
     }
