@@ -26,7 +26,7 @@ npm run test:invisible # nema NBSP/WJ u title, meta, JSON-LD, alt i URL-ovima (�
 npm test               # sve 훾etiri provjere (potreban build + preview)
 ```
 
-Node 20+ (testirano na Node 24). Konfiguracija ide kroz `.env` (predlo탑ak: `.env.example`).
+Node 24 (Astro 7 tra탑i najmanje 22.23.4; testirano na Node 24). Konfiguracija ide kroz `.env` (predlo탑ak: `.env.example`).
 
 ## Struktura
 

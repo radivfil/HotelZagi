@@ -43,7 +43,7 @@ GitHub Pages iz privatnog repozitorija traži plaćeni plan. Alternative:
 ## Kasnije: Cloudflare Pages (ili Netlify)
 
 Što se mijenja:
-- **Build command** `npm run build`, **output** `dist`, `NODE_VERSION=22`
+- **Build command** `npm run build`, **output** `dist`, `NODE_VERSION=24`
 - **Varijable:** `SITE_URL=https://<projekt>.pages.dev` (ili `https://www.zagi.hr`), `BASE_PATH=/` (ili ne postaviti), `DEMO_MODE=true` za demo / `false` za produkciju
 - **noindex i na razini poslužitelja** (demo na `*.pages.dev`): dodati `public/_headers`
   ```
