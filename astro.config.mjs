@@ -16,7 +16,7 @@ if (cmsEnabled) {
     // Nazivi paketa u varijablama: TypeScript ih ne traži dok CMS nije instaliran
     const pkgKeystatic = '@keystatic/astro';
     const pkgReact = '@astrojs/react';
-    const [{ default: keystatic }, { default: react }] = await Promise.all([import(pkgKeystatic), import(pkgReact)]);
+    const [{ default: keystatic }, { default: react }] = await Promise.all([import(/* @vite-ignore */ pkgKeystatic), import(/* @vite-ignore */ pkgReact)]);
     cmsIntegrations.push(react(), keystatic());
   } catch {
     console.warn('[cms] PUBLIC_CMS_ENABLED=true, ali Keystatic nije instaliran (npm i @keystatic/core @keystatic/astro @astrojs/react react react-dom).');
