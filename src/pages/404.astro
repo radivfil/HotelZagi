@@ -1,0 +1,62 @@
+---
+/**
+ * Ispravna 404 stranica (statičan hosting je poslužuje sa statusom 404).
+ * Jezik se ne može znati unaprijed, pa je tekst na svim uključenim jezicima.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.astro';
+import { defaultLocale, enabledLocales } from '@/i18n/config';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+
+const t = useTranslations(defaultLocale);
+const others = enabledLocales.filter((l) => l.code !== defaultLocale);
+---
+
+<BaseLayout locale={defaultLocale} seo={{ title: `404 – ${t('404.title')} | Hotel Zagi`, description: t('404.text'), noindex: true }} standalone>
+  <section class="nf container">
+    <p class="nf__code" aria-hidden="true">404</p>
+    <h1>{t('404.title')}</h1>
+    <p class="lead">{t('404.text')}</p>
+    <div class="cluster">
+      <Button href={pathFor('home', defaultLocale)} size="l" icon="arrowRight">{t('404.home')}</Button>
+      <Button href={pathFor('contact', defaultLocale)} variant="secondary" size="l">{t('nav.contact')}</Button>
+    </div>
+    {
+      others.map((l) => {
+        const tl = useTranslations(l.code);
+        return (
+          <div class="nf__alt" lang={l.hreflang}>
+            <h2 class="h3">{tl('404.title')}</h2>
+            <p>{tl('404.text')}</p>
+            <a href={pathFor('home', l.code)}>{tl('404.home')}</a>
+          </div>
+        );
+      })
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    display: grid;
+    gap: var(--s-3);
+    justify-items: start;
+    padding-block: calc(var(--header-h) + var(--s-6)) var(--s-7);
+  }
+  .nf__code {
+    font-family: var(--font-serif);
+    font-size: clamp(5rem, 3rem + 10vw, 11rem);
+    font-weight: 600;
+    line-height: 0.9;
+    color: var(--c-logo);
+  }
+  .nf__alt {
+    display: grid;
+    gap: var(--s-1);
+    margin-top: var(--s-4);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--c-line);
+    color: var(--c-text-muted);
+  }
+</style>

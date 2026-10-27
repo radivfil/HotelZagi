@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import GalleryGrid from '@/components/GalleryGrid.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getLocalized } from '@/lib/content';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { data: page, locale: contentLocale } = await getLocalized('pages', locale, 'gallery');
+const { data: gallery } = await getLocalized('gallery', locale, 'page');
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t('nav.gallery'), href: pathFor('gallery', locale) },
+];
+---
+
+<BaseLayout locale={locale} pageKey="gallery" seo={page.seo} contentLocale={contentLocale} crumbs={crumbs}>
+  <PageHero {...page.hero} crumbs={crumbs} locale={locale} />
+  <Section id="fotografije" tight>
+    <GalleryGrid locale={locale} items={gallery.items} categories={gallery.categories} />
+  </Section>
+</BaseLayout>

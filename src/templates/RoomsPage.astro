@@ -1,0 +1,304 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import Picture from '@/components/Picture.astro';
+import FeatureList from '@/components/FeatureList.astro';
+import Button from '@/components/Button.astro';
+import Icon from '@/components/Icon.astro';
+import PracticalInfo from '@/components/PracticalInfo.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+import Lightbox from '@/components/Lightbox.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getLocalized, getLocalizedList, getSettings } from '@/lib/content';
+import { bookingHref } from '@/lib/links';
+import { largestVariant, srcset } from '@/lib/images';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { data: page, locale: contentLocale } = await getLocalized('pages', locale, 'rooms');
+const { entries } = await getLocalizedList('rooms', locale);
+const rooms = entries.map((e) => ({ id: e.id.split('/')[1], ...e.data })).sort((a, b) => a.order - b.order);
+const settings = await getSettings(locale);
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t('nav.rooms'), href: pathFor('rooms', locale) },
+];
+const price = new Intl.NumberFormat(locale === 'hr' ? 'hr-HR' : 'en-GB', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+---
+
+<BaseLayout locale={locale} pageKey="rooms" seo={page.seo} contentLocale={contentLocale} transparentHeader={!!page.hero.image} crumbs={crumbs}>
+  <PageHero {...page.hero} crumbs={crumbs} locale={locale} />
+
+  {
+    page.intro && (
+      <Section id="uvod" narrow>
+        <div class="intro" data-reveal>
+          <h2>{page.intro.heading}</h2>
+          <div class="prose">
+            {page.intro.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        </div>
+      </Section>
+    )
+  }
+
+  <div class="rooms" data-lightbox-group>
+    {
+      rooms.map((room, i) => (
+        <section class:list={['room', { 'room--alt': i % 2 === 1 }]} id={room.id} aria-labelledby={`${room.id}-title`}>
+          <div class="container room__grid">
+            <div class="room__media" data-reveal>
+              <button
+                type="button"
+                class="room__zoom"
+                data-lightbox-item
+                data-full={largestVariant(room.image.src)}
+                data-srcset={srcset(room.image.src, 'webp')}
+                data-alt={room.image.alt}
+              >
+                <Picture src={room.image.src} alt={room.image.alt} ratio="3/2" sizes="(min-width: 64em) 55vw, 100vw" imgClass="room__img" />
+                <span class="visually-hidden">{t('gallery.open')}</span>
+              </button>
+              {room.gallery.length > 0 && (
+                <ul role="list" class="room__thumbs">
+                  {room.gallery.map((img) => (
+                    <li>
+                      <button
+                        type="button"
+                        class="room__thumb"
+                        data-lightbox-item
+                        data-full={largestVariant(img.src)}
+                        data-srcset={srcset(img.src, 'webp')}
+                        data-alt={img.alt}
+                      >
+                        <Picture src={img.src} alt={img.alt} ratio="3/2" sizes="160px" />
+                        <span class="visually-hidden">{t('gallery.open')}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div class="room__body" data-reveal style="--reveal-delay:120ms">
+              <h2 id={`${room.id}-title`} class="room__name">
+                {room.name}
+              </h2>
+              <p class="room__summary">{room.summary}</p>
+              <dl class="room__meta">
+                <div>
+                  <dt>
+                    <Icon name="bed" size={20} />
+                    {t('rooms.beds')}
+                  </dt>
+                  <dd>{room.beds}</dd>
+                </div>
+                <div>
+                  <dt>
+                    <Icon name="users" size={20} />
+                    {t('rooms.maxGuests')}
+                  </dt>
+                  <dd>{room.maxGuests}</dd>
+                </div>
+              </dl>
+              <div class="prose">
+                {room.description.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </div>
+              {room.includes ? (
+                <div class="room__list">
+                  <h3>{t('rooms.includes')}</h3>
+                  <FeatureList items={room.includes} />
+                </div>
+              ) : (
+                <div class="room__list">
+                  <h3>{t('rooms.features')}</h3>
+                  <FeatureList items={room.features} columns={2} />
+                </div>
+              )}
+              <div class="room__book">
+                {room.priceFrom && (
+                  <p class="room__price">
+                    <span>{t('rooms.priceFrom')}</span>
+                    <strong>{price.format(room.priceFrom)}</strong>
+                    <span>{t('common.perNight')}</span>
+                  </p>
+                )}
+                <Button href={bookingHref(locale)} size="l" icon="arrowRight" data-booking-link>
+                  {t('book.room')}
+                  <span class="visually-hidden">: {room.name}</span>
+                </Button>
+              </div>
+              {room.priceFrom && <p class="room__note">{t('rooms.priceNote')}</p>}
+            </div>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+  <Lightbox locale={locale} />
+
+  {
+    page.sections.map((s) => (
+      <Section id={s.id} heading={s.heading} narrow>
+        <div class="prose">
+          {s.paragraphs.map((p) => (
+            <p>{p}</p>
+          ))}
+        </div>
+        {s.list && <FeatureList items={s.list} class="other-rooms" />}
+      </Section>
+    ))
+  }
+
+  <Section tone="surface" tight>
+    <PracticalInfo items={settings.practicalInfo} heading={t('info.title')} />
+  </Section>
+
+  {page.cta && <CtaBanner locale={locale} {...page.cta} />}
+</BaseLayout>
+
+<style>
+  .intro {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .room {
+    padding-block: clamp(var(--s-5), 6vw, var(--s-7));
+  }
+  .room--alt {
+    background: var(--c-surface);
+  }
+  .room__grid {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .room__zoom,
+  .room__thumb {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+    border-radius: var(--radius-l);
+    overflow: hidden;
+  }
+  .room__zoom :global(img),
+  .room__thumb :global(img) {
+    width: 100%;
+    object-fit: cover;
+  }
+  .room__thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 9rem));
+    gap: var(--s-1);
+    margin-top: var(--s-1);
+  }
+  .room__thumb {
+    border-radius: var(--radius-m);
+  }
+  .room__body {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+  }
+  .room__name {
+    font-size: var(--step-3);
+  }
+  .room__summary {
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--c-text-muted);
+  }
+  .room__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    padding-block: var(--s-2);
+    border-block: 1px solid var(--c-line);
+  }
+  .room__meta dt {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+  }
+  .room__meta dd {
+    margin: 0.2rem 0 0;
+    font-weight: 500;
+  }
+  .room__list {
+    display: grid;
+    gap: var(--s-1);
+  }
+  .room__list h3 {
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+  }
+  .room__book {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2) var(--s-4);
+    margin-top: var(--s-1);
+  }
+  .room__price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    color: var(--c-text-muted);
+    font-size: var(--step--1);
+  }
+  .room__price strong {
+    font-family: var(--font-serif);
+    font-size: var(--step-3);
+    font-weight: 600;
+    color: var(--c-text);
+  }
+  .room__note {
+    font-size: var(--step--1);
+    color: var(--c-text-muted);
+  }
+  @media (min-width: 64em) {
+    .room__grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--s-5) clamp(1rem, 2vw, 2rem);
+      align-items: start;
+    }
+    .room__media {
+      grid-column: 1 / span 6;
+      position: sticky;
+      top: calc(var(--header-h) + var(--s-3));
+    }
+    .room__body {
+      grid-column: 8 / span 5;
+    }
+    .room--alt .room__media {
+      grid-column: 7 / span 6;
+      grid-row: 1;
+    }
+    .room--alt .room__body {
+      grid-column: 1 / span 5;
+      grid-row: 1;
+    }
+  }
+  :global(.other-rooms) {
+    margin-top: var(--s-3);
+  }
+</style>

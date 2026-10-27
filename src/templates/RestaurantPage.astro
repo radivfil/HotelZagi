@@ -1,0 +1,342 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import Picture from '@/components/Picture.astro';
+import TextImage from '@/components/TextImage.astro';
+import PdfDownload from '@/components/PdfDownload.astro';
+import InquiryForm from '@/components/InquiryForm.astro';
+import Button from '@/components/Button.astro';
+import Icon from '@/components/Icon.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getGlobal, getLocalized, telHref } from '@/lib/content';
+import { restaurantSchema } from '@/lib/schema';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { data: r, locale: contentLocale } = await getLocalized('restaurant', locale, 'page');
+const g = await getGlobal();
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t('nav.restaurant'), href: pathFor('restaurant', locale) },
+];
+const [leadDish, ...dishes] = r.dishes.items;
+const jsonLd = [
+  restaurantSchema(g, locale, {
+    name: `Restoran ${g.hotelName}`,
+    description: r.seo.description,
+    image: r.hero.image?.src ?? r.buffet.image.src,
+    cuisine: locale === 'hr' ? ['Zagorska kuhinja', 'Hrvatska kuhinja', 'Međunarodna kuhinja'] : ['Zagorje cuisine', 'Croatian cuisine', 'International cuisine'],
+  }),
+];
+---
+
+<BaseLayout locale={locale} pageKey="restaurant" seo={r.seo} contentLocale={contentLocale} transparentHeader crumbs={crumbs} jsonLd={jsonLd}>
+  <PageHero {...r.hero} crumbs={crumbs} locale={locale}>
+    <div class="hero-actions">
+      <Button href="#upit" size="l" icon="arrowRight">{t('restaurant.inquiry')}</Button>
+    </div>
+  </PageHero>
+
+  <Section id="prica">
+    <TextImage eyebrow={r.story.eyebrow} heading={r.story.heading} paragraphs={r.story.paragraphs} image={r.story.image} ratio="4/5">
+      <dl class="facts">
+        {
+          r.facts.map((f) => (
+            <div>
+              <dt>{f.label}</dt>
+              <dd>{f.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </TextImage>
+  </Section>
+
+  <Section id="jela" tone="surface" heading={r.dishes.heading} lead={r.dishes.lead}>
+    <div class="dishes">
+      {
+        leadDish && (
+          <article class="dish dish--lead" data-reveal>
+            {leadDish.image && <Picture src={leadDish.image.src} alt={leadDish.image.alt} ratio="4/3" sizes="(min-width: 64em) 58vw, 100vw" imgClass="dish__img" />}
+            <div class="dish__text">
+              <h3>{leadDish.name}</h3>
+              <p>{leadDish.text}</p>
+            </div>
+          </article>
+        )
+      }
+      <div class="dishes__side">
+        {
+          dishes.map((d, i) => (
+            <article class="dish" data-reveal style={`--reveal-delay:${(i + 1) * 90}ms`}>
+              {d.image && <Picture src={d.image.src} alt={d.image.alt} ratio="1/1" sizes="(min-width: 64em) 12vw, 30vw" imgClass="dish__img" />}
+              <div class="dish__text">
+                <h3>{d.name}</h3>
+                <p>{d.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+    <ul role="list" class="specialities" data-reveal>
+      {r.specialities.map((s) => <li>{s}</li>)}
+    </ul>
+  </Section>
+
+  <section class="buffet" id="svedski-stol" aria-labelledby="buffet-title">
+    <Picture src={r.buffet.image.src} alt={r.buffet.image.alt} sizes="(min-width: 64em) 50vw, 100vw" class="buffet__media" imgClass="buffet__img" />
+    <div class="buffet__body" data-reveal>
+      {r.buffet.eyebrow && <p class="eyebrow">{r.buffet.eyebrow}</p>}
+      <h2 id="buffet-title">{r.buffet.heading}</h2>
+      {r.buffet.paragraphs.map((p) => <p>{p}</p>)}
+      <h3 class="buffet__prices-title">{t('restaurant.buffetPrices')}</h3>
+      <dl class="prices">
+        {
+          r.buffet.prices.map((p) => (
+            <div>
+              <dt>{p.label}</dt>
+              <dd>{p.price}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      {r.buffet.note && <p class="buffet__note">{r.buffet.note}</p>}
+      <div class="cluster">
+        <Button href={telHref(g.phones.main)} variant="ghost" iconStart="phone">{g.phones.main}</Button>
+        <Button href={telHref(g.phones.mobile)} variant="ghost" iconStart="phone">{g.phones.mobile}</Button>
+      </div>
+    </div>
+  </section>
+
+  <Section id="catering">
+    <TextImage
+      eyebrow={r.catering.eyebrow}
+      heading={r.catering.heading}
+      paragraphs={r.catering.paragraphs}
+      list={r.catering.list}
+      image={r.catering.image}
+      reverse
+      ratio="4/3"
+    >
+      <Button href="#upit" variant="link" icon="arrowRight">{t('restaurant.inquiry')}</Button>
+    </TextImage>
+  </Section>
+
+  <Section tone="surface" tight>
+    <div class="notes">
+      <div class="note" data-reveal>
+        <p class="eyebrow">{r.wine.eyebrow}</p>
+        <h2 class="h3">{r.wine.heading}</h2>
+        {r.wine.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <div class="note" data-reveal style="--reveal-delay:100ms">
+        <p class="eyebrow">HACCP</p>
+        <h2 class="h3">{r.haccp.heading}</h2>
+        {r.haccp.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      {
+        r.brochure && (
+          <div class="note" data-reveal style="--reveal-delay:200ms">
+            <PdfDownload file={r.brochure.file} title={r.brochure.title} description={r.brochure.description} locale={locale} />
+          </div>
+        )
+      }
+    </div>
+  </Section>
+
+  <Section id="upit" heading={t('restaurant.inquiry')} narrow>
+    <p class="upit-lead">
+      <Icon name="phone" size={18} />
+      <a href={telHref(g.phones.main)}>{g.phones.main}</a> · <a href={`mailto:${g.emails.info}`}>{g.emails.info}</a>
+    </p>
+    <InquiryForm locale={locale} kind="restaurant" email={g.emails.info} />
+  </Section>
+</BaseLayout>
+
+<style>
+  .hero-actions {
+    margin-top: var(--s-3);
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-2);
+    width: 100%;
+    margin-top: var(--s-2);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--c-line);
+  }
+  .facts div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.25rem;
+  }
+  .facts dd {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--step-3);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .facts dt {
+    font-size: var(--step--1);
+    color: var(--c-text-muted);
+  }
+  .dishes {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .dish {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+  }
+  .dish :global(.dish__img) {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-l);
+  }
+  .dish h3 {
+    font-size: var(--step-2);
+  }
+  .dish p {
+    color: var(--c-text-muted);
+  }
+  .dish--lead h3 {
+    font-size: var(--step-3);
+  }
+  .dishes__side {
+    display: grid;
+    gap: var(--s-4);
+  }
+  @media (min-width: 40em) {
+    .dishes__side .dish {
+      grid-template-columns: 9rem 1fr;
+      align-items: center;
+      gap: var(--s-3);
+    }
+  }
+  @media (min-width: 64em) {
+    .dishes {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: clamp(1rem, 2vw, 2rem);
+    }
+    .dish--lead {
+      grid-column: 1 / span 7;
+    }
+    .dishes__side {
+      grid-column: 9 / span 4;
+      align-content: center;
+    }
+  }
+  .specialities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0;
+    margin-top: var(--s-6);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--c-line);
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .specialities li:not(:last-child)::after {
+    content: '·';
+    margin-inline: 0.6em;
+    color: var(--c-logo);
+  }
+
+  .buffet {
+    display: grid;
+    background: var(--c-dark);
+    color: var(--c-on-dark);
+  }
+  .buffet :global(.buffet__media),
+  .buffet :global(.buffet__img) {
+    width: 100%;
+    height: 100%;
+    min-height: 18rem;
+    object-fit: cover;
+  }
+  .buffet__body {
+    display: grid;
+    gap: var(--s-2);
+    align-content: center;
+    padding: clamp(var(--s-5), 6vw, var(--s-7)) var(--gutter);
+    max-width: 40rem;
+  }
+  .buffet__body .eyebrow {
+    color: var(--c-on-dark-muted);
+  }
+  .buffet__body > p:not(.eyebrow):not(.buffet__note) {
+    color: var(--c-on-dark-muted);
+  }
+  .buffet__prices-title {
+    margin-top: var(--s-2);
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-on-dark-muted);
+  }
+  .prices div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-2);
+    padding-block: 0.7rem;
+    border-bottom: 1px solid rgb(243 237 228 / 0.18);
+  }
+  .prices dd {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .buffet__note {
+    font-size: var(--step--1);
+    color: var(--c-on-dark-muted);
+  }
+  @media (min-width: 64em) {
+    .buffet {
+      grid-template-columns: 1fr 1fr;
+    }
+    .buffet__body {
+      padding-inline: clamp(var(--s-5), 6vw, var(--s-7));
+    }
+  }
+  .notes {
+    display: grid;
+    gap: var(--s-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+  .note {
+    display: grid;
+    gap: var(--s-1);
+    align-content: start;
+  }
+  .note p:not(.eyebrow) {
+    color: var(--c-text-muted);
+  }
+  .upit-lead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin: calc(-1 * var(--s-3)) 0 var(--s-4);
+  }
+  .upit-lead a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    font-weight: 600;
+  }
+</style>

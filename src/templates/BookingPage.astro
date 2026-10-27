@@ -1,0 +1,127 @@
+---
+/**
+ * PRIPREMA za ugrađenu rezervaciju (WebBookingPro, bez iframea).
+ * Uključuje se jednom zastavicom: PUBLIC_WBP_EMBED_ENABLED=true.
+ * - window.wbpSettings = { hotelId, language, currency, showLogo, showFooter }
+ * - parametri iz URL-a (checkin_date, checkout_date, adults …) nadjačavaju wbpSettings
+ * - source=novi-web radi praćenja
+ * Stranica je uvijek noindex i nije u sitemapu.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import BookingBar from '@/components/BookingBar.astro';
+import Button from '@/components/Button.astro';
+import { BOOKING } from '@/config/site';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getLocalized } from '@/lib/content';
+import { bookingLanguage } from '@/lib/links';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { data: page, locale: contentLocale } = await getLocalized('pages', locale, 'booking');
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t('nav.booking'), href: pathFor('booking', locale) },
+];
+const externalUrl = `${BOOKING.url}?${BOOKING.langParam}=${bookingLanguage(locale)}&${BOOKING.params.source}=${BOOKING.source}`;
+const wbpSettings = {
+  hotelId: BOOKING.hotelId,
+  language: bookingLanguage(locale),
+  currency: BOOKING.currency,
+  showLogo: '0',
+  showFooter: '0',
+  source: BOOKING.source,
+};
+---
+
+<BaseLayout locale={locale} pageKey="booking" seo={{ ...page.seo, noindex: true }} contentLocale={contentLocale} crumbs={crumbs} showMobileCta={false}>
+  <PageHero {...page.hero} crumbs={crumbs} locale={locale} />
+  <Section tight>
+    {
+      BOOKING.embedEnabled ? (
+        <div class="wbp">
+          <h2 class="visually-hidden">{t('book.embedTitle')}</h2>
+          <div id="wbproot" data-wbp-root>
+            <p class="wbp__loading">{t('book.embedLoading')}</p>
+          </div>
+          <p class="wbp__fallback small muted">
+            {t('book.embedFallback')} <a href={externalUrl}>{t('book.embedFallbackLink')}</a>.
+          </p>
+          <script
+            is:inline
+            define:vars={{ settings: wbpSettings, manifestUrl: BOOKING.embedManifestUrl, baseUrl: BOOKING.embedBaseUrl, params: BOOKING.params }}
+          >
+            // Parametri iz URL-a nadjačavaju zadane postavke (npr. datumi iz booking trake)
+            var query = new URLSearchParams(window.location.search);
+            var allowed = ['language', 'currency', params.checkIn, params.checkOut, params.guests, 'children', 'roomId', 'promoCode', params.source];
+            var merged = Object.assign({}, settings);
+            allowed.forEach(function (key) {
+              if (query.has(key)) merged[key] = query.get(key);
+            });
+            window.wbpSettings = merged;
+            // Isti način učitavanja kao na postojećoj booknow.php stranici (asset-manifest)
+            fetch(manifestUrl)
+              .then(function (r) {
+                return r.json();
+              })
+              .then(function (data) {
+                (data.entrypoints || []).forEach(function (file) {
+                  var el;
+                  if (file.endsWith('.css')) {
+                    el = document.createElement('link');
+                    el.rel = 'stylesheet';
+                    el.href = baseUrl + file;
+                  } else if (file.endsWith('.js')) {
+                    el = document.createElement('script');
+                    el.src = baseUrl + file;
+                  }
+                  if (el) document.head.appendChild(el);
+                });
+              })
+              .catch(function () {
+                document.querySelector('.wbp__fallback').classList.add('is-visible');
+              });
+          </script>
+        </div>
+      ) : (
+        <div class="wbp-off">
+          <p>{t('book.embedDisabled')}</p>
+          <Button href={externalUrl} size="l" icon="arrowRight">
+            {t('book.ctaLong')}
+          </Button>
+          <div class="wbp-off__bar">
+            <BookingBar locale={locale} id="booking-page" />
+          </div>
+        </div>
+      )
+    }
+  </Section>
+</BaseLayout>
+
+<style>
+  .wbp {
+    min-height: 60vh;
+  }
+  .wbp__loading {
+    padding: var(--s-5) 0;
+    color: var(--c-text-muted);
+  }
+  .wbp__fallback {
+    margin-top: var(--s-3);
+  }
+  .wbp-off {
+    display: grid;
+    gap: var(--s-3);
+    justify-items: start;
+    max-width: 60rem;
+  }
+  .wbp-off__bar {
+    width: 100%;
+    margin-top: var(--s-3);
+  }
+</style>

@@ -1,0 +1,238 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import Picture from '@/components/Picture.astro';
+import TextImage from '@/components/TextImage.astro';
+import FeatureList from '@/components/FeatureList.astro';
+import InquiryForm from '@/components/InquiryForm.astro';
+import Button from '@/components/Button.astro';
+import Icon from '@/components/Icon.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getGlobal, getLocalized, telHref } from '@/lib/content';
+import { eventVenueSchema } from '@/lib/schema';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { data: c, locale: contentLocale } = await getLocalized('conference', locale, 'page');
+const g = await getGlobal();
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t('nav.conference'), href: pathFor('conference', locale) },
+];
+const jsonLd = [
+  eventVenueSchema(g, locale, {
+    name: `${t('nav.conference')} – ${g.hotelName}`,
+    description: c.seo.description,
+    image: c.hero.image?.src ?? '/uploads/conference/kongresna-dvorana-kino-raspored.jpg',
+    capacity: g.facts.conferenceCapacity,
+  }),
+];
+---
+
+<BaseLayout locale={locale} pageKey="conference" seo={c.seo} contentLocale={contentLocale} transparentHeader crumbs={crumbs} jsonLd={jsonLd}>
+  <PageHero {...c.hero} crumbs={crumbs} locale={locale}>
+    <div class="hero-actions">
+      <Button href="#upit" size="l" icon="arrowRight">{t('conference.inquiry')}</Button>
+    </div>
+  </PageHero>
+
+  <Section id="dvorana">
+    <div class="intro">
+      <div class="intro__text" data-reveal>
+        <h2>{c.intro.heading}</h2>
+        <div class="prose">{c.intro.paragraphs.map((p) => <p>{p}</p>)}</div>
+      </div>
+      <div class="intro__side" data-reveal style="--reveal-delay:120ms">
+        <h3 class="side-title">{t('conference.capacity')}</h3>
+        <dl class="stats">
+          {
+            c.capacity.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <h3 class="side-title">{t('conference.equipment')}</h3>
+        <FeatureList items={c.equipment} />
+      </div>
+    </div>
+  </Section>
+
+  <Section id="rasporedi" tone="surface" heading={t('conference.layouts')}>
+    <ul role="list" class="layouts">
+      {
+        c.layouts.map((l, i) => (
+          <li class="layout" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+            {l.image && <Picture src={l.image.src} alt={l.image.alt} ratio="4/3" sizes="(min-width: 64em) 25vw, (min-width: 40em) 50vw, 100vw" imgClass="layout__img" />}
+            <h3>{l.name}</h3>
+            <p>{l.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="namjene">
+    <ul role="list" class="purposes">
+      {
+        c.purposes.map((p, i) => (
+          <li data-reveal style={`--reveal-delay:${i * 80}ms`}>
+            <span class="purposes__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  {
+    c.sections.map((s, i) => (
+      <Section id={s.id} tone={i % 2 === 0 ? 'surface' : 'default'}>
+        <TextImage eyebrow={s.eyebrow} heading={s.heading} paragraphs={s.paragraphs} image={s.image} reverse={i % 2 === 1} ratio="4/3" />
+      </Section>
+    ))
+  }
+
+  <Section id="upit" heading={t('conference.inquiry')} narrow>
+    <p class="upit-lead">
+      <Icon name="phone" size={18} />
+      <a href={telHref(g.phones.main)}>{g.phones.main}</a> · <a href={`mailto:${g.emails.info}`}>{g.emails.info}</a>
+    </p>
+    <InquiryForm locale={locale} kind="conference" email={g.emails.info} />
+  </Section>
+</BaseLayout>
+
+<style>
+  .hero-actions {
+    margin-top: var(--s-3);
+  }
+  .intro {
+    display: grid;
+    gap: var(--s-5);
+  }
+  .intro__text {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .intro__side {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    padding: clamp(var(--s-3), 3vw, var(--s-5));
+    border-radius: var(--radius-l);
+    background: var(--c-surface);
+  }
+  .side-title {
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+  }
+  .side-title:not(:first-child) {
+    margin-top: var(--s-2);
+  }
+  .stats {
+    display: grid;
+    gap: var(--s-2);
+  }
+  .stats div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: var(--s-2);
+  }
+  .stats dd {
+    min-width: 3ch;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--step-4);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--c-accent);
+  }
+  .stats dt {
+    color: var(--c-text-muted);
+  }
+  @media (min-width: 64em) {
+    .intro {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: clamp(1rem, 2vw, 2rem);
+    }
+    .intro__text {
+      grid-column: 1 / span 6;
+    }
+    .intro__side {
+      grid-column: 8 / span 5;
+    }
+  }
+  .layouts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: var(--s-4) clamp(1rem, 2vw, 2rem);
+  }
+  .layout {
+    display: grid;
+    gap: var(--s-1);
+    align-content: start;
+  }
+  .layout :global(.layout__img) {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-l);
+    margin-bottom: var(--s-1);
+  }
+  .layout h3 {
+    font-size: var(--step-2);
+  }
+  .layout p {
+    color: var(--c-text-muted);
+  }
+  .purposes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: var(--s-5) clamp(1rem, 2vw, 2rem);
+  }
+  .purposes li {
+    display: grid;
+    gap: var(--s-1);
+    align-content: start;
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--c-text);
+  }
+  .purposes__num {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--c-accent);
+  }
+  .purposes h3 {
+    font-size: var(--step-2);
+  }
+  .purposes p {
+    color: var(--c-text-muted);
+  }
+  .upit-lead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin: calc(-1 * var(--s-3)) 0 var(--s-4);
+  }
+  .upit-lead a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,294 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import Picture from '@/components/Picture.astro';
+import TextImage from '@/components/TextImage.astro';
+import FeatureList from '@/components/FeatureList.astro';
+import PdfDownload from '@/components/PdfDownload.astro';
+import InquiryForm from '@/components/InquiryForm.astro';
+import Icon from '@/components/Icon.astro';
+import Button from '@/components/Button.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getGlobal, getLocalized, telHref } from '@/lib/content';
+import { spaSchema } from '@/lib/schema';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { data: w, locale: contentLocale } = await getLocalized('wellness', locale, 'page');
+const g = await getGlobal();
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t('nav.wellness'), href: pathFor('wellness', locale) },
+];
+// Tri saune s opširnim opisom dobivaju editorijalne blokove; ostali sadržaji idu u mrežu.
+const featured = w.facilities.filter((f) => f.paragraphs.length > 1);
+const tiles = w.facilities.filter((f) => f.paragraphs.length <= 1);
+const jsonLd = [
+  spaSchema(g, locale, {
+    name: `${w.hero.eyebrow ?? 'Wellness'} – ${g.hotelName}`,
+    description: w.seo.description,
+    image: w.hero.image?.src ?? '/uploads/wellness/wellness-relax-zona.jpg',
+    hours: w.hours,
+  }),
+];
+---
+
+<BaseLayout locale={locale} pageKey="wellness" seo={w.seo} contentLocale={contentLocale} transparentHeader crumbs={crumbs} jsonLd={jsonLd}>
+  <PageHero {...w.hero} crumbs={crumbs} locale={locale}>
+    <div class="hero-actions">
+      <Button href="#termin" size="l" icon="arrowRight">{t('wellness.bookSlot')}</Button>
+    </div>
+  </PageHero>
+
+  <Section id="uvod">
+    <div class="poem" data-reveal>
+      <p class="poem__quote">„{w.quote}“</p>
+      <div class="poem__lines">
+        <h2 class="visually-hidden">{w.intro.heading}</h2>
+        {w.intro.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </Section>
+
+  <Section id="sadrzaji" tone="surface" eyebrow={t('wellness.facilities')} heading={w.saunasIntro.heading} lead={w.saunasIntro.lead}>
+    <div class="featured">
+      {
+        featured.map((f, i) => (
+          <TextImage
+            id={f.id}
+            eyebrow={f.tagline}
+            heading={f.name}
+            paragraphs={f.paragraphs}
+            image={f.image}
+            reverse={i % 2 === 1}
+            headingLevel="h3"
+            ratio="3/2"
+          />
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section id="relax" heading={w.relaxIntro.heading} lead={w.relaxIntro.lead}>
+    <ul role="list" class="tiles">
+      {
+        tiles.map((f, i) => (
+          <li class="tile" id={f.id} data-reveal style={`--reveal-delay:${(i % 3) * 80}ms`}>
+            {f.image && <Picture src={f.image.src} alt={f.image.alt} ratio="4/3" sizes="(min-width: 64em) 33vw, (min-width: 40em) 50vw, 100vw" imgClass="tile__img" />}
+            <div class="tile__text">
+              <h3>{f.name}</h3>
+              {f.tagline && <p class="tile__tagline">{f.tagline}</p>}
+              {f.paragraphs.map((p) => <p>{p}</p>)}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="termin" tone="dark">
+    <div class="booking">
+      <div class="booking__info" data-reveal>
+        <div>
+          <h2 class="h3">{t('wellness.hours')}</h2>
+          <dl class="hours">
+            {
+              w.hours.map((h) => (
+                <div>
+                  <dt>{h.days}</dt>
+                  <dd>{h.time}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <div>
+          <h2 class="h3">{w.packages.heading}</h2>
+          <p class="muted">{w.packages.text}</p>
+          <FeatureList items={w.packages.items} class="booking__list" />
+        </div>
+        {
+          w.thermalPackages && (
+            <div>
+              <h2 class="h3">{w.thermalPackages.heading}</h2>
+              <p class="muted">{w.thermalPackages.text}</p>
+              <FeatureList items={w.thermalPackages.partners} class="booking__list" />
+            </div>
+          )
+        }
+        <div class="booking__brochure">
+          <PdfDownload file={w.brochure.file} title={w.brochure.title} description={w.brochure.description} locale={locale} />
+        </div>
+      </div>
+
+      <div class="booking__form" data-reveal style="--reveal-delay:120ms">
+        <h2 class="h3">{w.booking.heading}</h2>
+        <p>{w.booking.text}</p>
+        <ul role="list" class="booking__contacts">
+          <li><a href={telHref(g.phones.main)}><Icon name="phone" size={20} />{g.phones.main}</a></li>
+          <li><a href={telHref(g.phones.reception)}><Icon name="phone" size={20} />{g.phones.reception}</a></li>
+          <li><a href={`mailto:${g.emails.reception}`}><Icon name="mail" size={20} />{g.emails.reception}</a></li>
+        </ul>
+        <div class="form-card">
+          <InquiryForm locale={locale} kind="wellness" email={g.emails.reception} />
+        </div>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .hero-actions {
+    margin-top: var(--s-3);
+  }
+  .poem {
+    display: grid;
+    gap: var(--s-4);
+    max-width: 60rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .poem__quote {
+    font-family: var(--font-serif);
+    font-size: var(--step-4);
+    font-weight: 600;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  .poem__lines {
+    display: grid;
+    gap: var(--s-2);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: var(--step-2);
+    line-height: 1.35;
+    color: var(--c-text-muted);
+  }
+  .featured {
+    display: grid;
+    gap: clamp(var(--s-6), 8vw, var(--s-8));
+  }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: var(--s-5) clamp(1rem, 2vw, 2rem);
+  }
+  .tile {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+  }
+  .tile :global(.tile__img) {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-l);
+  }
+  .tile__text {
+    display: grid;
+    gap: 0.35rem;
+  }
+  .tile h3 {
+    font-size: var(--step-2);
+  }
+  .tile__tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: var(--step-1);
+    color: var(--c-text-muted);
+  }
+  .booking {
+    display: grid;
+    gap: var(--s-6);
+  }
+  .booking__info {
+    display: grid;
+    gap: var(--s-5);
+    align-content: start;
+  }
+  .booking__info > div {
+    display: grid;
+    gap: var(--s-2);
+  }
+  .booking :global(.booking__list .icon) {
+    color: var(--c-on-dark-muted);
+  }
+  .hours {
+    display: grid;
+    border-top: 1px solid rgb(243 237 228 / 0.18);
+  }
+  .hours div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 var(--s-2);
+    padding-block: 0.75rem;
+    border-bottom: 1px solid rgb(243 237 228 / 0.18);
+  }
+  .hours dt {
+    color: var(--c-on-dark-muted);
+  }
+  .hours dd {
+    margin: 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .booking__form {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+  }
+  .booking__contacts {
+    display: grid;
+    gap: 0;
+  }
+  .booking__contacts a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: var(--tap);
+    color: var(--c-on-dark);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .booking__contacts a:hover {
+    text-decoration: underline;
+  }
+  .form-card {
+    margin-top: var(--s-2);
+    padding: clamp(var(--s-3), 3vw, var(--s-5));
+    border-radius: var(--radius-l);
+    background: var(--c-bg);
+    color: var(--c-text);
+  }
+  .booking__brochure :global(.pdf) {
+    background: rgb(255 255 255 / 0.04);
+    border-color: rgb(243 237 228 / 0.25);
+    color: var(--c-on-dark);
+  }
+  .booking__brochure :global(.pdf__label) {
+    color: var(--c-on-dark-muted);
+  }
+  .booking__brochure :global(.pdf__desc),
+  .booking__brochure :global(.pdf__meta) {
+    color: var(--c-on-dark-muted);
+  }
+  @media (min-width: 64em) {
+    .booking {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--s-6) clamp(1rem, 2vw, 2rem);
+    }
+    .booking__info {
+      grid-column: 1 / span 5;
+    }
+    .booking__form {
+      grid-column: 7 / span 6;
+    }
+  }
+</style>

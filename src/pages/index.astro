@@ -1,0 +1,9 @@
+---
+/**
+ * Korijen (/) preusmjerava na zadani jezik (/hr/).
+ * Na Netlify/Cloudflare Pages isto preusmjerenje radi i na poslužitelju (public/_redirects).
+ */
+import { defaultLocale } from '@/i18n/config';
+import { pathFor } from '@/i18n/routes';
+return Astro.redirect(pathFor('home', defaultLocale), 301);
+---

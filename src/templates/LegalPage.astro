@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getLocalized } from '@/lib/content';
+
+interface Props {
+  locale: string;
+  pageKey: 'privacy' | 'cookies';
+}
+const { locale, pageKey } = Astro.props;
+const t = useTranslations(locale);
+const { data: page, locale: contentLocale } = await getLocalized('pages', locale, pageKey);
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t(pageKey === 'privacy' ? 'nav.privacy' : 'nav.cookies'), href: pathFor(pageKey, locale) },
+];
+const updated = page.updated
+  ? new Intl.DateTimeFormat(locale === 'hr' ? 'hr-HR' : 'en-GB', { dateStyle: 'long' }).format(new Date(page.updated))
+  : undefined;
+---
+
+<BaseLayout locale={locale} pageKey={pageKey} seo={page.seo} contentLocale={contentLocale} crumbs={crumbs}>
+  <PageHero {...page.hero} lead={updated ? `${t('legal.updated')}: ${updated}` : page.hero.lead} crumbs={crumbs} locale={locale} />
+  <Section narrow tight>
+    <div class="legal prose">
+      {
+        page.sections.map((s) => (
+          <section id={s.id} aria-labelledby={`${s.id}-h`}>
+            <h2 id={`${s.id}-h`}>{s.heading}</h2>
+            {s.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+          </section>
+        ))
+      }
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .legal section + section {
+    margin-top: var(--s-5);
+  }
+  .legal h2 {
+    font-size: var(--step-2);
+    margin-bottom: var(--s-2);
+  }
+  .legal p + p {
+    margin-top: 1em;
+  }
+</style>

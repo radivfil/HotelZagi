@@ -1,0 +1,64 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import TextImage from '@/components/TextImage.astro';
+import PdfDownload from '@/components/PdfDownload.astro';
+import PracticalInfo from '@/components/PracticalInfo.astro';
+import CtaBanner from '@/components/CtaBanner.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getLocalized, getSettings } from '@/lib/content';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { data: page, locale: contentLocale } = await getLocalized('pages', locale, 'about');
+const settings = await getSettings(locale);
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t('nav.about'), href: pathFor('about', locale) },
+];
+---
+
+<BaseLayout locale={locale} pageKey="about" seo={page.seo} contentLocale={contentLocale} transparentHeader={!!page.hero.image} crumbs={crumbs}>
+  <PageHero {...page.hero} crumbs={crumbs} locale={locale} />
+
+  {
+    page.intro && (
+      <Section id="uvod">
+        <TextImage heading={page.intro.heading} paragraphs={page.intro.paragraphs} image={page.intro.image} ratio="1/1" />
+      </Section>
+    )
+  }
+
+  {
+    page.sections.map((s, i) => (
+      <Section id={s.id} tone={i % 2 === 0 ? 'surface' : 'default'}>
+        <TextImage eyebrow={s.eyebrow} heading={s.heading} paragraphs={s.paragraphs} list={s.list} image={s.image} reverse={i % 2 === 0} ratio="4/3" />
+      </Section>
+    ))
+  }
+
+  <Section id="brosure" heading={t('pdf.download')} tight>
+    <div class="brochures">
+      {settings.brochures.map((b) => <PdfDownload file={b.file} title={b.title} description={b.description} locale={locale} />)}
+    </div>
+  </Section>
+
+  <Section tone="surface" tight>
+    <PracticalInfo items={settings.practicalInfo} heading={t('info.title')} />
+  </Section>
+
+  {page.cta && <CtaBanner locale={locale} {...page.cta} />}
+</BaseLayout>
+
+<style>
+  .brochures {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  }
+</style>

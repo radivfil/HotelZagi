@@ -1,0 +1,185 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import InquiryForm from '@/components/InquiryForm.astro';
+import Icon from '@/components/Icon.astro';
+import Button from '@/components/Button.astro';
+import FeatureList from '@/components/FeatureList.astro';
+import { useTranslations } from '@/i18n';
+import { pathFor } from '@/i18n/routes';
+import { getGlobal, getLocalized, getSettings, telHref } from '@/lib/content';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const { data: page, locale: contentLocale } = await getLocalized('pages', locale, 'contact');
+const g = await getGlobal();
+const s = await getSettings(locale);
+const crumbs = [
+  { label: t('nav.home'), href: pathFor('home', locale) },
+  { label: t('nav.contact'), href: pathFor('contact', locale) },
+];
+const phones = [
+  { label: s.phoneLabels.main, value: g.phones.main },
+  { label: s.phoneLabels.mobile, value: g.phones.mobile },
+  { label: s.phoneLabels.reception, value: g.phones.reception },
+];
+---
+
+<BaseLayout locale={locale} pageKey="contact" seo={page.seo} contentLocale={contentLocale} crumbs={crumbs}>
+  <PageHero {...page.hero} crumbs={crumbs} locale={locale} />
+
+  <Section id="kontakt" tight>
+    <div class="contact">
+      <div class="contact__info">
+        <address class="contact__block">
+          <h2 class="contact__title"><Icon name="pin" size={22} />{t('contact.address')}</h2>
+          <p>
+            <strong>{g.hotelName}</strong> · {g.legalName}<br />
+            {g.address.street}<br />
+            {g.address.postalCode} {g.address.city}<br />
+            {g.address.country}
+          </p>
+          <Button href={g.mapUrl} variant="secondary" icon="external" target="_blank" rel="noopener" newTabLabel={t('common.newWindow')}>
+            {t('contact.map')}
+          </Button>
+        </address>
+
+        <div class="contact__block">
+          <h2 class="contact__title"><Icon name="phone" size={22} />{t('contact.phone')}</h2>
+          <dl class="contact__list">
+            {
+              phones.map((p) => (
+                <div>
+                  <dt>{p.label}</dt>
+                  <dd><a href={telHref(p.value)}>{p.value}</a></dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+
+        <div class="contact__block">
+          <h2 class="contact__title"><Icon name="mail" size={22} />{t('contact.email')}</h2>
+          <dl class="contact__list">
+            <div>
+              <dt>Info</dt>
+              <dd><a href={`mailto:${g.emails.info}`}>{g.emails.info}</a></dd>
+            </div>
+            <div>
+              <dt>{t('contact.reception')}</dt>
+              <dd><a href={`mailto:${g.emails.reception}`}>{g.emails.reception}</a></dd>
+            </div>
+          </dl>
+          {s.receptionNote && <p class="muted small">{s.receptionNote}</p>}
+        </div>
+
+        <div class="contact__block">
+          <h2 class="contact__title"><Icon name="car" size={22} />{t('contact.directions')}</h2>
+          <FeatureList items={s.directions} />
+        </div>
+      </div>
+
+      <div class="contact__form">
+        <h2 class="h3">{t('common.sendInquiry')}</h2>
+        <InquiryForm locale={locale} kind="contact" email={g.emails.info} />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--s-6);
+  }
+  .contact__info {
+    display: grid;
+    gap: var(--s-4);
+    align-content: start;
+  }
+  .contact__block {
+    display: grid;
+    gap: var(--s-2);
+    justify-items: start;
+    padding-bottom: var(--s-4);
+    border-bottom: 1px solid var(--c-line);
+    font-style: normal;
+  }
+  .contact__title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+  }
+  .contact__title :global(.icon) {
+    color: var(--c-accent);
+  }
+  .contact__block p {
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+  .contact__block p.small {
+    font-size: var(--step--1);
+  }
+  .contact__list {
+    display: grid;
+    gap: 0.25rem;
+    width: 100%;
+  }
+  .contact__list div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0 var(--s-2);
+  }
+  .contact__list dt {
+    color: var(--c-text-muted);
+  }
+  .contact__list dd {
+    margin: 0;
+  }
+  .contact__list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    font-size: var(--step-1);
+    font-weight: 600;
+    text-decoration: none;
+    word-break: break-word;
+  }
+  .contact__list a:hover {
+    text-decoration: underline;
+  }
+  .contact__form {
+    display: grid;
+    gap: var(--s-3);
+    align-content: start;
+    padding: clamp(var(--s-3), 3vw, var(--s-5));
+    border-radius: var(--radius-l);
+    background: var(--c-surface);
+  }
+  @media (min-width: 64em) {
+    .contact {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: clamp(1rem, 2vw, 2rem);
+    }
+    .contact__info {
+      grid-column: 1 / span 5;
+    }
+    .contact__form {
+      grid-column: 7 / span 6;
+      position: sticky;
+      top: calc(var(--header-h) + var(--s-3));
+    }
+  }
+</style>

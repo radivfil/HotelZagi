@@ -1,0 +1,42 @@
+---
+/**
+ * Jedinstvena ruta za sve stranice svih uključenih jezika.
+ * Putanje se generiraju iz src/i18n/config.ts (jezici) i src/i18n/routes.ts (slugovi),
+ * pa novi jezik ne traži nove datoteke u src/pages/.
+ */
+import type { GetStaticPaths } from 'astro';
+import { enabledLocales } from '@/i18n/config';
+import { pageKeys, slugFor, type PageKey } from '@/i18n/routes';
+import HomePage from '@/templates/HomePage.astro';
+import RoomsPage from '@/templates/RoomsPage.astro';
+import WellnessPage from '@/templates/WellnessPage.astro';
+import RestaurantPage from '@/templates/RestaurantPage.astro';
+import ConferencePage from '@/templates/ConferencePage.astro';
+import AboutPage from '@/templates/AboutPage.astro';
+import GalleryPage from '@/templates/GalleryPage.astro';
+import ContactPage from '@/templates/ContactPage.astro';
+import LegalPage from '@/templates/LegalPage.astro';
+import BookingPage from '@/templates/BookingPage.astro';
+
+export const getStaticPaths = (() =>
+  enabledLocales.flatMap((l) =>
+    pageKeys.map((key) => ({
+      params: { lang: l.code, slug: slugFor(key, l.code) || undefined },
+      props: { key },
+    })),
+  )) satisfies GetStaticPaths;
+
+const { lang } = Astro.params as { lang: string };
+const { key } = Astro.props as { key: PageKey };
+---
+
+{key === 'home' && <HomePage locale={lang} />}
+{key === 'rooms' && <RoomsPage locale={lang} />}
+{key === 'wellness' && <WellnessPage locale={lang} />}
+{key === 'restaurant' && <RestaurantPage locale={lang} />}
+{key === 'conference' && <ConferencePage locale={lang} />}
+{key === 'about' && <AboutPage locale={lang} />}
+{key === 'gallery' && <GalleryPage locale={lang} />}
+{key === 'contact' && <ContactPage locale={lang} />}
+{(key === 'privacy' || key === 'cookies') && <LegalPage locale={lang} pageKey={key} />}
+{key === 'booking' && <BookingPage locale={lang} />}
