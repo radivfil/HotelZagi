@@ -12,7 +12,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "screens": "node scripts/screens.mjs"
+    "screens": "node scripts/screens.mjs",
+    "test:dashes": "node scripts/test-dashes.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

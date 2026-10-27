@@ -73,6 +73,17 @@ Pravilo: kad se izvori razilaze, korištena je brošura.
 - **Stranica rezervacije** (`/hr/rezervacija/`, `/en/booking/`) uvijek je `noindex` i izvan sitemapa; dok je ugradnja isključena, nudi poveznicu na postojeći booknow.php i booking traku.
 - **Google karta** nije ugrađena (iframe usporava i postavlja kolačiće) – poveznica „Otvori u Google kartama”.
 
+## 6a. Tipografija (crtice i prijelomi redaka)
+
+- Automatsko dijeljenje riječi isključeno (`hyphens: none`); `overflow-wrap: break-word` ostaje samo kao zaštita od izlijevanja.
+- Tekst sadržaja i rječnika **nije mijenjan** – nijedna crtica nije zamijenjena ni izbačena. Pri izradi weba (`src/lib/typography.ts`) umeću se samo nevidljivi znakovi koji zabranjuju prijelom:
+  - crta s razmacima (134 pojave, npr. „Restoran Zagi – okusi…”, „11 – 22 h”): nerazdvojivi razmak prije i poslije + WORD JOINER iza crte,
+  - složenice (Wi-Fi, U-oblik, 30-ak, Krapinsko-zagorska, e-mail; EN: family-run, U-shape, king-size …): WORD JOINER iza crtice,
+  - telefoni, datumi („20. 9. 2026.”), broj + jedinica (28 €, 22 h),
+  - kratke riječi uz sljedeću riječ – hr: i, u, na, s, sa, o, od, do, za, uz, je, a, k, iz, po, te, ili, ni, bez; en: a, an, the, I, of, to, in, on, at, by.
+- Prije obrade test je našao **27** crtica na početku/kraju retka; nakon obrade **0** (`npm run test:dashes`, 6 stranica × 4 širine; snimke u `docs/screens/typography/`).
+- SEO polja (title, meta opis) i URL-ovi se ne obrađuju.
+
 ## 7. Sljedeći koraci (prijedlog)
 
 1. Odabrati i povezati endpoint obrazaca (Netlify Forms / Formspree) + DPA.

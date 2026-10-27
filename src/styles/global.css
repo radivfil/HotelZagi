@@ -27,6 +27,7 @@ body {
   font-size: var(--step-0);
   line-height: var(--lh-body);
   font-optical-sizing: auto;
+  hyphens: none;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
@@ -58,8 +59,9 @@ h4,
 li,
 dd,
 dt {
+  /* Bez automatskog dijeljenja riječi; break-word je samo krajnja zaštita od izlijevanja iz okvira */
   overflow-wrap: break-word;
-  hyphens: auto;
+  hyphens: none;
 }
 ul[role='list'],
 ol[role='list'] {
@@ -83,7 +85,6 @@ h3,
   line-height: var(--lh-tight);
   letter-spacing: -0.01em;
   text-wrap: balance;
-  hyphens: manual;
 }
 h1,
 .h1 {
@@ -103,11 +104,13 @@ h4 {
   font-weight: 600;
 }
 p,
-li {
+li,
+dd,
+figcaption,
+label {
   text-wrap: pretty;
 }
 .lead {
-  hyphens: manual;
   font-size: var(--step-1);
   line-height: 1.5;
   color: var(--c-text-muted);

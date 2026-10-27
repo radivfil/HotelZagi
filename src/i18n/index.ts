@@ -1,5 +1,6 @@
 import { fallbackChain } from './config';
 import type { UiDict, UiKey } from './ui/hr';
+import { typo } from '@/lib/typography';
 
 /**
  * Rječnici se učitavaju automatski: dovoljno je dodati src/i18n/ui/<code>.ts.
@@ -16,15 +17,17 @@ export function useTranslations(locale: string) {
   const chain = fallbackChain(locale);
   return function t(key: UiKey, vars?: Record<string, string | number>): string {
     let text: string = key;
+    let lang = locale;
     for (const code of chain) {
       const value = dictionaries[code]?.[key];
       if (value) {
         text = value;
+        lang = code;
         break;
       }
     }
     if (vars) for (const [k, v] of Object.entries(vars)) text = text.replaceAll(`{${k}}`, String(v));
-    return text;
+    return typo(text, lang);
   };
 }
 
