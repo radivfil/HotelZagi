@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { withBase } from '@/lib/url';
 import { useTranslations } from '@/i18n';
 import { pathFor, type PageKey } from '@/i18n/routes';
 import { getGlobal, getSettings, telHref } from '@/lib/content';
@@ -29,7 +30,7 @@ const year = new Date().getFullYear();
   <div class="container site-footer__grid">
     <div class="site-footer__brand">
       <a href={pathFor('home', locale)} aria-label={t('nav.homeLink')} class="site-footer__logo">
-        <img src="/logo.svg" alt="" width="320" height="170" loading="lazy" />
+        <img src={withBase('/logo.svg')} alt="" width="320" height="170" loading="lazy" />
       </a>
       <p>{s.footerAbout}</p>
       {
@@ -92,7 +93,7 @@ const year = new Date().getFullYear();
 
   <div class="container site-footer__bottom">
     <p>© {year} {g.legalName} · OIB {g.vatId?.replace(/^HR/, '')}. {t('footer.rights')}</p>
-    {SITE.noindex && <p>{t('footer.demo')}</p>}
+    {SITE.demo && <p>{t('footer.demo')}</p>}
   </div>
 </footer>
 

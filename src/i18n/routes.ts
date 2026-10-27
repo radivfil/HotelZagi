@@ -1,4 +1,5 @@
 import { defaultLocale, enabledLocales, enabledLocaleCodes } from './config';
+import { withBase, stripBase } from '../lib/url';
 
 /**
  * Lokalizirani URL-ovi stranica. Ključ je interni naziv stranice, vrijednost
@@ -26,9 +27,15 @@ export function slugFor(key: PageKey, locale: string): string {
   return map[locale] ?? map.en;
 }
 
-export function pathFor(key: PageKey, locale: string = defaultLocale, hash = ''): string {
+/** Putanja stranice BEZ base-a (/hr/smjestaj/) – za usporedbe i konfiguraciju. */
+export function localePath(key: PageKey, locale: string = defaultLocale, hash = ''): string {
   const slug = slugFor(key, locale);
   return `/${locale}/${slug ? `${slug}/` : ''}${hash}`;
+}
+
+/** Putanja stranice S base-om (/HotelZagi/hr/smjestaj/ na GitHub Pages) – za poveznice, canonical, hreflang. */
+export function pathFor(key: PageKey, locale: string = defaultLocale, hash = ''): string {
+  return withBase(localePath(key, locale, hash));
 }
 
 /** Sve jezične inačice stranice (samo uključeni jezici) – za hreflang, sitemap i prekidač jezika. */
@@ -36,9 +43,9 @@ export function alternatesFor(key: PageKey) {
   return enabledLocales.map((l) => ({ locale: l.code, hreflang: l.hreflang, label: l.label, name: l.name, path: pathFor(key, l.code) }));
 }
 
-/** Iz putanje (/en/accommodation/) vraća ključ stranice i jezik – koristi ga sitemap. */
-export function matchPath(pathname: string): { key: PageKey; locale: string } | undefined {
-  const [, locale = '', slug = ''] = pathname.split('/');
+/** Iz putanje (/en/accommodation/, s base-om ili bez) vraća ključ stranice i jezik – koristi ga sitemap. */
+export function matchPath(pathname: string, base?: string): { key: PageKey; locale: string } | undefined {
+  const [, locale = '', slug = ''] = stripBase(pathname, base).split('/');
   if (!enabledLocaleCodes.includes(locale)) return undefined;
   const key = pageKeys.find((k) => slugFor(k, locale) === slug);
   return key ? { key, locale } : undefined;

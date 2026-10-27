@@ -14,6 +14,7 @@ import { pathFor } from '@/i18n/routes';
 import { getLocalized, getLocalizedList, getSettings } from '@/lib/content';
 import { bookingHref } from '@/lib/links';
 import { largestVariant, srcset } from '@/lib/images';
+import { plain } from '@/lib/typography';
 
 interface Props {
   locale: string;
@@ -61,7 +62,7 @@ const price = new Intl.NumberFormat(locale === 'hr' ? 'hr-HR' : 'en-GB', { style
                 data-lightbox-item
                 data-full={largestVariant(room.image.src)}
                 data-srcset={srcset(room.image.src, 'webp')}
-                data-alt={room.image.alt}
+                data-alt={plain(room.image.alt)}
               >
                 <Picture src={room.image.src} alt={room.image.alt} ratio="3/2" sizes="(min-width: 64em) 55vw, 100vw" imgClass="room__img" />
                 <span class="visually-hidden">{t('gallery.open')}</span>
@@ -76,7 +77,7 @@ const price = new Intl.NumberFormat(locale === 'hr' ? 'hr-HR' : 'en-GB', { style
                         data-lightbox-item
                         data-full={largestVariant(img.src)}
                         data-srcset={srcset(img.src, 'webp')}
-                        data-alt={img.alt}
+                        data-alt={plain(img.alt)}
                       >
                         <Picture src={img.src} alt={img.alt} ratio="3/2" sizes="160px" />
                         <span class="visually-hidden">{t('gallery.open')}</span>

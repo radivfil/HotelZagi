@@ -8,6 +8,7 @@ import { SITE } from '@/config/site';
 import { defaultLocale, getLocale } from '@/i18n/config';
 import { alternatesFor, pathFor, type PageKey } from '@/i18n/routes';
 import { largestVariant } from '@/lib/images';
+import { plain } from '@/lib/typography';
 
 interface Props {
   title: string;
@@ -22,15 +23,18 @@ interface Props {
   /** Jezik prikazanog sadržaja; ako se razlikuje (rezervni prijevod), canonical vodi na izvornik */
   contentLocale?: string;
 }
-const { title, description, locale, pageKey, ogImage, noindex = false, jsonLd = [], standalone = false, contentLocale = locale } = Astro.props;
+const { title: rawTitle, description: rawDescription, locale, pageKey, ogImage, noindex = false, jsonLd = [], standalone = false, contentLocale = locale } = Astro.props;
 const isFallback = contentLocale !== locale;
+// U <title>, meta oznakama i JSON-LD-u nema nevidljivih tipografskih znakova
+const title = plain(rawTitle);
+const description = plain(rawDescription);
 
 const abs = (path: string) => new URL(path, SITE.url + '/').href;
 const canonical = pageKey ? abs(pathFor(pageKey, contentLocale)) : undefined;
 // Neprevedena stranica (rezervni sadržaj) nije zasebna jezična inačica: bez hreflanga i noindex
 const alternates = pageKey && !standalone && !isFallback ? alternatesFor(pageKey) : [];
 const image = abs(largestVariant(ogImage ?? SITE.defaultOgImage, 1440));
-const robots = noindex || isFallback || SITE.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+const robots = noindex || isFallback || SITE.demo ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
 const og = getLocale(locale);
 ---
 
@@ -59,4 +63,4 @@ const og = getLocale(locale);
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={image} />
 
-{jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+{jsonLd.map((data) => <script type="application/ld+json" set:html={plain(JSON.stringify(data))} />)}

@@ -8,7 +8,8 @@
 import { chromium } from 'playwright';
 import { mkdir } from 'node:fs/promises';
 
-const BASE = process.env.BASE_URL ?? 'http://localhost:4321';
+// BASE_PATH (npr. /HotelZagi) – isti kao pri buildu; preview ga poslužuje pod tom podmapom
+const BASE = (process.env.BASE_URL ?? 'http://localhost:4321') + (process.env.BASE_PATH ?? '').replace(/\/+$/, '');
 const OUT = process.env.OUT ?? 'docs/screens/hero';
 await mkdir(OUT, { recursive: true });
 const browser = await chromium.launch();

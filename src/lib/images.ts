@@ -1,4 +1,5 @@
 import manifest from '@/data/images.json';
+import { withBase } from '@/lib/url';
 
 export interface ImageInfo {
   width: number;
@@ -17,13 +18,13 @@ export function imageInfo(src: string): ImageInfo | undefined {
 export function srcset(src: string, format: 'avif' | 'webp'): string | undefined {
   const info = images[src];
   if (!info) return undefined;
-  return info.widths.map((w) => `${info.gen}-${w}.${format} ${w}w`).join(', ');
+  return info.widths.map((w) => `${withBase(`${info.gen}-${w}.${format}`)} ${w}w`).join(', ');
 }
 
 /** Najveća generirana WebP inačica – za lightbox i OG slike. */
 export function largestVariant(src: string, max = 1920): string {
   const info = images[src];
-  if (!info) return src;
+  if (!info) return withBase(src);
   const w = [...info.widths].reverse().find((x) => x <= max) ?? info.widths[0];
-  return `${info.gen}-${w}.webp`;
+  return withBase(`${info.gen}-${w}.webp`);
 }

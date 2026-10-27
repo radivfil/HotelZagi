@@ -8,9 +8,13 @@ const flag = (value: string | undefined, fallback: boolean) =>
   value === undefined || value === '' ? fallback : value === 'true';
 
 export const SITE = {
-  url: (env.PUBLIC_SITE_URL || 'https://www.zagi.hr').replace(/\/$/, ''),
-  /** true za demo objave – dodaje noindex i blokira indeksiranje u robots.txt */
-  noindex: flag(env.PUBLIC_NOINDEX, false),
+  /** SITE_URL – izvor (origin) weba, npr. https://radivfil.github.io; base (BASE_PATH) dodaje withBase() */
+  url: (import.meta.env.SITE_URL || env.PUBLIC_SITE_URL || 'https://www.zagi.hr').replace(/\/$/, ''),
+  /**
+   * DEMO_MODE – jedan prekidač za demo objave: noindex na svim stranicama, bez sitemapa,
+   * robots.txt „Disallow: /”, napomena u footeru. false = produkcija.
+   */
+  demo: flag(import.meta.env.DEMO_MODE || env.PUBLIC_NOINDEX, false),
   defaultOgImage: '/uploads/wellness/wellness-relax-zona.jpg',
 };
 

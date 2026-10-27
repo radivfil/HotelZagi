@@ -11,6 +11,7 @@ import Icon from './Icon.astro';
 import { FORMS } from '@/config/site';
 import { useTranslations } from '@/i18n';
 import { pathFor } from '@/i18n/routes';
+import { plain } from '@/lib/typography';
 
 interface Props {
   locale: string;
@@ -40,7 +41,7 @@ const subjects: Record<Props['kind'], string> = {
   data-inquiry
   data-demo={FORMS.action ? undefined : 'true'}
   data-mailto={email}
-  data-subject={`${subjects[kind]} – Hotel Zagi`}
+  data-subject={plain(`${subjects[kind]} – Hotel Zagi`)}
   data-msg-required={t('form.err.required')}
   data-msg-email={t('form.err.email')}
   data-msg-phone={t('form.err.phone')}
@@ -61,7 +62,7 @@ const subjects: Record<Props['kind'], string> = {
 
   <input type="hidden" name="form" value={kind} />
   <input type="hidden" name="language" value={locale} />
-  <input type="hidden" name="_subject" value={`${subjects[kind]} – Hotel Zagi`} />
+  <input type="hidden" name="_subject" value={plain(`${subjects[kind]} – Hotel Zagi`)} />
 
   <div class="inquiry__grid">
     <FormField id={`${id}-name`} name="name" label={t('form.name')} required requiredLabel={t('form.required')} autocomplete="name" span="half" />

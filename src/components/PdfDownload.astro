@@ -3,6 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import Icon from './Icon.astro';
+import { withBase } from '@/lib/url';
 import { useTranslations } from '@/i18n';
 
 interface Props {
@@ -23,7 +24,7 @@ try {
 }
 ---
 
-<a class="pdf" href={file} download>
+<a class="pdf" href={withBase(file)} download>
   <span class="pdf__icon">
     <Icon name="download" size={24} />
   </span>

@@ -4,7 +4,8 @@
 import { chromium } from 'playwright';
 import { mkdir } from 'node:fs/promises';
 
-const BASE = process.env.BASE_URL ?? 'http://localhost:4321';
+// BASE_PATH (npr. /HotelZagi) – isti kao pri buildu; preview ga poslužuje pod tom podmapom
+const BASE = (process.env.BASE_URL ?? 'http://localhost:4321') + (process.env.BASE_PATH ?? '').replace(/\/+$/, '');
 const OUT = process.env.OUT ?? 'docs/screens';
 const WIDTHS = [375, 768, 1024, 1440];
 const PAGES = (process.env.PAGES ?? '/hr/,/hr/smjestaj/,/hr/wellness/,/hr/restoran/,/hr/kongresna-dvorana/,/hr/galerija/,/hr/kontakt/,/en/,/en/wellness/')

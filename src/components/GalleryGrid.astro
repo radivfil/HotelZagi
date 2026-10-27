@@ -4,6 +4,7 @@ import Picture from './Picture.astro';
 import Lightbox from './Lightbox.astro';
 import { useTranslations } from '@/i18n';
 import { largestVariant, srcset } from '@/lib/images';
+import { plain } from '@/lib/typography';
 
 interface Item {
   src: string;
@@ -49,7 +50,7 @@ const used = categories.filter((c) => shown.some((i) => i.category === c.id));
             data-lightbox-item
             data-full={largestVariant(item.src)}
             data-srcset={srcset(item.src, 'webp')}
-            data-alt={item.alt}
+            data-alt={plain(item.alt)}
             data-caption={item.caption}
           >
             <Picture

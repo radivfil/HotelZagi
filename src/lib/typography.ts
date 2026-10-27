@@ -25,7 +25,7 @@ const UNITS = ['h', '€', 'EUR', 'km', 'min', 'cm', 'm', 'm²', '%', 'kn', 'oso
 
 /** Ključevi čije se vrijednosti nikad ne obrađuju */
 const SKIP_KEYS = new Set([
-  'seo', 'src', 'href', 'file', 'id', 'page', 'category', 'icon', 'dayOfWeek', 'opens', 'closes',
+  'seo', 'alt', 'src', 'href', 'file', 'id', 'page', 'category', 'icon', 'dayOfWeek', 'opens', 'closes',
   'validFrom', 'validTo', 'type', 'status', 'updated', 'url', 'mapUrl', 'bookingRoomId',
 ]);
 
@@ -68,4 +68,18 @@ export function typoDeep<T>(value: T, locale: string, key?: string): T {
     return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, typoDeep(v, locale, k)])) as T;
   }
   return value;
+}
+
+const NB_HYPHEN = String.fromCharCode(0x2011);
+const INVISIBLE = new RegExp(`[${WJ}]`, 'g');
+const NB_SPACE = new RegExp(`[${NBSP}]`, 'g');
+const NB_DASH = new RegExp(`[${NB_HYPHEN}]`, 'g');
+
+/**
+ * Vraća običan tekst bez tipografskih kontrolnih znakova (NBSP → razmak, WJ uklonjen,
+ * nerazdvojiva crtica → „-”). Koristi se za <title>, meta oznake, JSON-LD, alt i URL-ove,
+ * gdje ti znakovi ne smiju završiti.
+ */
+export function plain(text: string): string {
+  return text.replace(INVISIBLE, '').replace(NB_SPACE, ' ').replace(NB_DASH, '-');
 }

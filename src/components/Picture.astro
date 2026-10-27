@@ -5,6 +5,8 @@
  * Varijante generira scripts/optimize-images.mjs.
  */
 import { imageInfo, srcset } from '@/lib/images';
+import { withBase } from '@/lib/url';
+import { plain } from '@/lib/typography';
 
 interface Props {
   src: string;
@@ -45,8 +47,8 @@ const style = [ratio ? `aspect-ratio:${ratio}` : '', position ? `object-position
   {avif && <source type="image/avif" {...{ [attr]: avif }} sizes={sizes} />}
   {webp && <source type="image/webp" {...{ [attr]: webp }} sizes={sizes} />}
   <img
-    {...{ [deferred ? 'data-src' : 'src']: src }}
-    alt={alt}
+    {...{ [deferred ? 'data-src' : 'src']: withBase(src) }}
+    alt={plain(alt)}
     width={info?.width}
     height={info?.height}
     loading={loading}

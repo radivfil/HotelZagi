@@ -6,6 +6,7 @@
 import { SITE } from '@/config/site';
 import { pathFor, type PageKey } from '@/i18n/routes';
 import { largestVariant } from '@/lib/images';
+import { withBase } from '@/lib/url';
 import type { getGlobal } from '@/lib/content';
 
 type Global = Awaited<ReturnType<typeof getGlobal>>;
@@ -33,7 +34,7 @@ export function hotelSchema(g: Global, locale: string, opts: { description: stri
     legalName: g.legalName,
     description: opts.description,
     url: abs(pathFor('home', locale)),
-    logo: abs('/logo.svg'),
+    logo: abs(withBase('/logo.svg')),
     image: opts.images.map((src) => abs(largestVariant(src, 1440))),
     telephone: telE164(g.phones.main),
     email: g.emails.info,
