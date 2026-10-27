@@ -19,14 +19,18 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   /** Za 404 i slične stranice bez jezičnih inačica */
   standalone?: boolean;
+  /** Jezik prikazanog sadržaja; ako se razlikuje (rezervni prijevod), canonical vodi na izvornik */
+  contentLocale?: string;
 }
-const { title, description, locale, pageKey, ogImage, noindex = false, jsonLd = [], standalone = false } = Astro.props;
+const { title, description, locale, pageKey, ogImage, noindex = false, jsonLd = [], standalone = false, contentLocale = locale } = Astro.props;
+const isFallback = contentLocale !== locale;
 
 const abs = (path: string) => new URL(path, SITE.url + '/').href;
-const canonical = pageKey ? abs(pathFor(pageKey, locale)) : undefined;
-const alternates = pageKey && !standalone ? alternatesFor(pageKey) : [];
+const canonical = pageKey ? abs(pathFor(pageKey, contentLocale)) : undefined;
+// Neprevedena stranica (rezervni sadržaj) nije zasebna jezična inačica: bez hreflanga i noindex
+const alternates = pageKey && !standalone && !isFallback ? alternatesFor(pageKey) : [];
 const image = abs(largestVariant(ogImage ?? SITE.defaultOgImage, 1440));
-const robots = noindex || SITE.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+const robots = noindex || isFallback || SITE.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
 const og = getLocale(locale);
 ---
 

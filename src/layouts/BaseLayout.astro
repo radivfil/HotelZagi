@@ -93,12 +93,13 @@ const fontCss = [
       noindex={seo.noindex}
       jsonLd={structured}
       standalone={standalone}
+      contentLocale={contentLocale}
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
   <body>
     <a class="skip-link" href="#main">{t('skip.toMain')}</a>
-    <Header locale={locale} pageKey={pageKey} transparent={transparentHeader} />
+    <Header locale={locale} pageKey={pageKey} transparent={transparentHeader && contentLocale === locale} />
     <main id="main" tabindex="-1" lang={contentLocale !== locale ? getLocale(contentLocale).hreflang : undefined}>
       {
         contentLocale !== locale && (

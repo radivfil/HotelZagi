@@ -9,9 +9,11 @@ type Localized<C extends CollectionKey> = { data: CollectionEntry<C>['data']; lo
  * `locale` u rezultatu je jezik sadržaja koji je stvarno prikazan.
  */
 export async function getLocalized<C extends CollectionKey>(collection: C, locale: string, name: string): Promise<Localized<C>> {
+  // getCollection umjesto getEntry: nedostajući prijevod je očekivan, pa ne želimo upozorenja u buildu
+  const all = (await getCollection(collection)) as CollectionEntry<C>[];
   for (const code of fallbackChain(locale)) {
-    const entry = await getEntry(collection, `${code}/${name}` as never);
-    if (entry) return { data: (entry as CollectionEntry<C>).data, locale: code };
+    const entry = all.find((e) => e.id === `${code}/${name}`);
+    if (entry) return { data: entry.data, locale: code };
   }
   throw new Error(`Nedostaje sadržaj: ${collection}/${locale}/${name}`);
 }

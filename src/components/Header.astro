@@ -237,6 +237,19 @@ const secondaryNav: { key: PageKey; label: string }[] = [
     .menu-toggle {
       display: none;
     }
+    /* Duži prijevodi (npr. pl, cs, nl): ako se izbornik ne stane u jedan red, prelazi u hamburger */
+    .site-header.is-compact .site-nav {
+      display: none;
+    }
+    .site-header.is-compact .site-header__logo {
+      margin-right: auto;
+    }
+    .site-header.is-compact .menu-toggle {
+      display: inline-grid;
+    }
+  }
+  .site-header__actions :global(.site-header__book) {
+    white-space: nowrap;
   }
 
   /* ---------------------------------------------- mobilni izbornik */
@@ -355,6 +368,24 @@ const secondaryNav: { key: PageKey; label: string }[] = [
     );
   }
 
+  // Ako se glavni izbornik ne stane u jedan red (duži jezici), header prelazi u kompaktni način
+  const nav = header?.querySelector<HTMLElement>('.site-nav ul');
+  if (header && nav) {
+    const desktop = window.matchMedia('(min-width: 64em)');
+    const fit = () => {
+      header.classList.remove('is-compact');
+      if (!desktop.matches) return;
+      const items = [...nav.children] as HTMLElement[];
+      const inner = header.querySelector<HTMLElement>('.site-header__inner')!;
+      const wraps = items.length > 1 && items[items.length - 1].offsetTop > items[0].offsetTop;
+      const overflows = inner.scrollWidth > inner.clientWidth + 1;
+      header.classList.toggle('is-compact', wraps || overflows);
+    };
+    fit();
+    new ResizeObserver(fit).observe(document.documentElement);
+    document.fonts?.ready.then(fit);
+  }
+
   // Mobilni izbornik
   if (menu && openBtn && closeBtn) {
     const outside = () => [...document.body.children].filter((el) => el !== header && el !== menu && el.tagName !== 'SCRIPT');
@@ -403,7 +434,7 @@ const secondaryNav: { key: PageKey; label: string }[] = [
     });
     // Prelazak na računalni raspored zatvara otvoreni izbornik
     window.matchMedia('(min-width: 64em)').addEventListener('change', (e) => {
-      if (e.matches && !menu.hidden) close(false);
+      if (e.matches && !menu.hidden && !header?.classList.contains('is-compact')) close(false);
     });
   }
 </script>
